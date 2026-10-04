@@ -1053,3 +1053,145 @@ body {
   }
 
 }
+/* =========================================
+   MAP PAGE
+========================================= */
+
+.map-page {
+  padding: 0 32px 100px;
+}
+
+.map-header {
+  min-height: 360px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 35px 0 60px;
+
+  border-bottom: 1px solid #111;
+}
+
+.map-kicker {
+  margin-bottom: auto;
+
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.map-header h1 {
+  margin: 0;
+
+  font-family: "Times New Roman", serif;
+
+  font-size: clamp(70px, 10vw, 145px);
+  line-height: 0.85;
+
+  font-weight: normal;
+
+  letter-spacing: -0.065em;
+}
+
+.map-header p {
+  max-width: 390px;
+
+  margin: 35px 0 0;
+
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.map-section {
+  padding-top: 30px;
+}
+
+#archive-map {
+  width: 100%;
+  height: 70vh;
+  min-height: 520px;
+
+  border: 1px solid #111;
+}
+
+
+/* POPUP */
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0;
+
+  box-shadow: none;
+
+  border: 1px solid #111;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+
+  width: 240px !important;
+}
+
+.leaflet-popup-tip {
+  box-shadow: none;
+}
+
+.map-popup-link {
+  display: block;
+
+  color: #111;
+  text-decoration: none;
+}
+
+.map-popup-image {
+  display: block;
+
+  width: 100%;
+  height: 150px;
+
+  object-fit: cover;
+}
+
+.map-popup-content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  padding: 12px;
+}
+
+.map-popup-content strong {
+  font-size: 12px;
+
+  text-transform: uppercase;
+
+  font-weight: normal;
+}
+
+.map-popup-content span {
+  font-size: 10px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .map-page {
+    padding: 0 18px 60px;
+  }
+
+  .map-header {
+    min-height: 320px;
+  }
+
+  .map-header h1 {
+    font-size: 64px;
+  }
+
+  #archive-map {
+    height: 65vh;
+    min-height: 460px;
+  }
+
+}
