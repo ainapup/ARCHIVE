@@ -75,18 +75,14 @@ async function initArchitect() {
 
           return `
 
-            <article
-              class="project"
-            >
+            <article class="project">
 
               <a
                 class="project-link"
                 href="project.html?id=${encodeURIComponent(project.id)}"
               >
 
-                <div
-                  class="project-image"
-                >
+                <div class="project-image">
 
                   ${
                     image
@@ -100,18 +96,14 @@ async function initArchitect() {
                       : ""
                   }
 
-                  <span
-                    class="project-number"
-                  >
+                  <span class="project-number">
                     ${String(index + 1).padStart(2, "0")}
                   </span>
 
                 </div>
 
 
-                <div
-                  class="project-info"
-                >
+                <div class="project-info">
 
                   <h3>
                     ${project.title}
@@ -122,9 +114,7 @@ async function initArchitect() {
                     ${project.country}
                   </p>
 
-                  <span
-                    class="project-type"
-                  >
+                  <span class="project-type">
                     ${project.type}
                   </span>
 
@@ -143,13 +133,9 @@ async function initArchitect() {
 
   architectDetail.innerHTML = `
 
-    <section
-      class="architect-detail-hero"
-    >
+    <section class="architect-detail-hero">
 
-      <div
-        class="architect-detail-kicker"
-      >
+      <div class="architect-detail-kicker">
         ARCHIVE / ARCHITECT
       </div>
 
@@ -159,9 +145,7 @@ async function initArchitect() {
       </h1>
 
 
-      <div
-        class="architect-detail-meta"
-      >
+      <div class="architect-detail-meta">
 
         <span>
           ${architect.category || ""}
@@ -185,20 +169,14 @@ async function initArchitect() {
     </section>
 
 
-    <section
-      class="architect-detail-intro"
-    >
+    <section class="architect-detail-intro">
 
-      <div
-        class="architect-detail-label"
-      >
+      <div class="architect-detail-label">
         ABOUT
       </div>
 
 
-      <div
-        class="architect-detail-description"
-      >
+      <div class="architect-detail-description">
 
         ${
           architect.description
@@ -229,33 +207,31 @@ async function initArchitect() {
       </div>
 
 
-      ${
-        architect.image
-          ? `
-            <div
-              class="architect-detail-image"
-            >
+      <div class="architect-detail-image">
 
+        ${
+          architect.image
+            ? `
               <img
                 src="${architect.image}"
                 alt="${architect.name}"
               >
+            `
+            : `
+              <div class="architect-image-placeholder">
+                IMAGE
+              </div>
+            `
+        }
 
-            </div>
-          `
-          : ""
-      }
+      </div>
 
     </section>
 
 
-    <section
-      class="architect-related"
-    >
+    <section class="architect-related">
 
-      <div
-        class="architect-related-header"
-      >
+      <div class="architect-related-header">
 
         <h2>
           Related places
@@ -271,16 +247,12 @@ async function initArchitect() {
       ${
         relatedProjects.length > 0
           ? `
-            <div
-              class="project-grid"
-            >
+            <div class="project-grid">
               ${relatedGrid}
             </div>
           `
           : `
-            <div
-              class="empty-results"
-            >
+            <div class="empty-results">
               No related projects yet.
             </div>
           `
