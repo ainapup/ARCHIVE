@@ -2,26 +2,91 @@ const destinationsGrid =
   document.querySelector("#destinations-grid");
 
 
-destinations.forEach((destination, index) => {
+/*
+=========================================
+CREATE DESTINATIONS FROM PROJECTS
+=========================================
+*/
 
-  const projectCount = projects.filter(
-    project => project.country === destination.country
-  ).length;
+const destinationsMap = {};
 
+
+projects.forEach((project) => {
 
   /*
-    Si todavía no tenemos ningún proyecto
-    de ese país, no lo mostramos.
+    If the country does not exist yet,
+    create it using this project's data.
   */
 
-  if (projectCount === 0) {
-    return;
+  if (!destinationsMap[project.country]) {
+
+    destinationsMap[project.country] = {
+
+      country: project.country,
+
+      continent: project.continent,
+
+      projects: [],
+
+      image:
+        project.images &&
+        project.images.length > 0
+          ? project.images[0]
+          : ""
+
+    };
+
   }
 
 
-  const article = document.createElement("article");
+  /*
+    Add project to its country.
+  */
 
-  article.classList.add("destination-card");
+  destinationsMap[project.country].projects.push(project);
+
+});
+
+
+/*
+=========================================
+CONVERT TO ARRAY
+=========================================
+*/
+
+const destinations =
+  Object.values(destinationsMap);
+
+
+/*
+=========================================
+SORT COUNTRIES ALPHABETICALLY
+=========================================
+*/
+
+destinations.sort((a, b) =>
+  a.country.localeCompare(b.country)
+);
+
+
+/*
+=========================================
+RENDER DESTINATIONS
+=========================================
+*/
+
+destinations.forEach((destination, index) => {
+
+  const projectCount =
+    destination.projects.length;
+
+
+  const article =
+    document.createElement("article");
+
+  article.classList.add(
+    "destination-card"
+  );
 
 
   article.innerHTML = `
@@ -33,11 +98,17 @@ destinations.forEach((destination, index) => {
 
       <div class="destination-image">
 
-        <img
-          src="${destination.image}"
-          alt="${destination.country}"
-          loading="lazy"
-        >
+        ${
+          destination.image
+            ? `
+              <img
+                src="${destination.image}"
+                alt="${destination.country}"
+                loading="lazy"
+              >
+            `
+            : ""
+        }
 
         <span class="destination-number">
           ${String(index + 1).padStart(2, "0")}
@@ -60,8 +131,15 @@ destinations.forEach((destination, index) => {
           </span>
 
           <span>
+
             ${String(projectCount).padStart(2, "0")}
-            ${projectCount === 1 ? "project" : "projects"}
+
+            ${
+              projectCount === 1
+                ? "project"
+                : "projects"
+            }
+
           </span>
 
         </div>
