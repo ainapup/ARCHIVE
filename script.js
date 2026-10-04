@@ -1,48 +1,21 @@
 const projects = [
   {
-    id: 1,
+    id: "casa-wabi",
     title: "Casa Wabi",
     architect: "Tadao Ando",
-    location: "Puerto Escondido, Mexico",
+    city: "Puerto Escondido",
     country: "Mexico",
     continent: "North America",
     type: "STAY",
-    image: "images/casa-wabi.jpg"
-  },
+    year: "2014",
 
-  {
-    id: 2,
-    title: "Juvet Landscape Hotel",
-    architect: "Jensen & Skodvin",
-    location: "Valldal, Norway",
-    country: "Norway",
-    continent: "Europe",
-    type: "STAY",
-    image: "images/juvet.jpg"
-  },
+    image: "images/casa-wabi.jpg",
 
-  {
-    id: 3,
-    title: "Shiroiya Hotel",
-    architect: "Sou Fujimoto",
-    location: "Maebashi, Japan",
-    country: "Japan",
-    continent: "Asia",
-    type: "STAY",
-    image: "images/shiroiya.jpg"
-  },
-
-  {
-    id: 4,
-    title: "Benesse House",
-    architect: "Tadao Ando",
-    location: "Naoshima, Japan",
-    country: "Japan",
-    continent: "Asia",
-    type: "STAY",
-    image: "images/benesse.jpg"
+    website: "",
+    booking: ""
   }
 ];
+
 
 const projectGrid = document.querySelector(".project-grid");
 const filterButtons = document.querySelectorAll(".filters button");
@@ -66,33 +39,37 @@ function renderProjects(filter = "ALL") {
 
     article.innerHTML = `
 
-      <div class="project-image">
+      <a class="project-link" href="project.html?id=${project.id}">
 
-        <img
-          src="${project.image}"
-          alt="${project.title}"
-          loading="lazy"
-        >
+        <div class="project-image">
 
-        <span class="project-number">
-          ${String(index + 1).padStart(2, "0")}
-        </span>
+          <img
+            src="${project.image}"
+            alt="${project.title}"
+            loading="lazy"
+          >
 
-      </div>
+          <span class="project-number">
+            ${String(index + 1).padStart(2, "0")}
+          </span>
 
-      <div class="project-info">
+        </div>
 
-        <h3>${project.title}</h3>
+        <div class="project-info">
 
-        <p>${project.architect}</p>
+          <h3>${project.title}</h3>
 
-        <p>${project.location}</p>
+          <p>${project.architect}</p>
 
-        <span class="project-type">
-          ${project.type}
-        </span>
+          <p>${project.city}, ${project.country}</p>
 
-      </div>
+          <span class="project-type">
+            ${project.type}
+          </span>
+
+        </div>
+
+      </a>
 
     `;
 
