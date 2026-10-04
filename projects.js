@@ -1,39 +1,44 @@
-const projects = [
+/* =========================================
+   ARCHIVE — PROJECT DATA LOADER
+========================================= */
 
-  {
-    id: "casa-wabi",
+async function loadProjects() {
 
-    title: "Casa Wabi",
-    architect: "Tadao Ando",
+  try {
 
-    city: "Puerto Escondido",
-    country: "Mexico",
-    continent: "North America",
+    const response = await fetch(
+      "data/projects.json",
+      {
+        cache: "no-store"
+      }
+    );
 
-    type: "STAY",
-    year: "2014",
 
-    description:
-      "A coastal arts foundation and residence defined by concrete, landscape and the horizon.",
+    if (!response.ok) {
 
-    coordinates: {
-      lat: 15.8644,
-      lng: -97.0717
-    },
+      throw new Error(
+        `Could not load projects: ${response.status}`
+      );
 
-    images: [
-      "images/casa-wabi.jpg"
-    ],
+    }
 
-    architectureWebsite: "",
 
-    bookingUrl: "",
+    const projects = await response.json();
 
-    priceFrom: "",
 
-    currency: "€",
+    return projects;
 
-    priceNote: ""
+
+  } catch (error) {
+
+    console.error(
+      "ARCHIVE — Error loading projects:",
+      error
+    );
+
+
+    return [];
+
   }
 
-];
+}
