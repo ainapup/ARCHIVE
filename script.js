@@ -1,7 +1,6 @@
 const projectGrid = document.querySelector(".project-grid");
 const filterButtons = document.querySelectorAll(".filters button");
 
-
 const params = new URLSearchParams(window.location.search);
 
 const architectFilter = params.get("architect");
@@ -11,7 +10,6 @@ const countryFilter = params.get("country");
 function renderProjects(typeFilter = "ALL") {
 
   projectGrid.innerHTML = "";
-
 
   let filteredProjects = [...projects];
 
@@ -46,11 +44,9 @@ function renderProjects(typeFilter = "ALL") {
   if (filteredProjects.length === 0) {
 
     projectGrid.innerHTML = `
-
       <div class="empty-results">
         No projects found.
       </div>
-
     `;
 
     return;
@@ -64,6 +60,13 @@ function renderProjects(typeFilter = "ALL") {
 
     article.classList.add("project");
 
+
+    const mainImage =
+      project.images && project.images.length > 0
+        ? project.images[0]
+        : "";
+
+
     article.innerHTML = `
 
       <a class="project-link" href="project.html?id=${project.id}">
@@ -71,7 +74,7 @@ function renderProjects(typeFilter = "ALL") {
         <div class="project-image">
 
           <img
-            src="${project.image}"
+            src="${mainImage}"
             alt="${project.title}"
             loading="lazy"
           >
