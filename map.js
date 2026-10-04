@@ -1,86 +1,124 @@
-const map = L.map("archive-map", {
-  zoomControl: true,
-  scrollWheelZoom: true
-}).setView([20, 0], 2);
+/* =========================================
+   ARCHIVE — MAP
+========================================= */
+
+const map = L.map(
+  "archive-map",
+  {
+    zoomControl: true,
+    scrollWheelZoom: true
+  }
+).setView(
+  [20, 0],
+  2
+);
 
 
 L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   {
     maxZoom: 19,
-    attribution: "&copy; OpenStreetMap contributors"
+
+    attribution:
+      "&copy; OpenStreetMap contributors"
   }
 ).addTo(map);
 
 
-projects.forEach((project) => {
+/* =========================================
+   LOAD PROJECTS
+========================================= */
 
-  if (
-    !project.coordinates ||
-    typeof project.coordinates.lat !== "number" ||
-    typeof project.coordinates.lng !== "number"
-  ) {
-    return;
-  }
+async function initMap() {
+
+  const projects =
+    await loadProjects();
 
 
-  const marker = L.circleMarker(
-    [
-      project.coordinates.lat,
-      project.coordinates.lng
-    ],
-    {
-      radius: 6,
-      weight: 1,
-      fillOpacity: 1
+  projects.forEach((project) => {
+
+    const latitude =
+      Number(project.latitude);
+
+    const longitude =
+      Number(project.longitude);
+
+
+    if (
+      !Number.isFinite(latitude) ||
+      !Number.isFinite(longitude)
+    ) {
+
+      return;
+
     }
-  ).addTo(map);
 
 
-  const image =
-    project.images &&
-    project.images.length > 0
-      ? project.images[0]
-      : "";
+    const marker =
+      L.circleMarker(
+        [
+          latitude,
+          longitude
+        ],
+        {
+          radius: 6,
+          weight: 1,
+          fillOpacity: 1
+        }
+      )
+      .addTo(map);
 
 
-  marker.bindPopup(`
+    const image =
+      project.images &&
+      project.images.length > 0
+        ? project.images[0]
+        : "";
 
-    <a
-      class="map-popup-link"
-      href="project.html?id=${project.id}"
-    >
 
-      ${
-        image
-          ? `
-            <img
-              class="map-popup-image"
-              src="${image}"
-              alt="${project.title}"
-            >
-          `
-          : ""
-      }
+    marker.bindPopup(`
 
-      <div class="map-popup-content">
+      <a
+        class="map-popup-link"
+        href="project.html?id=${encodeURIComponent(project.id)}"
+      >
 
-        <strong>
-          ${project.title}
-        </strong>
+        ${
+          image
+            ? `
+              <img
+                class="map-popup-image"
+                src="${image}"
+                alt="${project.title}"
+              >
+            `
+            : ""
+        }
 
-        <span>
-          ${project.architect}
-        </span>
 
-        <span>
-          ${project.city}, ${project.country}
-        </span>
+        <div class="map-popup-content">
 
-      </div>
+          <strong>
+            ${project.title}
+          </strong>
 
-    </a>
+          <span>
+            ${project.architect}
+          </span>
 
-  `);
+          <span>
+            ${project.city}, ${project.country}
+          </span>
 
-});
+        </div>
+
+      </a>
+
+    `);
+
+  });
+
+}
+
+
+initMap();
