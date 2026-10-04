@@ -386,7 +386,3 @@ function createImageBlock(
 
 
 initDestination();
-}
-
-
-initDestination();
