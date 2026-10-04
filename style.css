@@ -2971,3 +2971,369 @@ body.menu-open {
   }
 
 }
+/* =========================================
+   ARCHITECTS — SEARCH + COMPACT LIST
+========================================= */
+
+.architects-search-section {
+  display: grid;
+
+  grid-template-columns:
+    100px
+    minmax(260px, 500px);
+
+  align-items: end;
+
+  gap: 25px;
+
+  padding: 28px 0 38px;
+
+  border-bottom: 1px solid #111;
+}
+
+
+.architects-search-section label {
+  font-size: 9px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+
+.architects-search-section input {
+  width: 100%;
+
+  padding: 10px 0;
+
+  border: 0;
+  border-bottom: 1px solid #111;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #111;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 13px;
+
+  outline: none;
+}
+
+
+.architect-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(200px, 1fr)
+    minmax(150px, 280px)
+    50px;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding:
+    13px
+    12px
+    13px
+    22px;
+}
+
+
+.architect-name {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(20px, 2vw, 28px);
+
+  line-height: 1;
+
+  letter-spacing: -0.025em;
+}
+
+
+.architect-row-location {
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+
+  opacity: 0.55;
+}
+
+
+.architect-count {
+  text-align: right;
+}
+
+
+/* =========================================
+   ARCHITECT DETAIL PAGE
+========================================= */
+
+.architect-detail-page {
+  padding:
+    0
+    32px
+    120px;
+}
+
+
+.architect-detail-hero {
+  min-height: 520px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-end;
+
+  padding:
+    35px
+    0
+    65px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.architect-detail-kicker {
+  margin-bottom: auto;
+
+  font-size: 10px;
+
+  letter-spacing: 0.08em;
+}
+
+
+.architect-detail-hero h1 {
+  margin: 0;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(70px, 9vw, 140px);
+
+  line-height: 0.85;
+
+  font-weight: normal;
+
+  letter-spacing: -0.06em;
+}
+
+
+.architect-detail-meta {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-top: 35px;
+
+  padding-top: 12px;
+
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.25);
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+/* BIO */
+
+.architect-detail-intro {
+  display: grid;
+
+  grid-template-columns:
+    160px
+    minmax(300px, 1.3fr)
+    minmax(240px, 0.8fr);
+
+  gap: 50px;
+
+  padding:
+    45px
+    0
+    90px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.architect-detail-label {
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+.architect-detail-description {
+  max-width: 760px;
+}
+
+
+.architect-detail-description p {
+  margin: 0;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(24px, 2.8vw, 40px);
+
+  line-height: 1.08;
+
+  letter-spacing: -0.03em;
+}
+
+
+.architect-website {
+  display: inline-block;
+
+  margin-top: 30px;
+
+  color: #111;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+
+  border-bottom:
+    1px solid #111;
+
+  padding-bottom: 2px;
+}
+
+
+.architect-detail-image img {
+  display: block;
+
+  width: 100%;
+
+  aspect-ratio: 4 / 5;
+
+  object-fit: cover;
+}
+
+
+/* RELATED PROJECTS */
+
+.architect-related {
+  padding-top: 35px;
+}
+
+
+.architect-related-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding-bottom: 15px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.architect-related-header h2 {
+  margin: 0;
+
+  font-size: 10px;
+
+  font-weight: normal;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+.architect-related-header span {
+  font-size: 9px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .architects-search-section {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+
+  .architect-row {
+    grid-template-columns:
+      1fr
+      40px;
+
+    padding-left: 14px;
+  }
+
+
+  .architect-row-location {
+    display: none;
+  }
+
+
+  .architect-detail-page {
+    padding:
+      0
+      18px
+      80px;
+  }
+
+
+  .architect-detail-hero {
+    min-height: 420px;
+  }
+
+
+  .architect-detail-hero h1 {
+    font-size: 60px;
+  }
+
+
+  .architect-detail-intro {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+
+    padding-bottom: 60px;
+  }
+
+
+  .architect-detail-image {
+    max-width: 400px;
+  }
+
+}
