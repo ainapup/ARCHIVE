@@ -4456,3 +4456,342 @@ body.menu-open {
   }
 
 }
+/* =========================================
+   SEARCH PAGE
+========================================= */
+
+.search-page {
+  padding:
+    0
+    32px
+    120px;
+}
+
+
+/* HERO */
+
+.search-hero {
+  min-height: 450px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-end;
+
+  padding:
+    35px
+    0
+    55px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.search-kicker {
+  margin-bottom: auto;
+
+  font-size: 10px;
+
+  letter-spacing: 0.08em;
+}
+
+
+.search-hero h1 {
+  margin:
+    0
+    0
+    45px;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(70px, 9vw, 135px);
+
+  line-height: 0.85;
+
+  font-weight: normal;
+
+  letter-spacing: -0.06em;
+}
+
+
+/* SEARCH INPUT */
+
+.global-search {
+  max-width: 850px;
+}
+
+
+.global-search label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+.global-search input {
+  width: 100%;
+
+  padding:
+    12px
+    0;
+
+  border: 0;
+
+  border-bottom:
+    1px solid #111;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #111;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(24px, 3vw, 40px);
+
+  outline: none;
+}
+
+
+.global-search input::placeholder {
+  color: #111;
+
+  opacity: 0.25;
+}
+
+
+/* RESULTS */
+
+.search-results {
+  padding-top: 35px;
+}
+
+
+.search-empty-state,
+.search-no-results {
+  padding:
+    60px
+    0;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(24px, 3vw, 40px);
+
+  letter-spacing: -0.03em;
+}
+
+
+.search-result-section {
+  margin-bottom: 75px;
+}
+
+
+.search-result-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding-bottom: 12px;
+
+  margin-bottom: 20px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.search-result-header h2 {
+  margin: 0;
+
+  font-size: 9px;
+
+  font-weight: normal;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+.search-result-header span {
+  font-size: 9px;
+}
+
+
+/* PLACE RESULTS */
+
+.search-places-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap:
+    30px
+    14px;
+}
+
+
+.search-place a {
+  color: #111;
+
+  text-decoration: none;
+}
+
+
+.search-place-image {
+  width: 100%;
+
+  aspect-ratio: 4 / 3;
+
+  overflow: hidden;
+
+  background: #dad8d0;
+}
+
+
+.search-place-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.search-place-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+
+  padding-top: 7px;
+}
+
+
+.search-place-info strong {
+  font-size: 10px;
+
+  font-weight: normal;
+
+  text-transform: uppercase;
+}
+
+
+.search-place-info span {
+  font-size: 9px;
+}
+
+
+/* TEXT RESULTS */
+
+.search-text-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    minmax(160px, 300px);
+
+  gap: 30px;
+
+  padding:
+    13px
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(17, 17, 17, 0.2);
+
+  color: #111;
+
+  text-decoration: none;
+}
+
+
+.search-text-row > span {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 24px;
+
+  letter-spacing: -0.025em;
+}
+
+
+.search-text-row small {
+  display: flex;
+
+  align-items: center;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+
+  opacity: 0.55;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .search-page {
+    padding:
+      0
+      18px
+      80px;
+  }
+
+
+  .search-hero {
+    min-height: 380px;
+  }
+
+
+  .search-hero h1 {
+    font-size: 64px;
+  }
+
+
+  .search-places-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap:
+      25px
+      10px;
+  }
+
+
+  .search-text-row {
+    grid-template-columns: 1fr;
+
+    gap: 4px;
+  }
+
+}
