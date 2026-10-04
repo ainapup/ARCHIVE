@@ -5,6 +5,7 @@ const filterButtons = document.querySelectorAll(".filters button");
 const params = new URLSearchParams(window.location.search);
 
 const architectFilter = params.get("architect");
+const countryFilter = params.get("country");
 
 
 function renderProjects(typeFilter = "ALL") {
@@ -19,6 +20,15 @@ function renderProjects(typeFilter = "ALL") {
 
     filteredProjects = filteredProjects.filter(
       project => project.architect === architectFilter
+    );
+
+  }
+
+
+  if (countryFilter) {
+
+    filteredProjects = filteredProjects.filter(
+      project => project.country === countryFilter
     );
 
   }
