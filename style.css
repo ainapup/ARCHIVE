@@ -3337,3 +3337,62 @@ body.menu-open {
   }
 
 }
+/* =========================================
+   ARCHITECT IMAGE
+========================================= */
+
+.architect-detail-intro {
+  grid-template-columns:
+    160px
+    minmax(320px, 1.25fr)
+    minmax(300px, 0.75fr);
+
+  align-items: start;
+}
+
+
+.architect-detail-image {
+  width: 100%;
+}
+
+
+.architect-detail-image img,
+.architect-image-placeholder {
+  display: block;
+
+  width: 100%;
+
+  aspect-ratio: 4 / 5;
+
+  object-fit: cover;
+}
+
+
+.architect-image-placeholder {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #dad8d0;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+  opacity: 0.5;
+}
+
+
+@media (max-width: 800px) {
+
+  .architect-detail-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .architect-detail-image {
+    max-width: 100%;
+  }
+
+}
