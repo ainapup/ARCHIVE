@@ -1,119 +1,232 @@
 /* =========================================
-   ARCHIVE — ARCHITECTS
+   ARCHIVE — ARCHITECTS INDEX
 ========================================= */
 
 const architectsIndex =
-  document.querySelector("#architects-index");
+  document.querySelector(
+    "#architects-index"
+  );
 
-
-async function initArchitects() {
-
-  const projects =
-    await loadProjects();
-
-
-  const architects =
-    [
-      ...new Set(
-        projects.map(
-          project => project.architect
-        )
-      )
-    ];
-
-
-  architects.sort(
-    (a, b) => a.localeCompare(b)
+const architectSearch =
+  document.querySelector(
+    "#architect-search"
   );
 
 
-  const groupedArchitects = {};
+let architects = [];
+let projects = [];
 
 
-  architects.forEach((architect) => {
+/* =========================================
+   INITIALISE
+========================================= */
 
-    const letter =
-      architect.charAt(0).toUpperCase();
+async function initArchitects() {
 
+  architects =
+    await loadArchitects();
 
-    if (!groupedArchitects[letter]) {
-
-      groupedArchitects[letter] = [];
-
-    }
-
-
-    groupedArchitects[letter]
-      .push(architect);
-
-  });
+  projects =
+    await loadProjects();
 
 
-  Object.keys(groupedArchitects)
-    .sort()
-    .forEach((letter) => {
-
-      const group =
-        document.createElement("section");
+  architects.sort(
+    (a, b) =>
+      a.name.localeCompare(b.name)
+  );
 
 
-      group.classList.add(
-        "architect-letter-group"
-      );
-
-
-      const names =
-        groupedArchitects[letter]
-          .map((architect) => {
-
-            const projectCount =
-              projects.filter(
-                project =>
-                  project.architect === architect
-              ).length;
-
-
-            return `
-
-              <a
-                class="architect-row"
-                href="index.html?architect=${encodeURIComponent(architect)}#places"
-              >
-
-                <span class="architect-name">
-                  ${architect}
-                </span>
-
-                <span class="architect-count">
-                  ${String(projectCount).padStart(2, "0")}
-                </span>
-
-              </a>
-
-            `;
-
-          })
-          .join("");
-
-
-      group.innerHTML = `
-
-        <div class="architect-letter">
-          ${letter}
-        </div>
-
-        <div class="architect-names">
-          ${names}
-        </div>
-
-      `;
-
-
-      architectsIndex.appendChild(group);
-
-    });
+  renderArchitects(
+    architects
+  );
 
 }
 
 
 initArchitects();
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+architectSearch.addEventListener(
+  "input",
+  () => {
+
+    const searchTerm =
+      architectSearch
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const filtered =
+      architects.filter(
+        architect =>
+
+          architect.name
+            .toLowerCase()
+            .includes(searchTerm) ||
+
+          (
+            architect.location &&
+            architect.location
+              .toLowerCase()
+              .includes(searchTerm)
+          )
+
+      );
+
+
+    renderArchitects(
+      filtered
+    );
+
+  }
+);
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderArchitects(
+  architectList
+) {
+
+  architectsIndex.innerHTML = "";
+
+
+  if (
+    architectList.length === 0
+  ) {
+
+    architectsIndex.innerHTML = `
+
+      <div class="empty-results">
+        No architects found.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const grouped = {};
+
+
+  architectList.forEach(
+    architect => {
+
+      const letter =
+        architect.name
+          .charAt(0)
+          .toUpperCase();
+
+
+      if (!grouped[letter]) {
+
+        grouped[letter] = [];
+
+      }
+
+
+      grouped[letter]
+        .push(architect);
+
+    }
+  );
+
+
+  Object.keys(grouped)
+    .sort()
+    .forEach(
+      letter => {
+
+        const section =
+          document.createElement(
+            "section"
+          );
+
+
+        section.classList.add(
+          "architect-letter-group"
+        );
+
+
+        const rows =
+          grouped[letter]
+            .map(
+              architect => {
+
+                const projectCount =
+                  projects.filter(
+                    project =>
+                      project.architect ===
+                      architect.name
+                  ).length;
+
+
+                return `
+
+                  <a
+                    class="architect-row"
+                    href="architect.html?id=${encodeURIComponent(architect.id)}"
+                  >
+
+                    <span
+                      class="architect-name"
+                    >
+                      ${architect.name}
+                    </span>
+
+
+                    <span
+                      class="architect-row-location"
+                    >
+                      ${architect.location || ""}
+                    </span>
+
+
+                    <span
+                      class="architect-count"
+                    >
+                      ${String(projectCount).padStart(2, "0")}
+                    </span>
+
+                  </a>
+
+                `;
+
+              }
+            )
+            .join("");
+
+
+        section.innerHTML = `
+
+          <div
+            class="architect-letter"
+          >
+            ${letter}
+          </div>
+
+          <div
+            class="architect-names"
+          >
+            ${rows}
+          </div>
+
+        `;
+
+
+        architectsIndex
+          .appendChild(section);
+
+      }
+    );
+
+}
