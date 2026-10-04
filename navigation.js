@@ -47,6 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
           Map
         </a>
 
+        <a href="search.html" data-page="search">
+          Search
+        </a>
+
         <a href="about.html" data-page="about">
           About
         </a>
@@ -101,6 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <a href="map.html">
         Map
+      </a>
+
+      <a href="search.html">
+        Search
       </a>
 
       <a href="about.html">
@@ -197,8 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-  /* ESC closes mobile menu */
-
   document.addEventListener(
     "keydown",
     event => {
@@ -228,10 +234,14 @@ document.addEventListener("DOMContentLoaded", () => {
     "index.html": "index",
 
     "architects.html": "architects",
+    "architect.html": "architects",
 
     "destinations.html": "destinations",
+    "destination.html": "destinations",
 
     "map.html": "map",
+
+    "search.html": "search",
 
     "about.html": "about"
 
@@ -305,6 +315,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <a href="map.html">
           Map
+        </a>
+
+        <a href="search.html">
+          Search
         </a>
 
       </div>
