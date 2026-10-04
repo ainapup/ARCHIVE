@@ -1,42 +1,68 @@
-const projectGrid = document.querySelector(".project-grid");
-const filterButtons = document.querySelectorAll(".filters button");
+/* =========================================
+   ARCHIVE — PLACES
+========================================= */
 
-const params = new URLSearchParams(window.location.search);
+const projectGrid =
+  document.querySelector(".project-grid");
 
-const architectFilter = params.get("architect");
-const countryFilter = params.get("country");
+const filterButtons =
+  document.querySelectorAll(".filters button");
 
+
+const params =
+  new URLSearchParams(window.location.search);
+
+const architectFilter =
+  params.get("architect");
+
+const countryFilter =
+  params.get("country");
+
+
+let projects = [];
+
+
+/* =========================================
+   RENDER PROJECTS
+========================================= */
 
 function renderProjects(typeFilter = "ALL") {
 
   projectGrid.innerHTML = "";
+
 
   let filteredProjects = [...projects];
 
 
   if (architectFilter) {
 
-    filteredProjects = filteredProjects.filter(
-      project => project.architect === architectFilter
-    );
+    filteredProjects =
+      filteredProjects.filter(
+        project =>
+          project.architect === architectFilter
+      );
 
   }
 
 
   if (countryFilter) {
 
-    filteredProjects = filteredProjects.filter(
-      project => project.country === countryFilter
-    );
+    filteredProjects =
+      filteredProjects.filter(
+        project =>
+          project.country === countryFilter
+      );
 
   }
 
 
   if (typeFilter !== "ALL") {
 
-    filteredProjects = filteredProjects.filter(
-      project => project.type === typeFilter
-    );
+    filteredProjects =
+      filteredProjects.filter(
+        project =>
+          project.type === typeFilter
+      );
 
   }
 
@@ -44,9 +70,11 @@ function renderProjects(typeFilter = "ALL") {
   if (filteredProjects.length === 0) {
 
     projectGrid.innerHTML = `
+
       <div class="empty-results">
         No projects found.
       </div>
+
     `;
 
     return;
@@ -54,80 +82,128 @@ function renderProjects(typeFilter = "ALL") {
   }
 
 
-  filteredProjects.forEach((project, index) => {
+  filteredProjects.forEach(
+    (project, index) => {
 
-    const article = document.createElement("article");
+      const article =
+        document.createElement("article");
 
-    article.classList.add("project");
-
-
-    const mainImage =
-      project.images && project.images.length > 0
-        ? project.images[0]
-        : "";
+      article.classList.add("project");
 
 
-    article.innerHTML = `
+      const mainImage =
+        project.images &&
+        project.images.length > 0
+          ? project.images[0]
+          : "";
 
-      <a class="project-link" href="project.html?id=${project.id}">
 
-        <div class="project-image">
+      article.innerHTML = `
 
-          <img
-            src="${mainImage}"
-            alt="${project.title}"
-            loading="lazy"
-          >
+        <a
+          class="project-link"
+          href="project.html?id=${encodeURIComponent(project.id)}"
+        >
 
-          <span class="project-number">
-            ${String(index + 1).padStart(2, "0")}
-          </span>
+          <div class="project-image">
 
-        </div>
+            ${
+              mainImage
+                ? `
+                  <img
+                    src="${mainImage}"
+                    alt="${project.title}"
+                    loading="lazy"
+                  >
+                `
+                : ""
+            }
 
-        <div class="project-info">
+            <span class="project-number">
+              ${String(index + 1).padStart(2, "0")}
+            </span>
 
-          <h3>${project.title}</h3>
+          </div>
 
-          <p>${project.architect}</p>
 
-          <p>${project.city}, ${project.country}</p>
+          <div class="project-info">
 
-          <span class="project-type">
-            ${project.type}
-          </span>
+            <h3>
+              ${project.title}
+            </h3>
 
-        </div>
+            <p>
+              ${project.architect}
+            </p>
 
-      </a>
+            <p>
+              ${project.city}, ${project.country}
+            </p>
 
-    `;
+            <span class="project-type">
+              ${project.type}
+            </span>
 
-    projectGrid.appendChild(article);
+          </div>
 
-  });
+        </a>
+
+      `;
+
+
+      projectGrid.appendChild(article);
+
+    }
+  );
 
 }
 
 
+/* =========================================
+   FILTER BUTTONS
+========================================= */
+
 filterButtons.forEach((button) => {
 
-  button.addEventListener("click", () => {
+  button.addEventListener(
+    "click",
+    () => {
 
-    filterButtons.forEach(item => {
-      item.classList.remove("active");
-    });
+      filterButtons.forEach(
+        item =>
+          item.classList.remove("active")
+      );
 
-    button.classList.add("active");
 
-    const filter =
-      button.textContent.trim().toUpperCase();
+      button.classList.add("active");
 
-    renderProjects(filter);
 
-  });
+      const filter =
+        button
+          .textContent
+          .trim()
+          .toUpperCase();
+
+
+      renderProjects(filter);
+
+    }
+  );
 
 });
 
 
-renderProjects();
+/* =========================================
+   LOAD DATA
+========================================= */
+
+async function initPlaces() {
+
+  projects = await loadProjects();
+
+  renderProjects();
+
+}
+
+
+initPlaces();
