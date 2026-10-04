@@ -2271,3 +2271,42 @@ body.menu-open {
 .project-book-link {
   font-weight: 500;
 }
+/* =========================================
+   PROJECT COMMERCE
+========================================= */
+
+.project-commerce {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 35px;
+}
+
+
+.project-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 12px;
+}
+
+
+.project-book-link {
+  font-weight: 500;
+}
+
+
+.project-price strong {
+  margin-top: 4px;
+}
+
+
+@media (max-width: 800px) {
+
+  .project-commerce {
+    gap: 25px;
+  }
+
+}
