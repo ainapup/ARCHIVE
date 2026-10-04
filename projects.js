@@ -25,8 +25,15 @@ const projects = [
       "images/casa-wabi.jpg"
     ],
 
-    website: "",
-    booking: ""
+    architectureWebsite: "",
+
+    bookingUrl: "",
+
+    priceFrom: "",
+
+    currency: "€",
+
+    priceNote: ""
   }
 
 ];
