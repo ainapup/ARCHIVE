@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARCHIVE — Submit a Place</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <header class="site-header">
+
+    <a class="logo" href="index.html">ARCHIVE</a>
+
+    <nav class="main-nav">
+      <a href="index.html#places">Places</a>
+      <a href="architects.html">Architects</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="map.html">Map</a>
+      <a href="about.html">About</a>
+      <a href="submit.html">Submit</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+  </header>
+
+
+  <main class="submit-page">
+
+    <section class="submit-hero">
+
+      <div class="submit-kicker">
+        ARCHIVE / SUBMIT
+      </div>
+
+      <h1>
+        Submit<br>
+        a place.
+      </h1>
+
+      <p>
+        Are you an architect, designer, hotelier, restaurateur
+        or owner of a place that belongs in ARCHIVE?
+      </p>
+
+    </section>
+
+
+    <section class="submit-intro">
+
+      <div class="submit-intro-label">
+        SUBMISSIONS
+      </div>
+
+      <div class="submit-intro-text">
+
+        <p>
+          ARCHIVE is always interested in discovering places
+          where architecture can be experienced directly.
+        </p>
+
+        <p class="submit-small">
+          We welcome submissions from architects, studios, owners,
+          hotels, restaurants and other spaces with significant
+          architectural value.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="submit-form-section">
+
+      <div class="submit-form-label">
+        PROJECT DETAILS
+      </div>
+
+
+      <form
+        class="archive-form"
+        id="submission-form"
+      >
+
+
+        <div class="form-field">
+
+          <label for="project-name">
+            Project / Place name *
+          </label>
+
+          <input
+            type="text"
+            id="project-name"
+            name="project-name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="architect">
+            Architect / Studio *
+          </label>
+
+          <input
+            type="text"
+            id="architect"
+            name="architect"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-field">
+
+            <label for="city">
+              City *
+            </label>
+
+            <input
+              type="text"
+              id="city"
+              name="city"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label for="country">
+              Country *
+            </label>
+
+            <input
+              type="text"
+              id="country"
+              name="country"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="type">
+            Type *
+          </label>
+
+          <select
+            id="type"
+            name="type"
+            required
+          >
+
+            <option value="">
+              Select
+            </option>
+
+            <option value="Stay">
+              Stay
+            </option>
+
+            <option value="Eat">
+              Eat
+            </option>
+
+            <option value="Drink">
+              Drink
+            </option>
+
+            <option value="Visit">
+              Visit
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="website">
+            Project / Place website *
+          </label>
+
+          <input
+            type="url"
+            id="website"
+            name="website"
+            placeholder="https://"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="project-description">
+            Tell us about the project
+          </label>
+
+          <textarea
+            id="project-description"
+            name="project-description"
+            rows="6"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="press-link">
+            Images / Press kit link
+          </label>
+
+          <input
+            type="url"
+            id="press-link"
+            name="press-link"
+            placeholder="Dropbox, Drive, WeTransfer, website..."
+          >
+
+        </div>
+
+
+        <div class="form-divider"></div>
+
+
+        <div class="form-field">
+
+          <label for="name">
+            Your name *
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="email">
+            Your email *
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-consent">
+
+          <p>
+            ARCHIVE is independently curated.
+            Submissions are reviewed according to architectural
+            relevance and do not guarantee publication.
+          </p>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="form-submit"
+        >
+          Submit project →
+        </button>
+
+
+      </form>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    document
+      .querySelector("#submission-form")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        alert(
+          "The submission form is ready. We will connect email delivery next."
+        );
+
+      });
+
+  </script>
+
+</body>
+
+</html>
