@@ -7,17 +7,13 @@
     "country": "Mexico",
     "continent": "North America",
     "type": "STAY",
-    "year": "2014",
+    "year": "2015",
     "description": "A coastal arts foundation and residence defined by concrete, landscape and the horizon.",
     "latitude": 15.8644,
     "longitude": -97.0717,
     "images": [
       "/ARCHIVE/images/casa-wabi.jpg"
     ],
-    "architectureWebsite": "",
-    "bookingUrl": "",
-    "priceFrom": null,
-    "currency": "€",
-    "priceNote": ""
+    "currency": "€"
   }
 ]
