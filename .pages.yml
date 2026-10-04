@@ -114,3 +114,52 @@ content:
       - name: priceNote
         label: Price note
         type: string
+
+
+  - name: architects
+    label: Architects
+    type: file
+    path: data/architects.json
+    format: json
+    list: true
+
+    fields:
+
+      - name: id
+        label: ID
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Use only lowercase letters, numbers and hyphens"
+
+      - name: name
+        label: Architect / Studio name
+        type: string
+        required: true
+
+      - name: category
+        label: Type
+        type: select
+        options:
+          values:
+            - Architect
+            - Architecture studio
+            - Designer
+            - Design studio
+
+      - name: location
+        label: Based in
+        type: string
+
+      - name: description
+        label: Biography / Studio description
+        type: text
+
+      - name: website
+        label: Official website
+        type: string
+
+      - name: image
+        label: Image
+        type: image
