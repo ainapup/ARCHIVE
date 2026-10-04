@@ -31,12 +31,89 @@ const projectsContainer =
     "#destination-projects"
   );
 
+const destinationSelect =
+  document.querySelector(
+    "#destination-select"
+  );
+
 
 async function initDestination() {
 
   const projects =
     await loadProjects();
 
+
+  /* =========================================
+     DESTINATION SELECTOR
+  ========================================= */
+
+  const countries =
+    [
+      ...new Set(
+        projects
+          .map(project => project.country)
+          .filter(Boolean)
+      )
+    ]
+    .sort(
+      (a, b) =>
+        a.localeCompare(b)
+    );
+
+
+  destinationSelect.innerHTML = `
+
+    <option value="">
+      Select destination
+    </option>
+
+    ${
+      countries
+        .map(
+          item => `
+
+            <option
+              value="${item}"
+              ${
+                item === country
+                  ? "selected"
+                  : ""
+              }
+            >
+              ${item}
+            </option>
+
+          `
+        )
+        .join("")
+    }
+
+  `;
+
+
+  destinationSelect.addEventListener(
+    "change",
+    () => {
+
+      const selectedCountry =
+        destinationSelect.value;
+
+
+      if (!selectedCountry) {
+        return;
+      }
+
+
+      window.location.href =
+        `destination.html?country=${encodeURIComponent(selectedCountry)}`;
+
+    }
+  );
+
+
+  /* =========================================
+     COUNTRY PROJECTS
+  ========================================= */
 
   const filteredProjects =
     projects.filter(
@@ -55,6 +132,7 @@ async function initDestination() {
 
     countElement.textContent =
       "00 places";
+
 
     projectsContainer.innerHTML = `
 
@@ -91,6 +169,10 @@ async function initDestination() {
     `ARCHIVE — ${country}`;
 
 
+  /* =========================================
+     PROJECTS
+  ========================================= */
+
   filteredProjects.forEach(
     (project, index) => {
 
@@ -98,6 +180,7 @@ async function initDestination() {
         document.createElement(
           "section"
         );
+
 
       projectSection.classList.add(
         "destination-project"
@@ -118,19 +201,19 @@ async function initDestination() {
         images[2] || images[1] || images[0] || "";
 
 
-      const priceLine =
+      const hasPrice =
         project.priceFrom !== null &&
         project.priceFrom !== "" &&
-        project.priceFrom !== undefined
-          ? `
-            <span class="destination-price">
-              FROM ${project.currency || ""}${project.priceFrom}${
-                project.priceNote
-                  ? ` / ${project.priceNote.toUpperCase()}`
-                  : ""
-              }
-            </span>
-          `
+        project.priceFrom !== undefined;
+
+
+      const priceText =
+        hasPrice
+          ? `FROM ${project.currency || ""}${project.priceFrom}${
+              project.priceNote
+                ? ` / ${project.priceNote.toUpperCase()}`
+                : ""
+            }`
           : "";
 
 
@@ -177,43 +260,64 @@ async function initDestination() {
 
           <div class="destination-project-heading">
 
-            <a
-              href="project.html?id=${encodeURIComponent(project.id)}"
-              class="destination-project-title"
-            >
-              ${project.title}
-            </a>
+            <div>
 
-            <div class="destination-project-meta">
+              <a
+                href="project.html?id=${encodeURIComponent(project.id)}"
+                class="destination-project-title"
+              >
+                ${project.title}
+              </a>
 
-              <span>
-                ${project.architect}
-              </span>
+              <div class="destination-project-meta">
 
-              <span>
-                ${project.city}, ${project.country}
-              </span>
+                <span>
+                  ${project.architect}
+                </span>
 
-              <span>
-                ${project.type}
-                ${priceLine ? " · " : ""}
-                ${priceLine}
-              </span>
+                <span>
+                  ${project.city}, ${project.country}
+                </span>
+
+              </div>
 
             </div>
 
 
-            <div class="destination-project-links">
+            <div class="destination-project-actions">
 
-              ${bookingLink}
+              <div class="destination-project-type-line">
 
-              ${architectureLink}
+                <span>
+                  ${project.type}
+                </span>
 
-              <a
-                href="project.html?id=${encodeURIComponent(project.id)}"
-              >
-                View project ↗
-              </a>
+                ${
+                  priceText
+                    ? `
+                      <span>
+                        ${priceText}
+                      </span>
+                    `
+                    : ""
+                }
+
+              </div>
+
+
+              <div class="destination-project-links">
+
+                ${bookingLink}
+
+                ${architectureLink}
+
+                <a
+                  href="project.html?id=${encodeURIComponent(project.id)}"
+                >
+                  View project ↗
+                </a>
+
+              </div>
 
             </div>
 
@@ -224,64 +328,11 @@ async function initDestination() {
 
         <div class="destination-project-gallery">
 
-          <a
-            href="project.html?id=${encodeURIComponent(project.id)}"
-            class="destination-project-image"
-          >
+          ${createImageBlock(image1, project, 1)}
 
-            ${
-              image1
-                ? `
-                  <img
-                    src="${image1}"
-                    alt="${project.title} 1"
-                    loading="lazy"
-                  >
-                `
-                : ""
-            }
+          ${createImageBlock(image2, project, 2)}
 
-          </a>
-
-
-          <a
-            href="project.html?id=${encodeURIComponent(project.id)}"
-            class="destination-project-image"
-          >
-
-            ${
-              image2
-                ? `
-                  <img
-                    src="${image2}"
-                    alt="${project.title} 2"
-                    loading="lazy"
-                  >
-                `
-                : ""
-            }
-
-          </a>
-
-
-          <a
-            href="project.html?id=${encodeURIComponent(project.id)}"
-            class="destination-project-image"
-          >
-
-            ${
-              image3
-                ? `
-                  <img
-                    src="${image3}"
-                    alt="${project.title} 3"
-                    loading="lazy"
-                  >
-                `
-                : ""
-            }
-
-          </a>
+          ${createImageBlock(image3, project, 3)}
 
         </div>
 
@@ -295,6 +346,46 @@ async function initDestination() {
     }
   );
 
+}
+
+
+/* =========================================
+   IMAGE BLOCK
+========================================= */
+
+function createImageBlock(
+  image,
+  project,
+  number
+) {
+
+  return `
+
+    <a
+      href="project.html?id=${encodeURIComponent(project.id)}"
+      class="destination-project-image"
+    >
+
+      ${
+        image
+          ? `
+            <img
+              src="${image}"
+              alt="${project.title} ${number}"
+              loading="lazy"
+            >
+          `
+          : ""
+      }
+
+    </a>
+
+  `;
+
+}
+
+
+initDestination();
 }
 
 
