@@ -2,14 +2,50 @@ const projectGrid = document.querySelector(".project-grid");
 const filterButtons = document.querySelectorAll(".filters button");
 
 
-function renderProjects(filter = "ALL") {
+const params = new URLSearchParams(window.location.search);
+
+const architectFilter = params.get("architect");
+
+
+function renderProjects(typeFilter = "ALL") {
 
   projectGrid.innerHTML = "";
 
-  const filteredProjects =
-    filter === "ALL"
-      ? projects
-      : projects.filter(project => project.type === filter);
+
+  let filteredProjects = [...projects];
+
+
+  if (architectFilter) {
+
+    filteredProjects = filteredProjects.filter(
+      project => project.architect === architectFilter
+    );
+
+  }
+
+
+  if (typeFilter !== "ALL") {
+
+    filteredProjects = filteredProjects.filter(
+      project => project.type === typeFilter
+    );
+
+  }
+
+
+  if (filteredProjects.length === 0) {
+
+    projectGrid.innerHTML = `
+
+      <div class="empty-results">
+        No projects found.
+      </div>
+
+    `;
+
+    return;
+
+  }
 
 
   filteredProjects.forEach((project, index) => {
@@ -71,7 +107,8 @@ filterButtons.forEach((button) => {
 
     button.classList.add("active");
 
-    const filter = button.textContent.trim().toUpperCase();
+    const filter =
+      button.textContent.trim().toUpperCase();
 
     renderProjects(filter);
 
