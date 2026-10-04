@@ -83,11 +83,14 @@ async function initProject() {
      PRICE
   ========================================= */
 
-  const priceBlock =
+  const hasPrice =
     project.priceFrom !== null &&
     project.priceFrom !== "" &&
-    project.priceFrom !== undefined
+    project.priceFrom !== undefined;
 
+
+  const priceBlock =
+    hasPrice
       ? `
 
         <div class="project-price">
@@ -115,17 +118,15 @@ async function initProject() {
         </div>
 
       `
-
       : "";
 
 
   /* =========================================
-     BOOKING
+     BOOKING LINK
   ========================================= */
 
   const bookingLink =
     project.bookingUrl
-
       ? `
 
         <a
@@ -138,17 +139,15 @@ async function initProject() {
         </a>
 
       `
-
       : "";
 
 
   /* =========================================
-     ARCHITECTURE WEBSITE
+     ARCHITECTURE LINK
   ========================================= */
 
   const architectureLink =
     project.architectureWebsite
-
       ? `
 
         <a
@@ -161,7 +160,6 @@ async function initProject() {
         </a>
 
       `
-
       : "";
 
 
@@ -261,7 +259,6 @@ async function initProject() {
 
         ${priceBlock}
 
-
         <div class="project-links">
 
           ${bookingLink}
@@ -275,67 +272,15 @@ async function initProject() {
     </section>
 
 
-    <section class="project-gallery">
-
-      ${gallery}
-
-    </section>
-
-
-    <section class="project-data">
-
-      <div>
-
-        <span class="meta-label">
-          Architect
-        </span>
-
-        <p>
-          ${project.architect}
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <span class="meta-label">
-          Destination
-        </span>
-
-        <p>
-          ${project.country}
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <span class="meta-label">
-          Type
-        </span>
-
-        <p>
-          ${project.type}
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <span class="meta-label">
-          Year
-        </span>
-
-        <p>
-          ${project.year || "—"}
-        </p>
-
-      </div>
-
-    </section>
+    ${
+      gallery
+        ? `
+          <section class="project-gallery">
+            ${gallery}
+          </section>
+        `
+        : ""
+    }
 
   `;
 
