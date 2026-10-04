@@ -86,8 +86,15 @@
 
       <form
         class="archive-form"
-        id="submission-form"
+        action="https://formspree.io/f/mzedpoeb"
+        method="POST"
       >
+
+        <input
+          type="hidden"
+          name="_subject"
+          value="New ARCHIVE project submission"
+        >
 
 
         <div class="form-field">
@@ -99,7 +106,7 @@
           <input
             type="text"
             id="project-name"
-            name="project-name"
+            name="Project / Place name"
             required
           >
 
@@ -115,7 +122,7 @@
           <input
             type="text"
             id="architect"
-            name="architect"
+            name="Architect / Studio"
             required
           >
 
@@ -133,7 +140,7 @@
             <input
               type="text"
               id="city"
-              name="city"
+              name="City"
               required
             >
 
@@ -149,7 +156,7 @@
             <input
               type="text"
               id="country"
-              name="country"
+              name="Country"
               required
             >
 
@@ -166,7 +173,7 @@
 
           <select
             id="type"
-            name="type"
+            name="Type"
             required
           >
 
@@ -204,7 +211,7 @@
           <input
             type="url"
             id="website"
-            name="website"
+            name="Project website"
             placeholder="https://"
             required
           >
@@ -220,7 +227,7 @@
 
           <textarea
             id="project-description"
-            name="project-description"
+            name="Project description"
             rows="6"
           ></textarea>
 
@@ -236,7 +243,7 @@
           <input
             type="url"
             id="press-link"
-            name="press-link"
+            name="Images / Press kit"
             placeholder="Dropbox, Drive, WeTransfer, website..."
           >
 
@@ -255,7 +262,7 @@
           <input
             type="text"
             id="name"
-            name="name"
+            name="Submitted by"
             required
           >
 
@@ -296,29 +303,11 @@
           Submit project →
         </button>
 
-
       </form>
 
     </section>
 
   </main>
-
-
-  <script>
-
-    document
-      .querySelector("#submission-form")
-      .addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        alert(
-          "The submission form is ready. We will connect email delivery next."
-        );
-
-      });
-
-  </script>
 
 </body>
 
