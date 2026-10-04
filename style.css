@@ -18,7 +18,9 @@ body {
 }
 
 
-/* HEADER */
+/* =========================================
+   HEADER
+========================================= */
 
 .site-header {
   width: 100%;
@@ -28,7 +30,7 @@ body {
   justify-content: space-between;
   align-items: center;
 
-  padding: 0 32px;
+  padding: 0 26px;
 
   border-bottom: 1px solid #111;
 }
@@ -63,16 +65,20 @@ body {
 }
 
 
-/* HERO */
+/* =========================================
+   HERO
+========================================= */
 
 .hero {
-  min-height: 560px;
+  min-height: 500px;
 
-  padding: 35px 32px 80px;
+  padding: 35px 26px 70px;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  overflow: hidden;
 
   border-bottom: 1px solid #111;
 }
@@ -82,42 +88,48 @@ body {
 
   font-size: 10px;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .hero h1 {
   margin: 0;
 
-  max-width: 1000px;
+  max-width: 1100px;
 
   font-family: "Times New Roman", serif;
 
-  font-size: clamp(62px, 9vw, 145px);
-  line-height: 0.82;
+  font-size: clamp(54px, 7.5vw, 110px);
+  line-height: 0.9;
 
   font-weight: normal;
-  letter-spacing: -0.065em;
+
+  letter-spacing: -0.055em;
 }
 
 .hero p {
-  max-width: 390px;
+  max-width: 430px;
 
   margin: 38px 0 0;
 
   font-size: 13px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 
-/* PLACES */
+/* =========================================
+   PLACES
+========================================= */
 
 .places {
-  padding: 28px 32px 100px;
+  padding: 28px 26px 100px;
 }
 
 .section-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+
+  gap: 30px;
 
   padding-bottom: 18px;
 
@@ -135,7 +147,9 @@ body {
 }
 
 
-/* FILTERS */
+/* =========================================
+   FILTERS
+========================================= */
 
 .filters {
   display: flex;
@@ -169,40 +183,75 @@ body {
 }
 
 
-/* PROJECT GRID */
+/* =========================================
+   PROJECT GRID
+========================================= */
 
 .project-grid {
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 
   column-gap: 22px;
   row-gap: 80px;
 
-  padding-top: 30px;
+  padding-top: 38px;
 }
 
 .project {
+  min-width: 0;
   cursor: pointer;
 }
 
+
+/* =========================================
+   PROJECT IMAGE
+========================================= */
+
 .project-image {
-  aspect-ratio: 4 / 5;
+  position: relative;
+
   width: 100%;
+  aspect-ratio: 4 / 5;
+
+  overflow: hidden;
+
+  background: #dad8d0;
 }
 
-.placeholder {
-  background: #dad8d0;
+.project-image img {
+  display: block;
 
-  display: flex;
+  width: 100%;
+  height: 100%;
 
-  align-items: flex-start;
-  justify-content: flex-end;
+  object-fit: cover;
 
-  padding: 10px;
+  transition: transform 0.5s ease;
+}
+
+.project:hover .project-image img {
+  transform: scale(1.015);
+}
+
+.project-number {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  padding: 4px 6px;
+
+  background: #f4f3ee;
 
   font-size: 10px;
+  line-height: 1;
 }
+
+
+/* =========================================
+   PROJECT INFORMATION
+========================================= */
 
 .project-info {
   padding-top: 10px;
@@ -212,6 +261,8 @@ body {
   margin: 0 0 6px;
 
   font-size: 13px;
+  line-height: 1.2;
+
   font-weight: normal;
 
   text-transform: uppercase;
@@ -224,14 +275,47 @@ body {
   line-height: 1.35;
 }
 
+.project-type {
+  display: inline-block;
 
-/* MOBILE */
+  margin-top: 12px;
+
+  font-size: 9px;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 800px) {
 
   .site-header {
+    min-height: 65px;
+
     padding: 18px;
+
     align-items: flex-start;
+  }
+
+  .logo {
+    font-size: 25px;
   }
 
   .main-nav {
@@ -239,12 +323,18 @@ body {
   }
 
   .hero {
-    min-height: 500px;
+    min-height: 470px;
+
     padding: 25px 18px 45px;
   }
 
   .hero h1 {
-    font-size: 58px;
+    font-size: clamp(50px, 17vw, 76px);
+    line-height: 0.9;
+  }
+
+  .hero p {
+    margin-top: 28px;
   }
 
   .places {
@@ -260,57 +350,22 @@ body {
 
   .filters {
     width: 100%;
+
+    gap: 20px;
+
     overflow-x: auto;
+
+    white-space: nowrap;
+
+    padding-bottom: 5px;
   }
 
   .project-grid {
     grid-template-columns: 1fr;
+
     row-gap: 55px;
+
+    padding-top: 28px;
   }
 
-}
-/* PROJECT IMAGES */
-
-.project-image {
-  position: relative;
-  overflow: hidden;
-  background: #dad8d0;
-}
-
-.project-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  display: block;
-
-  transition: transform 0.5s ease;
-}
-
-.project:hover .project-image img {
-  transform: scale(1.015);
-}
-
-.project-number {
-  position: absolute;
-
-  top: 10px;
-  right: 10px;
-
-  font-size: 10px;
-
-  background: #f4f3ee;
-
-  padding: 4px 6px;
-}
-
-.project-type {
-  display: inline-block;
-
-  margin-top: 12px;
-
-  font-size: 9px;
-
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
