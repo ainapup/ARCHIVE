@@ -12,8 +12,14 @@
     "latitude": 15.8644,
     "longitude": -97.0717,
     "images": [
-      "/ARCHIVE/images/casa-wabi.jpg"
+      "/ARCHIVE/images/casa-wabi.jpg",
+      "/ARCHIVE/images/casa-wabi-02-1.jpg",
+      "/ARCHIVE/images/casa-wabi-03-1.jpg"
     ],
-    "currency": "€"
+    "architectureWebsite": "https://casawabi.org/architecture/casa-wabi-l-tadao-ando/",
+    "bookingUrl": "https://casawabi.org/visitas/",
+    "priceFrom": 250,
+    "currency": "€",
+    "priceNote": "night"
   }
 ]
