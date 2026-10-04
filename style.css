@@ -2204,3 +2204,17 @@ body.menu-open {
   }
 
 }
+/* =========================================
+   FORM STATUS
+========================================= */
+
+.form-status {
+  min-height: 20px;
+
+  margin: 0 0 18px;
+
+  font-size: 10px;
+  line-height: 1.4;
+
+  letter-spacing: 0.03em;
+}
