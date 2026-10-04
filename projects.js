@@ -1,4 +1,5 @@
 const projects = [
+
   {
     id: "casa-wabi",
 
@@ -15,13 +16,17 @@ const projects = [
     description:
       "A coastal arts foundation and residence defined by concrete, landscape and the horizon.",
 
+    coordinates: {
+      lat: 15.8644,
+      lng: -97.0717
+    },
+
     images: [
-      "images/casa-wabi.jpg",
-      "images/casa-wabi-02.jpg",
-      "images/casa-wabi-03.jpg"
+      "images/casa-wabi.jpg"
     ],
 
     website: "",
     booking: ""
   }
+
 ];
