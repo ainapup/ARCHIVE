@@ -2218,3 +2218,56 @@ body.menu-open {
 
   letter-spacing: 0.03em;
 }
+/* =========================================
+   PROJECT PRICE + BOOKING
+========================================= */
+
+.project-commerce {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 30px;
+}
+
+
+.project-price {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 4px;
+}
+
+
+.project-price strong {
+  font-family: "Times New Roman", serif;
+
+  font-size: clamp(30px, 3vw, 46px);
+
+  line-height: 1;
+
+  font-weight: normal;
+
+  letter-spacing: -0.04em;
+}
+
+
+.project-price-note {
+  margin-top: 2px;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+
+  opacity: 0.55;
+}
+
+
+.project-book-link {
+  font-weight: 500;
+}
