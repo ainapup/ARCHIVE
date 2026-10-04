@@ -1195,3 +1195,186 @@ body {
   }
 
 }
+/* =========================================
+   ABOUT PAGE
+========================================= */
+
+.about-page {
+  padding: 0 32px 100px;
+}
+
+.about-hero {
+  min-height: 560px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 35px 0 70px;
+
+  border-bottom: 1px solid #111;
+}
+
+.about-kicker {
+  margin-bottom: auto;
+
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.about-hero h1 {
+  margin: 0;
+
+  max-width: 1100px;
+
+  font-family: "Times New Roman", serif;
+
+  font-size: clamp(70px, 9vw, 140px);
+  line-height: 0.86;
+
+  font-weight: normal;
+
+  letter-spacing: -0.06em;
+}
+
+
+/* ABOUT TEXT */
+
+.about-content {
+  display: grid;
+
+  grid-template-columns: 1fr 2fr;
+
+  gap: 80px;
+
+  padding: 45px 0 100px;
+
+  border-bottom: 1px solid #111;
+}
+
+.about-label {
+  font-size: 10px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.about-text {
+  max-width: 850px;
+}
+
+.about-text p {
+  max-width: 620px;
+
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.about-text .about-intro {
+  max-width: 850px;
+
+  margin-top: 0;
+
+  font-family: "Times New Roman", serif;
+
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 1.05;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* PRINCIPLES */
+
+.about-principles {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  border-bottom: 1px solid #111;
+}
+
+.about-principle {
+  min-height: 300px;
+
+  padding: 25px;
+
+  border-right: 1px solid #111;
+}
+
+.about-principle:last-child {
+  border-right: 0;
+}
+
+.about-principle span {
+  font-size: 10px;
+}
+
+.about-principle h2 {
+  margin: 80px 0 14px;
+
+  font-family: "Times New Roman", serif;
+
+  font-size: 30px;
+  line-height: 1;
+
+  font-weight: normal;
+
+  letter-spacing: -0.035em;
+}
+
+.about-principle p {
+  max-width: 300px;
+
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .about-page {
+    padding: 0 18px 60px;
+  }
+
+  .about-hero {
+    min-height: 450px;
+  }
+
+  .about-hero h1 {
+    font-size: 58px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+
+    padding-bottom: 70px;
+  }
+
+  .about-principles {
+    grid-template-columns: 1fr;
+  }
+
+  .about-principle {
+    min-height: auto;
+
+    border-right: 0;
+
+    border-bottom: 1px solid #111;
+
+    padding: 25px 0 45px;
+  }
+
+  .about-principle:last-child {
+    border-bottom: 0;
+  }
+
+  .about-principle h2 {
+    margin-top: 50px;
+  }
+
+}
