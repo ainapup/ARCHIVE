@@ -1,51 +1,95 @@
-const params = new URLSearchParams(window.location.search);
+/* =========================================
+   ARCHIVE — PROJECT PAGE
+========================================= */
 
-const projectId = params.get("id");
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
 
-const project = projects.find(
-  item => item.id === projectId
-);
+const projectId =
+  params.get("id");
 
-const detail = document.querySelector("#project-detail");
-
-
-if (!project) {
-
-  detail.innerHTML = `
-    <section class="project-not-found">
-      Project not found.
-    </section>
-  `;
-
-} else {
-
-  document.title = `ARCHIVE — ${project.title}`;
+const detail =
+  document.querySelector(
+    "#project-detail"
+  );
 
 
-  const gallery = project.images
-    .map((image, index) => {
+async function initProject() {
 
-      return `
+  const projects =
+    await loadProjects();
 
-        <figure class="project-gallery-item">
 
-          <img
-            src="${image}"
-            alt="${project.title} — ${index + 1}"
-            loading="lazy"
-          >
+  const project =
+    projects.find(
+      item =>
+        item.id === projectId
+    );
 
-        </figure>
 
-      `;
+  if (!project) {
 
-    })
-    .join("");
+    detail.innerHTML = `
 
+      <section class="project-not-found">
+        Project not found.
+      </section>
+
+    `;
+
+    return;
+
+  }
+
+
+  document.title =
+    `ARCHIVE — ${project.title}`;
+
+
+  /* =========================================
+     GALLERY
+  ========================================= */
+
+  const gallery =
+    project.images &&
+    project.images.length > 0
+
+      ? project.images
+          .map(
+            (image, index) => `
+
+              <figure
+                class="project-gallery-item"
+              >
+
+                <img
+                  src="${image}"
+                  alt="${project.title} — ${index + 1}"
+                  loading="lazy"
+                >
+
+              </figure>
+
+            `
+          )
+          .join("")
+
+      : "";
+
+
+  /* =========================================
+     PRICE
+  ========================================= */
 
   const priceBlock =
-    project.priceFrom
+    project.priceFrom !== null &&
+    project.priceFrom !== "" &&
+    project.priceFrom !== undefined
+
       ? `
+
         <div class="project-price">
 
           <span class="meta-label">
@@ -53,13 +97,15 @@ if (!project) {
           </span>
 
           <strong>
-            ${project.currency}${project.priceFrom}
+            ${project.currency || ""}${project.priceFrom}
           </strong>
 
           ${
             project.priceNote
               ? `
-                <span class="project-price-note">
+                <span
+                  class="project-price-note"
+                >
                   ${project.priceNote}
                 </span>
               `
@@ -67,39 +113,61 @@ if (!project) {
           }
 
         </div>
+
       `
+
       : "";
 
 
+  /* =========================================
+     BOOKING
+  ========================================= */
+
   const bookingLink =
     project.bookingUrl
+
       ? `
+
         <a
           href="${project.bookingUrl}"
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           class="project-external-link project-book-link"
         >
           Book here ↗
         </a>
+
       `
+
       : "";
 
 
+  /* =========================================
+     ARCHITECTURE WEBSITE
+  ========================================= */
+
   const architectureLink =
     project.architectureWebsite
+
       ? `
+
         <a
           href="${project.architectureWebsite}"
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           class="project-external-link"
         >
           Architecture website ↗
         </a>
+
       `
+
       : "";
 
+
+  /* =========================================
+     PAGE
+  ========================================= */
 
   detail.innerHTML = `
 
@@ -162,7 +230,7 @@ if (!project) {
           </span>
 
           <span>
-            ${project.year}
+            ${project.year || "—"}
           </span>
 
         </div>
@@ -176,9 +244,15 @@ if (!project) {
 
       <div class="project-description">
 
-        <p>
-          ${project.description}
-        </p>
+        ${
+          project.description
+            ? `
+              <p>
+                ${project.description}
+              </p>
+            `
+            : ""
+        }
 
       </div>
 
@@ -186,6 +260,7 @@ if (!project) {
       <div class="project-commerce">
 
         ${priceBlock}
+
 
         <div class="project-links">
 
@@ -255,7 +330,7 @@ if (!project) {
         </span>
 
         <p>
-          ${project.year}
+          ${project.year || "—"}
         </p>
 
       </div>
@@ -265,3 +340,6 @@ if (!project) {
   `;
 
 }
+
+
+initProject();
