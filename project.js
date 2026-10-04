@@ -43,32 +43,62 @@ if (!project) {
     .join("");
 
 
-  const websiteLink = project.website
-    ? `
-      <a
-        href="${project.website}"
-        target="_blank"
-        rel="noopener"
-        class="project-external-link"
-      >
-        Website ↗
-      </a>
-    `
-    : "";
+  const priceBlock =
+    project.priceFrom
+      ? `
+        <div class="project-price">
+
+          <span class="meta-label">
+            From
+          </span>
+
+          <strong>
+            ${project.currency}${project.priceFrom}
+          </strong>
+
+          ${
+            project.priceNote
+              ? `
+                <span class="project-price-note">
+                  ${project.priceNote}
+                </span>
+              `
+              : ""
+          }
+
+        </div>
+      `
+      : "";
 
 
-  const bookingLink = project.booking
-    ? `
-      <a
-        href="${project.booking}"
-        target="_blank"
-        rel="noopener"
-        class="project-external-link"
-      >
-        Book ↗
-      </a>
-    `
-    : "";
+  const bookingLink =
+    project.bookingUrl
+      ? `
+        <a
+          href="${project.bookingUrl}"
+          target="_blank"
+          rel="noopener"
+          class="project-external-link project-book-link"
+        >
+          Book here ↗
+        </a>
+      `
+      : "";
+
+
+  const architectureLink =
+    project.architectureWebsite
+      ? `
+        <a
+          href="${project.architectureWebsite}"
+          target="_blank"
+          rel="noopener"
+          class="project-external-link"
+        >
+          Architecture website ↗
+        </a>
+      `
+      : "";
 
 
   detail.innerHTML = `
@@ -153,11 +183,17 @@ if (!project) {
       </div>
 
 
-      <div class="project-links">
+      <div class="project-commerce">
 
-        ${websiteLink}
+        ${priceBlock}
 
-        ${bookingLink}
+        <div class="project-links">
+
+          ${bookingLink}
+
+          ${architectureLink}
+
+        </div>
 
       </div>
 
