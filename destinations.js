@@ -1,93 +1,78 @@
-const destinationsIndex = document.querySelector("#destinations-index");
+const destinationsGrid =
+  document.querySelector("#destinations-grid");
 
 
-const continentOrder = [
-  "Europe",
-  "Asia",
-  "Africa",
-  "North America",
-  "South America",
-  "Oceania"
-];
+destinations.forEach((destination, index) => {
+
+  const projectCount = projects.filter(
+    project => project.country === destination.country
+  ).length;
 
 
-const groupedDestinations = {};
+  /*
+    Si todavía no tenemos ningún proyecto
+    de ese país, no lo mostramos.
+  */
 
-
-projects.forEach((project) => {
-
-  if (!groupedDestinations[project.continent]) {
-    groupedDestinations[project.continent] = {};
-  }
-
-  if (!groupedDestinations[project.continent][project.country]) {
-    groupedDestinations[project.continent][project.country] = 0;
-  }
-
-  groupedDestinations[project.continent][project.country]++;
-
-});
-
-
-continentOrder.forEach((continent) => {
-
-  const countries = groupedDestinations[continent];
-
-  if (!countries) {
+  if (projectCount === 0) {
     return;
   }
 
-  const section = document.createElement("section");
 
-  section.classList.add("continent-section");
+  const article = document.createElement("article");
 
-
-  const sortedCountries = Object.keys(countries).sort(
-    (a, b) => a.localeCompare(b)
-  );
+  article.classList.add("destination-card");
 
 
-  const countryRows = sortedCountries
-    .map((country) => {
+  article.innerHTML = `
 
-      const count = countries[country];
+    <a
+      class="destination-card-link"
+      href="index.html?country=${encodeURIComponent(destination.country)}#places"
+    >
 
-      return `
+      <div class="destination-image">
 
-        <a
-          class="destination-row"
-          href="index.html?country=${encodeURIComponent(country)}#places"
+        <img
+          src="${destination.image}"
+          alt="${destination.country}"
+          loading="lazy"
         >
 
-          <span class="destination-name">
-            ${country}
+        <span class="destination-number">
+          ${String(index + 1).padStart(2, "0")}
+        </span>
+
+      </div>
+
+
+      <div class="destination-info">
+
+        <h2>
+          ${destination.country}
+        </h2>
+
+
+        <div class="destination-meta">
+
+          <span>
+            ${destination.continent}
           </span>
 
-          <span class="destination-count">
-            ${String(count).padStart(2, "0")}
+          <span>
+            ${String(projectCount).padStart(2, "0")}
+            ${projectCount === 1 ? "project" : "projects"}
           </span>
 
-        </a>
+        </div>
 
-      `;
+      </div>
 
-    })
-    .join("");
-
-
-  section.innerHTML = `
-
-    <div class="continent-name">
-      ${continent}
-    </div>
-
-    <div class="country-list">
-      ${countryRows}
-    </div>
+    </a>
 
   `;
 
 
-  destinationsIndex.appendChild(section);
+  destinationsGrid.appendChild(article);
 
 });
