@@ -4795,3 +4795,114 @@ body.menu-open {
   }
 
 }
+/* =========================================
+   DESTINATIONS CONTROLS — ALIGNMENT FIX
+========================================= */
+
+.destinations-controls {
+  display: grid;
+
+  grid-template-columns:
+    1fr;
+
+  gap: 26px;
+
+  padding:
+    28px
+    0
+    38px;
+
+  border-top: 1px solid #111;
+  border-bottom: 1px solid #111;
+}
+
+
+/* CONTINENT FILTERS */
+
+.continent-filters {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 12px 28px;
+
+  padding: 0;
+  margin: 0;
+}
+
+
+/* COUNTRY SELECTOR */
+
+.country-selector {
+  display: grid;
+
+  grid-template-columns:
+    140px
+    minmax(280px, 520px);
+
+  align-items: end;
+
+  gap: 28px;
+
+  margin: 0;
+  padding: 0;
+}
+
+
+.country-selector label {
+  margin: 0;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+.country-selector select {
+  width: 100%;
+
+  margin: 0;
+
+  padding:
+    8px
+    24px
+    8px
+    0;
+
+  border: 0;
+
+  border-bottom:
+    1px solid #111;
+
+  border-radius: 0;
+
+  background-color: transparent;
+
+  color: #111;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 12px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .country-selector {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+  }
+
+}
