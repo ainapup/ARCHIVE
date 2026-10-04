@@ -77,7 +77,7 @@ async function initDestinations() {
 
         <a
           class="destination-card-link"
-          href="index.html?country=${encodeURIComponent(destination.country)}#places"
+          href="destination.html?country=${encodeURIComponent(destination.country)}"
         >
 
           <div class="destination-image">
