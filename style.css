@@ -752,3 +752,150 @@ body {
   }
 
 }
+/* =========================================
+   DESTINATIONS — VISUAL GRID
+========================================= */
+
+.destinations-grid-section {
+  padding: 36px 0 100px;
+}
+
+.destinations-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  column-gap: 24px;
+  row-gap: 85px;
+}
+
+
+/* DESTINATION CARD */
+
+.destination-card {
+  min-width: 0;
+}
+
+.destination-card-link {
+  display: block;
+
+  color: #111;
+  text-decoration: none;
+}
+
+
+/* IMAGE */
+
+.destination-image {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 4 / 3;
+
+  overflow: hidden;
+
+  background: #dad8d0;
+}
+
+.destination-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 0.6s ease;
+}
+
+.destination-card:hover
+.destination-image img {
+  transform: scale(1.02);
+}
+
+
+/* NUMBER */
+
+.destination-number {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  padding: 4px 6px;
+
+  background: #f4f3ee;
+
+  font-size: 10px;
+}
+
+
+/* TEXT */
+
+.destination-info {
+  padding-top: 12px;
+}
+
+.destination-info h2 {
+  margin: 0;
+
+  font-family: "Times New Roman", serif;
+
+  font-size: clamp(30px, 4vw, 58px);
+
+  line-height: 0.95;
+
+  font-weight: normal;
+
+  letter-spacing: -0.045em;
+}
+
+.destination-meta {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-top: 12px;
+
+  padding-top: 9px;
+
+  border-top:
+    1px solid rgba(17, 17, 17, 0.35);
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+
+/* SLIGHT EDITORIAL OFFSET */
+
+.destination-card:nth-child(4n + 2),
+.destination-card:nth-child(4n + 3) {
+  margin-top: 70px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .destinations-grid {
+    grid-template-columns: 1fr;
+
+    row-gap: 55px;
+  }
+
+  .destination-card:nth-child(4n + 2),
+  .destination-card:nth-child(4n + 3) {
+    margin-top: 0;
+  }
+
+  .destination-image {
+    aspect-ratio: 4 / 3;
+  }
+
+}
