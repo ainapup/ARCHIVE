@@ -2842,3 +2842,132 @@ body.menu-open {
   }
 
 }
+/* =========================================
+   DESTINATION SWITCHER
+========================================= */
+
+.destination-switcher {
+  display: grid;
+
+  grid-template-columns:
+    140px
+    minmax(240px, 360px);
+
+  align-items: end;
+
+  gap: 20px;
+
+  margin-top: 25px;
+}
+
+.destination-switcher label {
+  font-size: 9px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.destination-switcher select {
+  width: 100%;
+
+  padding: 8px 0;
+
+  border: 0;
+  border-bottom: 1px solid #111;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #111;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 12px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+
+/* =========================================
+   DESTINATION PROJECT COMPACT INFO
+========================================= */
+
+.destination-project-heading {
+  display: grid;
+
+  grid-template-columns:
+    minmax(300px, 1.5fr)
+    minmax(280px, 1fr);
+
+  gap: 40px;
+}
+
+
+.destination-project-meta {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  margin-top: 8px;
+
+  font-size: 10px;
+}
+
+
+.destination-project-actions {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-end;
+
+  align-items: flex-start;
+
+  gap: 10px;
+}
+
+
+.destination-project-type-line {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+.destination-project-links {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 14px;
+
+  margin-top: 0;
+}
+
+
+@media (max-width: 800px) {
+
+  .destination-switcher {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+  }
+
+  .destination-project-heading {
+    grid-template-columns: 1fr;
+  }
+
+}
