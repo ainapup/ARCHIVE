@@ -21,6 +21,9 @@ async function initProject() {
   const projects =
     await loadProjects();
 
+  const architects =
+    await loadArchitects();
+
 
   const project =
     projects.find(
@@ -33,7 +36,9 @@ async function initProject() {
 
     detail.innerHTML = `
 
-      <section class="project-not-found">
+      <section
+        class="project-not-found"
+      >
         Project not found.
       </section>
 
@@ -44,13 +49,17 @@ async function initProject() {
   }
 
 
+  const architect =
+    architects.find(
+      item =>
+        item.name ===
+        project.architect
+    );
+
+
   document.title =
     `ARCHIVE — ${project.title}`;
 
-
-  /* =========================================
-     GALLERY
-  ========================================= */
 
   const gallery =
     project.images &&
@@ -79,56 +88,30 @@ async function initProject() {
       : "";
 
 
-  /* =========================================
-     PRICE
-  ========================================= */
-
   const hasPrice =
     project.priceFrom !== null &&
     project.priceFrom !== "" &&
     project.priceFrom !== undefined;
 
 
-  const priceBlock =
+  const priceLine =
     hasPrice
       ? `
-
-        <div class="project-price">
-
-          <span class="meta-label">
-            From
-          </span>
-
-          <strong>
-            ${project.currency || ""}${project.priceFrom}
-          </strong>
-
-          ${
-            project.priceNote
-              ? `
-                <span
-                  class="project-price-note"
-                >
-                  ${project.priceNote}
-                </span>
-              `
-              : ""
-          }
-
-        </div>
-
+        ${project.type}
+        · FROM
+        ${project.currency || ""}${project.priceFrom}
+        ${
+          project.priceNote
+            ? ` / ${project.priceNote.toUpperCase()}`
+            : ""
+        }
       `
-      : "";
+      : project.type;
 
-
-  /* =========================================
-     BOOKING LINK
-  ========================================= */
 
   const bookingLink =
     project.bookingUrl
       ? `
-
         <a
           href="${project.bookingUrl}"
           target="_blank"
@@ -137,19 +120,13 @@ async function initProject() {
         >
           Book here ↗
         </a>
-
       `
       : "";
 
 
-  /* =========================================
-     ARCHITECTURE LINK
-  ========================================= */
-
   const architectureLink =
     project.architectureWebsite
       ? `
-
         <a
           href="${project.architectureWebsite}"
           target="_blank"
@@ -158,23 +135,40 @@ async function initProject() {
         >
           Architecture website ↗
         </a>
-
       `
       : "";
 
 
-  /* =========================================
-     PAGE
-  ========================================= */
+  const architectMarkup =
+    architect
+
+      ? `
+        <a
+          href="architect.html?id=${encodeURIComponent(architect.id)}"
+        >
+          ${project.architect}
+        </a>
+      `
+
+      : `
+        <span>
+          ${project.architect}
+        </span>
+      `;
+
 
   detail.innerHTML = `
 
-    <section class="project-hero">
+    <section
+      class="project-hero"
+    >
 
-      <div class="project-page-top">
+      <div
+        class="project-page-top"
+      >
 
         <span>
-          ${project.type}
+          ${priceLine}
         </span>
 
         <span>
@@ -189,33 +183,36 @@ async function initProject() {
       </h1>
 
 
-      <div class="project-page-meta">
+      <div
+        class="project-page-meta"
+      >
 
         <div>
 
-          <span class="meta-label">
+          <span
+            class="meta-label"
+          >
             Architect
           </span>
 
-          <a
-            href="index.html?architect=${encodeURIComponent(project.architect)}#places"
-          >
-            ${project.architect}
-          </a>
+          ${architectMarkup}
 
         </div>
 
 
         <div>
 
-          <span class="meta-label">
+          <span
+            class="meta-label"
+          >
             Location
           </span>
 
           <a
-            href="index.html?country=${encodeURIComponent(project.country)}#places"
+            href="destination.html?country=${encodeURIComponent(project.country)}"
           >
-            ${project.city}, ${project.country}
+            ${project.city},
+            ${project.country}
           </a>
 
         </div>
@@ -223,7 +220,9 @@ async function initProject() {
 
         <div>
 
-          <span class="meta-label">
+          <span
+            class="meta-label"
+          >
             Year
           </span>
 
@@ -238,9 +237,13 @@ async function initProject() {
     </section>
 
 
-    <section class="project-intro">
+    <section
+      class="project-intro"
+    >
 
-      <div class="project-description">
+      <div
+        class="project-description"
+      >
 
         ${
           project.description
@@ -255,11 +258,13 @@ async function initProject() {
       </div>
 
 
-      <div class="project-commerce">
+      <div
+        class="project-commerce"
+      >
 
-        ${priceBlock}
-
-        <div class="project-links">
+        <div
+          class="project-links"
+        >
 
           ${bookingLink}
 
@@ -275,7 +280,9 @@ async function initProject() {
     ${
       gallery
         ? `
-          <section class="project-gallery">
+          <section
+            class="project-gallery"
+          >
             ${gallery}
           </section>
         `
