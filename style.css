@@ -1641,3 +1641,165 @@ body {
   }
 
 }
+/* =========================================
+   CONTACT PAGE
+========================================= */
+
+.contact-page {
+  padding: 0 32px 120px;
+}
+
+
+/* HERO */
+
+.contact-hero {
+  min-height: 560px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 35px 0 70px;
+
+  border-bottom: 1px solid #111;
+}
+
+.contact-kicker {
+  margin-bottom: auto;
+
+  font-size: 10px;
+
+  letter-spacing: 0.08em;
+}
+
+.contact-hero h1 {
+  margin: 0;
+
+  font-family: "Times New Roman", serif;
+
+  font-size: clamp(70px, 10vw, 145px);
+  line-height: 0.84;
+
+  font-weight: normal;
+
+  letter-spacing: -0.065em;
+}
+
+.contact-hero p {
+  max-width: 460px;
+
+  margin: 40px 0 0;
+
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+
+/* MAIN */
+
+.contact-main {
+  display: grid;
+
+  grid-template-columns:
+    minmax(260px, 1fr)
+    minmax(0, 2fr);
+
+  gap: 80px;
+
+  padding-top: 50px;
+}
+
+
+/* DETAILS */
+
+.contact-details {
+  max-width: 340px;
+}
+
+.contact-block {
+  padding: 0 0 32px;
+
+  margin-bottom: 32px;
+
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+}
+
+.contact-block:last-child {
+  border-bottom: 0;
+}
+
+.contact-label {
+  display: block;
+
+  margin-bottom: 15px;
+
+  font-size: 9px;
+
+  letter-spacing: 0.08em;
+}
+
+.contact-block p {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.contact-block a {
+  display: inline-block;
+
+  margin-top: 15px;
+
+  color: #111;
+
+  text-decoration: none;
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+  border-bottom: 1px solid #111;
+
+  padding-bottom: 3px;
+}
+
+.contact-block a:hover {
+  opacity: 0.45;
+}
+
+
+/* CONTACT FORM */
+
+.contact-form {
+  max-width: 850px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .contact-page {
+    padding: 0 18px 80px;
+  }
+
+  .contact-hero {
+    min-height: 470px;
+  }
+
+  .contact-hero h1 {
+    font-size: 64px;
+  }
+
+  .contact-main {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+
+  .contact-details {
+    max-width: none;
+  }
+
+}
