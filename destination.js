@@ -112,7 +112,7 @@ async function initDestination() {
 
 
   /* =========================================
-     COUNTRY PROJECTS
+     PROJECTS
   ========================================= */
 
   const filteredProjects =
@@ -133,13 +133,10 @@ async function initDestination() {
     countElement.textContent =
       "00 places";
 
-
     projectsContainer.innerHTML = `
-
       <div class="destination-empty">
         No projects found.
       </div>
-
     `;
 
     return;
@@ -168,10 +165,6 @@ async function initDestination() {
   document.title =
     `ARCHIVE — ${country}`;
 
-
-  /* =========================================
-     PROJECTS
-  ========================================= */
 
   filteredProjects.forEach(
     (project, index) => {
@@ -209,11 +202,15 @@ async function initDestination() {
 
       const priceText =
         hasPrice
-          ? `FROM ${project.currency || ""}${project.priceFrom}${
-              project.priceNote
-                ? ` / ${project.priceNote.toUpperCase()}`
-                : ""
-            }`
+          ? `
+            <strong class="destination-project-price">
+              FROM ${project.currency || ""}${project.priceFrom}${
+                project.priceNote
+                  ? ` / ${project.priceNote.toUpperCase()}`
+                  : ""
+              }
+            </strong>
+          `
           : "";
 
 
@@ -247,7 +244,7 @@ async function initDestination() {
 
       projectSection.innerHTML = `
 
-        <div class="destination-project-top">
+        <div class="destination-project-info">
 
           <div class="destination-project-index">
 
@@ -258,68 +255,49 @@ async function initDestination() {
           </div>
 
 
-          <div class="destination-project-heading">
-
-            <div>
-
-              <a
-                href="project.html?id=${encodeURIComponent(project.id)}"
-                class="destination-project-title"
-              >
-                ${project.title}
-              </a>
-
-              <div class="destination-project-meta">
-
-                <span>
-                  ${project.architect}
-                </span>
-
-                <span>
-                  ${project.city}, ${project.country}
-                </span>
-
-              </div>
-
-            </div>
+          <a
+            href="project.html?id=${encodeURIComponent(project.id)}"
+            class="destination-project-title"
+          >
+            ${project.title}
+          </a>
 
 
-            <div class="destination-project-actions">
+          <div class="destination-project-secondary">
 
-              <div class="destination-project-type-line">
+            <span>
+              ${project.architect}
+            </span>
 
-                <span>
-                  ${project.type}
-                </span>
+            <span>
+              ${project.city}, ${project.country}
+            </span>
 
-                ${
-                  priceText
-                    ? `
-                      <span>
-                        ${priceText}
-                      </span>
-                    `
-                    : ""
-                }
-
-              </div>
+          </div>
 
 
-              <div class="destination-project-links">
+          <div class="destination-project-type-price">
 
-                ${bookingLink}
+            <span>
+              ${project.type}
+            </span>
 
-                ${architectureLink}
+            ${priceText}
 
-                <a
-                  href="project.html?id=${encodeURIComponent(project.id)}"
-                >
-                  View project ↗
-                </a>
+          </div>
 
-              </div>
 
-            </div>
+          <div class="destination-project-links">
+
+            ${bookingLink}
+
+            ${architectureLink}
+
+            <a
+              href="project.html?id=${encodeURIComponent(project.id)}"
+            >
+              View project ↗
+            </a>
 
           </div>
 
@@ -348,10 +326,6 @@ async function initDestination() {
 
 }
 
-
-/* =========================================
-   IMAGE BLOCK
-========================================= */
 
 function createImageBlock(
   image,
