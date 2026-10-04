@@ -1,0 +1,120 @@
+media:
+  input: images
+  output: /ARCHIVE/images
+  rename: safe
+  categories:
+    - image
+
+content:
+  - name: projects
+    label: Projects
+    type: collection
+    path: content/projects
+
+    fields:
+
+      - name: id
+        label: ID
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Use only lowercase letters, numbers and hyphens"
+
+      - name: title
+        label: Project / Place name
+        type: string
+        required: true
+
+      - name: architect
+        label: Architect / Studio
+        type: string
+        required: true
+
+      - name: city
+        label: City
+        type: string
+        required: true
+
+      - name: country
+        label: Country
+        type: string
+        required: true
+
+      - name: continent
+        label: Continent
+        type: select
+        required: true
+        options:
+          values:
+            - Europe
+            - Asia
+            - Africa
+            - North America
+            - South America
+            - Oceania
+
+      - name: type
+        label: Type
+        type: select
+        required: true
+        options:
+          values:
+            - STAY
+            - EAT
+            - DRINK
+            - VISIT
+
+      - name: year
+        label: Year
+        type: string
+
+      - name: description
+        label: Description
+        type: text
+
+      - name: latitude
+        label: Latitude
+        type: number
+
+      - name: longitude
+        label: Longitude
+        type: number
+
+      - name: images
+        label: Images
+        type: image
+        options:
+          multiple:
+            max: 20
+          rename: safe
+
+      - name: architectureWebsite
+        label: Architecture website
+        type: string
+        description: "ArchDaily, architect studio or official architecture page"
+
+      - name: bookingUrl
+        label: Booking URL
+        type: string
+        description: "Booking, Airbnb, hotel website or reservation page"
+
+      - name: priceFrom
+        label: Price from
+        type: number
+        description: "Enter only the number, e.g. 180"
+
+      - name: currency
+        label: Currency
+        type: select
+        options:
+          values:
+            - €
+            - $
+            - £
+            - ¥
+
+      - name: priceNote
+        label: Price note
+        type: string
+        description: "Example: per night, per room, per person, menu"
