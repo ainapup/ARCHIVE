@@ -2,24 +2,33 @@
    ARCHIVE — ARCHITECT DETAIL
 ========================================= */
 
+
 const params =
   new URLSearchParams(
     window.location.search
   );
 
+
 const architectId =
   params.get("id");
 
-const architectDetail =
+
+const detail =
   document.querySelector(
     "#architect-detail"
   );
 
 
+
+/* =========================================
+   INITIALISE
+========================================= */
+
 async function initArchitect() {
 
   const architects =
     await loadArchitects();
+
 
   const projects =
     await loadProjects();
@@ -34,7 +43,7 @@ async function initArchitect() {
 
   if (!architect) {
 
-    architectDetail.innerHTML = `
+    detail.innerHTML = `
 
       <section class="architect-not-found">
         Architect not found.
@@ -51,71 +60,78 @@ async function initArchitect() {
     `ARCHIVE — ${architect.name}`;
 
 
+
+  /* =========================================
+     RELATED PROJECTS
+  ========================================= */
+
   const relatedProjects =
     projects.filter(
-      project =>
-        projectHasArchitect(
-          project,
-          architect
-        )
+      project => {
+
+        const projectArchitects =
+          getProjectArchitects(
+            project
+          );
+
+
+        return projectArchitects.some(
+          item =>
+            item.id === architect.id ||
+            item.name === architect.name
+        );
+
+      }
     );
 
-
-  const isStudio =
-    architect.category ===
-      "Architecture studio" ||
-
-    architect.category ===
-      "Design studio";
 
 
   /* =========================================
      FACTS
   ========================================= */
 
-  const factRows = [];
+  const facts = [];
+
+
+  const isStudio =
+    architect.category === "Architecture studio" ||
+    architect.category === "Design studio";
 
 
   if (isStudio) {
 
     if (architect.foundedYear) {
 
-      factRows.push(`
-
-        <div class="architect-fact">
-
-          <span class="architect-fact-label">
-            Founded
-          </span>
-
-          <span>
-            ${architect.foundedYear}
-          </span>
-
-        </div>
-
-      `);
+      facts.push({
+        label: "Founded",
+        value: architect.foundedYear
+      });
 
     }
 
 
     if (architect.closedYear) {
 
-      factRows.push(`
+      facts.push({
+        label: "Closed",
+        value: architect.closedYear
+      });
 
-        <div class="architect-fact">
+    }
 
-          <span class="architect-fact-label">
-            Closed
-          </span>
 
-          <span>
-            ${architect.closedYear}
-          </span>
+    if (
+      Array.isArray(
+        architect.founders
+      ) &&
+      architect.founders.length > 0
+    ) {
 
-        </div>
-
-      `);
+      facts.push({
+        label: "Founders",
+        value:
+          architect.founders.join(", ")
+      });
 
     }
 
@@ -123,42 +139,20 @@ async function initArchitect() {
 
     if (architect.birthYear) {
 
-      factRows.push(`
-
-        <div class="architect-fact">
-
-          <span class="architect-fact-label">
-            Born
-          </span>
-
-          <span>
-            ${architect.birthYear}
-          </span>
-
-        </div>
-
-      `);
+      facts.push({
+        label: "Born",
+        value: architect.birthYear
+      });
 
     }
 
 
     if (architect.deathYear) {
 
-      factRows.push(`
-
-        <div class="architect-fact">
-
-          <span class="architect-fact-label">
-            Died
-          </span>
-
-          <span>
-            ${architect.deathYear}
-          </span>
-
-        </div>
-
-      `);
+      facts.push({
+        label: "Died",
+        value: architect.deathYear
+      });
 
     }
 
@@ -167,49 +161,94 @@ async function initArchitect() {
 
   if (architect.location) {
 
-    factRows.push(`
-
-      <div class="architect-fact">
-
-        <span class="architect-fact-label">
-          Based in
-        </span>
-
-        <span>
-          ${architect.location}
-        </span>
-
-      </div>
-
-    `);
+    facts.push({
+      label: "Based in",
+      value: architect.location
+    });
 
   }
 
 
-  if (
-    Array.isArray(
-      architect.founders
-    ) &&
-    architect.founders.length > 0
-  ) {
 
-    factRows.push(`
+  /* =========================================
+     FACTS MARKUP
+  ========================================= */
 
-      <div class="architect-fact">
+  const factsMarkup =
+    facts
+      .map(
+        fact => `
 
-        <span class="architect-fact-label">
-          Founders
-        </span>
+          <div class="architect-fact">
 
-        <span>
-          ${architect.founders.join(", ")}
-        </span>
+            <span>
+              ${fact.label}
+            </span>
 
-      </div>
+            <strong>
+              ${fact.value}
+            </strong>
 
-    `);
+          </div>
 
-  }
+        `
+      )
+      .join("");
+
+
+
+  /* =========================================
+     WEBSITE
+  ========================================= */
+
+  const websiteMarkup =
+    architect.website
+      ? `
+
+        <a
+          class="architect-website"
+          href="${architect.website}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Official website ↗
+        </a>
+
+      `
+      : "";
+
+
+
+  /* =========================================
+     IMAGE
+  ========================================= */
+
+  const imageMarkup =
+    architect.image
+      ? `
+
+        <div class="architect-portrait">
+
+          <img
+            src="${architect.image}"
+            alt="${architect.name}"
+          >
+
+        </div>
+
+      `
+      : `
+
+        <div class="architect-portrait architect-portrait-empty">
+
+          <span>
+            Image
+          </span>
+
+        </div>
+
+      `;
+
 
 
   /* =========================================
@@ -235,7 +274,7 @@ async function initArchitect() {
         );
 
 
-    const awardRows =
+    const rows =
       sortedAwards
         .map(
           award => {
@@ -247,7 +286,7 @@ async function initArchitect() {
               </span>
 
               <span class="architect-award-name">
-                ${award.name}
+                ${award.name || ""}
               </span>
 
               <span class="architect-award-recognition">
@@ -262,10 +301,10 @@ async function initArchitect() {
               return `
 
                 <a
-                  class="architect-award-row"
                   href="${award.url}"
                   target="_blank"
                   rel="noopener noreferrer"
+                  class="architect-award-row"
                 >
                   ${content}
                 </a>
@@ -294,9 +333,9 @@ async function initArchitect() {
 
         <div class="architect-section-header">
 
-          <h2>
+          <span>
             Awards & Recognition
-          </h2>
+          </span>
 
           <span>
             ${String(architect.awards.length).padStart(2, "0")}
@@ -304,8 +343,9 @@ async function initArchitect() {
 
         </div>
 
+
         <div class="architect-awards-list">
-          ${awardRows}
+          ${rows}
         </div>
 
       </section>
@@ -315,90 +355,146 @@ async function initArchitect() {
   }
 
 
+
   /* =========================================
-     RELATED PROJECTS
+     RELATED PLACES
   ========================================= */
 
-  const relatedGrid =
-    relatedProjects
-      .map(
-        (project, index) => {
-
-          const image =
-            project.images &&
-            project.images.length > 0
-              ? project.images[0]
-              : "";
+  let relatedMarkup = "";
 
 
-          return `
+  if (
+    relatedProjects.length > 0
+  ) {
 
-            <article class="project">
+    const cards =
+      relatedProjects
+        .map(
+          (project, index) => {
 
-              <a
-                class="project-link"
-                href="project.html?id=${encodeURIComponent(project.id)}"
-              >
+            const image =
+              Array.isArray(
+                project.images
+              ) &&
+              project.images.length > 0
 
-                <div class="project-image">
+                ? project.images[0]
 
-                  ${
-                    image
-                      ? `
-                        <img
-                          src="${image}"
-                          alt="${project.title}"
-                          loading="lazy"
-                        >
-                      `
-                      : ""
-                  }
-
-                  <span class="project-number">
-                    ${String(index + 1).padStart(2, "0")}
-                  </span>
-
-                </div>
+                : "";
 
 
-                <div class="project-info">
+            return `
 
-                  <h3>
-                    ${project.title}
-                  </h3>
+              <article class="architect-related-card">
 
-                  <p>
-                    ${project.city},
-                    ${project.country}
-                  </p>
+                <a
+                  href="project.html?id=${encodeURIComponent(project.id)}"
+                  class="architect-related-link"
+                >
 
-                  <span class="project-type">
-                    ${project.type}
-                  </span>
+                  <div class="architect-related-image">
 
-                </div>
+                    ${
+                      image
+                        ? `
+                          <img
+                            src="${image}"
+                            alt="${project.title}"
+                            loading="lazy"
+                          >
+                        `
+                        : ""
+                    }
 
-              </a>
 
-            </article>
+                    <span>
+                      ${String(index + 1).padStart(2, "0")}
+                    </span>
 
-          `;
+                  </div>
 
-        }
-      )
-      .join("");
+
+                  <div class="architect-related-info">
+
+                    <h3>
+                      ${project.title}
+                    </h3>
+
+
+                    <p>
+                      ${project.city},
+                      ${project.country}
+                    </p>
+
+
+                    <p class="architect-related-type">
+                      ${project.type || ""}
+                    </p>
+
+                  </div>
+
+                </a>
+
+              </article>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+    relatedMarkup = `
+
+      <section class="architect-related">
+
+        <div class="architect-section-header">
+
+          <span>
+            Related places
+          </span>
+
+          <span>
+            ${String(relatedProjects.length).padStart(2, "0")}
+          </span>
+
+        </div>
+
+
+        <div class="architect-related-grid">
+
+          ${cards}
+
+        </div>
+
+      </section>
+
+    `;
+
+  }
+
 
 
   /* =========================================
      OUTPUT
   ========================================= */
 
-  architectDetail.innerHTML = `
+  detail.innerHTML = `
+
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
 
     <section class="architect-detail-hero">
 
+
       <div class="architect-detail-kicker">
-        ARCHIVE / ARCHITECT
+
+        <span>
+          ARCHIVE / ARCHITECT
+        </span>
+
       </div>
 
 
@@ -407,7 +503,7 @@ async function initArchitect() {
       </h1>
 
 
-      <div class="architect-detail-meta">
+      <div class="architect-summary">
 
         <span>
           ${architect.category || ""}
@@ -428,117 +524,65 @@ async function initArchitect() {
 
       </div>
 
+
     </section>
 
 
-    <section class="architect-detail-intro">
 
-      <div class="architect-detail-label">
-        ABOUT
-      </div>
+    <!-- =====================================
+         ABOUT
+    ====================================== -->
+
+    <section class="architect-about">
 
 
-      <div class="architect-detail-content">
-
-        <div class="architect-detail-description">
-
-          ${
-            architect.description
-              ? `
-                <p>
-                  ${architect.description}
-                </p>
-              `
-              : ""
-          }
-
-        </div>
+      <div class="architect-about-text">
 
 
         ${
-          factRows.length > 0
+          architect.description
             ? `
+
+              <p>
+                ${architect.description}
+              </p>
+
+            `
+            : ""
+        }
+
+
+        ${
+          facts.length > 0
+            ? `
+
               <div class="architect-facts">
-                ${factRows.join("")}
+                ${factsMarkup}
               </div>
+
             `
             : ""
         }
 
 
-        ${
-          architect.website
-            ? `
-              <a
-                href="${architect.website}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="architect-website"
-              >
-                Official website ↗
-              </a>
-            `
-            : ""
-        }
+        ${websiteMarkup}
+
 
       </div>
 
 
-      <div class="architect-detail-image">
+      ${imageMarkup}
 
-        ${
-          architect.image
-            ? `
-              <img
-                src="${architect.image}"
-                alt="${architect.name}"
-              >
-            `
-            : `
-              <div class="architect-image-placeholder">
-                IMAGE
-              </div>
-            `
-        }
-
-      </div>
 
     </section>
+
 
 
     ${awardsMarkup}
 
 
-    <section class="architect-related">
+    ${relatedMarkup}
 
-      <div class="architect-related-header">
-
-        <h2>
-          Related places
-        </h2>
-
-        <span>
-          ${String(relatedProjects.length).padStart(2, "0")}
-        </span>
-
-      </div>
-
-
-      ${
-        relatedProjects.length > 0
-          ? `
-            <div class="project-grid">
-              ${relatedGrid}
-            </div>
-          `
-          : `
-            <div class="empty-results">
-              No related projects yet.
-            </div>
-          `
-      }
-
-    </section>
 
   `;
 
