@@ -50,13 +50,23 @@ async function initProject() {
   const architect =
     architects.find(
       item =>
-        item.name === project.architect
+
+        item.id === project.architectId ||
+
+        (
+          !project.architectId &&
+          item.name === project.architect
+        )
     );
 
 
   document.title =
     `ARCHIVE — ${project.title}`;
 
+
+  /* =========================================
+     GALLERY
+  ========================================= */
 
   const gallery =
     project.images &&
@@ -83,6 +93,10 @@ async function initProject() {
       : "";
 
 
+  /* =========================================
+     PRICE
+  ========================================= */
+
   const hasPrice =
     project.priceFrom !== null &&
     project.priceFrom !== "" &&
@@ -106,6 +120,10 @@ async function initProject() {
       : project.type;
 
 
+  /* =========================================
+     BOOKING
+  ========================================= */
+
   const bookingLink =
     project.bookingUrl
       ? `
@@ -128,6 +146,10 @@ async function initProject() {
       : "";
 
 
+  /* =========================================
+     ARCHITECTURE WEBSITE
+  ========================================= */
+
   const architectureLink =
     project.architectureWebsite
       ? `
@@ -145,6 +167,10 @@ async function initProject() {
       : "";
 
 
+  /* =========================================
+     ARCHITECT
+  ========================================= */
+
   const architectMarkup =
     architect
 
@@ -152,7 +178,7 @@ async function initProject() {
         <a
           href="architect.html?id=${encodeURIComponent(architect.id)}"
         >
-          ${project.architect}
+          ${architect.name}
         </a>
       `
 
@@ -162,6 +188,10 @@ async function initProject() {
         </span>
       `;
 
+
+  /* =========================================
+     AWARDS
+  ========================================= */
 
   let awardsMarkup = "";
 
@@ -180,12 +210,12 @@ async function initProject() {
         );
 
 
-    const awardRows =
+    const rows =
       sortedAwards
         .map(
           award => {
 
-            const awardContent = `
+            const content = `
 
               <span class="project-award-year">
                 ${award.year || "—"}
@@ -212,7 +242,7 @@ async function initProject() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  ${awardContent}
+                  ${content}
                 </a>
 
               `;
@@ -223,7 +253,7 @@ async function initProject() {
             return `
 
               <div class="project-award-row">
-                ${awardContent}
+                ${content}
               </div>
 
             `;
@@ -249,8 +279,9 @@ async function initProject() {
 
         </div>
 
+
         <div class="project-awards-list">
-          ${awardRows}
+          ${rows}
         </div>
 
       </section>
@@ -259,6 +290,10 @@ async function initProject() {
 
   }
 
+
+  /* =========================================
+     OUTPUT
+  ========================================= */
 
   detail.innerHTML = `
 
