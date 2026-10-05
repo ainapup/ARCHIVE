@@ -2,12 +2,12 @@
   {
     "id": "casa-wabi",
     "title": "Casa Wabi",
-"architects": [
-  {
-    "name": "Tadao Ando",
-    "id": "tadao-ando"
-  }
-],
+    "architects": [
+      {
+        "name": "Tadao Ando",
+        "id": "tadao-ando"
+      }
+    ],
     "city": "Puerto Escondido",
     "country": "Mexico",
     "continent": "North America",
@@ -17,13 +17,13 @@
     "latitude": 15.8644,
     "longitude": -97.0717,
     "images": [
-      "/ARCHIVE/images/casa-wabi.jpg"
+      "/ARCHIVE/images/casa-wabi.jpg",
+      "/ARCHIVE/images/02-2.jpg"
     ],
-    "architectureWebsite": "",
-    "bookingUrl": "",
+    "architectureWebsite": "https://casawabi.org/visitas/?utm_source=archive&utm_medium=referral&utm_campaign=booking&utm_content=casa-wabi",
+    "bookingUrl": "https://casawabi.org/visitas/?utm_source=archive&utm_medium=referral&utm_campaign=booking&utm_content=casa-wabi",
     "priceFrom": 250,
     "currency": "€",
-    "priceNote": "NIGHT",
-    "awards": []
+    "priceNote": "NIGHT"
   }
 ]
