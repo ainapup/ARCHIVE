@@ -24,6 +24,11 @@ content:
         type: string
         required: true
 
+
+      # =====================================
+      # ARCHITECTS
+      # =====================================
+
       - name: architects
         label: Architects / Studios
         type: object
@@ -40,6 +45,11 @@ content:
             label: Architect ID
             type: string
             required: true
+
+
+      # =====================================
+      # LOCATION
+      # =====================================
 
       - name: city
         label: City
@@ -64,16 +74,10 @@ content:
             - South America
             - Oceania
 
-      - name: type
-        label: Type
-        type: select
-        required: true
-        options:
-          values:
-            - STAY
-            - EAT
-            - DRINK
-            - VISIT
+
+      # =====================================
+      # ARCHITECTURE
+      # =====================================
 
       - name: year
         label: Year
@@ -83,6 +87,15 @@ content:
         label: Description
         type: text
 
+      - name: architectureWebsite
+        label: Architecture website
+        type: string
+
+
+      # =====================================
+      # MAP
+      # =====================================
+
       - name: latitude
         label: Latitude
         type: number
@@ -91,20 +104,39 @@ content:
         label: Longitude
         type: number
 
-      - name: images
-        label: Images
-        type: image
+
+      # =====================================
+      # PLACE CATEGORY
+      # =====================================
+
+      - name: type
+        label: Main category
+        type: select
+        required: true
         options:
-          multiple:
-            max: 20
+          values:
+            - STAY
+            - EAT
+            - DRINK
+            - VISIT
 
-      - name: architectureWebsite
-        label: Architecture website
+
+      - name: placeType
+        label: Place type
         type: string
 
-      - name: bookingUrl
-        label: Booking URL
+      - name: serviceMode
+        label: Access / Service mode
         type: string
+
+      - name: capacity
+        label: Capacity
+        type: string
+
+
+      # =====================================
+      # PRICE
+      # =====================================
 
       - name: priceFrom
         label: Price from
@@ -121,8 +153,48 @@ content:
             - ¥
 
       - name: priceNote
-        label: Price note
+        label: Price unit
         type: string
+
+      - name: priceLevel
+        label: Price level
+        type: select
+        options:
+          values:
+            - €
+            - €€
+            - €€€
+            - €€€€
+
+
+      # =====================================
+      # BOOKING / VISIT
+      # =====================================
+
+      - name: bookingUrl
+        label: Booking / Reservation URL
+        type: string
+
+      - name: visitUrl
+        label: Visit / Tickets URL
+        type: string
+
+
+      # =====================================
+      # IMAGES
+      # =====================================
+
+      - name: images
+        label: Images
+        type: image
+        options:
+          multiple:
+            max: 20
+
+
+      # =====================================
+      # AWARDS
+      # =====================================
 
       - name: awards
         label: Awards
@@ -158,6 +230,11 @@ content:
             label: Award link
             type: string
 
+
+
+  # =========================================================
+  # ARCHITECTS
+  # =========================================================
 
   - name: architects
     label: Architects
@@ -225,6 +302,11 @@ content:
       - name: image
         label: Image
         type: image
+
+
+      # =====================================
+      # ARCHITECT AWARDS
+      # =====================================
 
       - name: awards
         label: Awards & Recognition
