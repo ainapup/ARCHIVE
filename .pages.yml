@@ -115,6 +115,41 @@ content:
         label: Price note
         type: string
 
+      - name: awards
+        label: Awards
+        type: object
+        list: true
+
+        fields:
+
+          - name: name
+            label: Award name
+            type: string
+            required: true
+
+          - name: year
+            label: Year
+            type: string
+
+          - name: recognition
+            label: Recognition
+            type: select
+            options:
+              values:
+                - Winner
+                - Laureate
+                - Finalist
+                - Shortlisted
+                - Nominee
+                - Special Mention
+                - Commended
+                - Selected
+                - Other
+
+          - name: url
+            label: Award link
+            type: string
+
 
   - name: architects
     label: Architects
@@ -141,6 +176,7 @@ content:
       - name: category
         label: Type
         type: select
+        required: true
         options:
           values:
             - Architect
@@ -151,6 +187,27 @@ content:
       - name: location
         label: Based in
         type: string
+
+      - name: birthYear
+        label: Born
+        type: string
+
+      - name: deathYear
+        label: Died
+        type: string
+
+      - name: foundedYear
+        label: Founded
+        type: string
+
+      - name: closedYear
+        label: Closed
+        type: string
+
+      - name: founders
+        label: Founders
+        type: string
+        list: true
 
       - name: description
         label: Biography / Studio description
@@ -163,3 +220,38 @@ content:
       - name: image
         label: Image
         type: image
+
+      - name: awards
+        label: Awards & Recognition
+        type: object
+        list: true
+
+        fields:
+
+          - name: name
+            label: Award name
+            type: string
+            required: true
+
+          - name: year
+            label: Year
+            type: string
+
+          - name: recognition
+            label: Recognition
+            type: select
+            options:
+              values:
+                - Winner
+                - Laureate
+                - Finalist
+                - Shortlisted
+                - Nominee
+                - Special Mention
+                - Commended
+                - Selected
+                - Other
+
+          - name: url
+            label: Award link
+            type: string
