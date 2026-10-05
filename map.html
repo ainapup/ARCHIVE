@@ -14,7 +14,7 @@
 
   <link
     rel="stylesheet"
-    href="style.css"
+    href="style.css?v=20261005-map2"
   >
 
   <link
@@ -27,25 +27,11 @@
 
 <body>
 
-
-  <!-- =====================================
-       GLOBAL HEADER
-  ====================================== -->
-
   <header class="site-header"></header>
 
 
-
-  <!-- =====================================
-       MAP PAGE
-  ====================================== -->
-
   <main class="map-page">
 
-
-    <!-- =================================
-         HEADER
-    ================================== -->
 
     <section class="map-header">
 
@@ -53,11 +39,9 @@
         ARCHIVE / MAP
       </div>
 
-
       <h1>
         Map
       </h1>
-
 
       <p>
         Explore places through geography,
@@ -68,21 +52,14 @@
 
 
 
-    <!-- =================================
-         MAP FILTERS
-    ================================== -->
-
     <section class="map-controls">
 
-
-      <!-- TYPE -->
 
       <div class="map-filter-group">
 
         <span class="map-filter-label">
           Type
         </span>
-
 
         <div
           class="map-type-filters"
@@ -97,7 +74,6 @@
             All
           </button>
 
-
           <button
             type="button"
             class="map-type-filter"
@@ -105,7 +81,6 @@
           >
             Stay
           </button>
-
 
           <button
             type="button"
@@ -115,7 +90,6 @@
             Eat
           </button>
 
-
           <button
             type="button"
             class="map-type-filter"
@@ -123,7 +97,6 @@
           >
             Drink
           </button>
-
 
           <button
             type="button"
@@ -139,8 +112,6 @@
 
 
 
-      <!-- ARCHITECT -->
-
       <div class="map-filter-group map-architect-filter">
 
         <label
@@ -149,7 +120,6 @@
         >
           Architect
         </label>
-
 
         <select id="map-architect-select">
 
@@ -162,8 +132,6 @@
       </div>
 
 
-
-      <!-- RESULT COUNT -->
 
       <div class="map-result-count">
 
@@ -178,10 +146,6 @@
 
 
 
-    <!-- =================================
-         MAP
-    ================================== -->
-
     <section class="map-section">
 
       <div id="archive-map"></div>
@@ -193,23 +157,13 @@
 
 
 
-  <!-- =====================================
-       LEAFLET
-  ====================================== -->
-
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   ></script>
 
+  <script src="projects.js?v=20261005-map2"></script>
 
-
-  <!-- =====================================
-       ARCHIVE
-  ====================================== -->
-
-  <script src="projects.js"></script>
-
-  <script src="map.js"></script>
+  <script src="map.js?v=20261005-map2"></script>
 
   <script src="navigation.js"></script>
 
