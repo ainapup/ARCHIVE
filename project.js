@@ -58,10 +58,6 @@ async function initProject() {
     `ARCHIVE — ${project.title}`;
 
 
-  /* =========================================
-     GALLERY
-  ========================================= */
-
   const gallery =
     project.images &&
     project.images.length > 0
@@ -70,9 +66,7 @@ async function initProject() {
           .map(
             (image, index) => `
 
-              <figure
-                class="project-gallery-item"
-              >
+              <figure class="project-gallery-item">
 
                 <img
                   src="${image}"
@@ -88,10 +82,6 @@ async function initProject() {
 
       : "";
 
-
-  /* =========================================
-     PRICE
-  ========================================= */
 
   const hasPrice =
     project.priceFrom !== null &&
@@ -116,10 +106,6 @@ async function initProject() {
       : project.type;
 
 
-  /* =========================================
-     BOOKING
-  ========================================= */
-
   const bookingLink =
     project.bookingUrl
       ? `
@@ -128,6 +114,9 @@ async function initProject() {
           href="${project.bookingUrl}"
           data-booking-url="${project.bookingUrl}"
           data-project-id="${project.id}"
+          data-project-name="${project.title}"
+          data-architect="${project.architect}"
+          data-country="${project.country}"
           target="_blank"
           rel="noopener noreferrer"
           class="project-external-link project-book-link"
@@ -138,10 +127,6 @@ async function initProject() {
       `
       : "";
 
-
-  /* =========================================
-     ARCHITECTURE LINK
-  ========================================= */
 
   const architectureLink =
     project.architectureWebsite
@@ -160,10 +145,6 @@ async function initProject() {
       : "";
 
 
-  /* =========================================
-     ARCHITECT
-  ========================================= */
-
   const architectMarkup =
     architect
 
@@ -181,10 +162,6 @@ async function initProject() {
         </span>
       `;
 
-
-  /* =========================================
-     AWARDS
-  ========================================= */
 
   let awardsMarkup = "";
 
@@ -272,7 +249,6 @@ async function initProject() {
 
         </div>
 
-
         <div class="project-awards-list">
           ${awardRows}
         </div>
@@ -283,10 +259,6 @@ async function initProject() {
 
   }
 
-
-  /* =========================================
-     OUTPUT
-  ========================================= */
 
   detail.innerHTML = `
 
@@ -403,11 +375,6 @@ async function initProject() {
 
   `;
 
-
-  /*
-    The page content has just been created,
-    so apply tracking now.
-  */
 
   if (
     typeof applyBookingTracking ===
