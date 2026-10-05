@@ -62,7 +62,7 @@ async function initProject() {
 
 
   /* =========================================
-     PROJECT ARCHITECTS
+     ARCHITECTS
   ========================================= */
 
   const projectArchitects =
@@ -131,65 +131,10 @@ async function initProject() {
       );
 
 
-
-  /* =========================================
-     PRICE
-  ========================================= */
-
-  const hasPrice =
-    project.priceFrom !== null &&
-    project.priceFrom !== "" &&
-    project.priceFrom !== undefined;
-
-
-  const priceLine =
-    hasPrice
-      ? `
-        ${project.type}
-        ·
-        <strong>
-          FROM ${project.currency || ""}${project.priceFrom}
-          ${
-            project.priceNote
-              ? ` / ${project.priceNote.toUpperCase()}`
-              : ""
-          }
-        </strong>
-      `
-      : project.type;
-
-
-
-  /* =========================================
-     BOOKING
-  ========================================= */
-
   const architectNames =
     getProjectArchitectNames(
       project
     );
-
-
-  const bookingLink =
-    project.bookingUrl
-      ? `
-
-        <a
-          href="${project.bookingUrl}"
-          data-booking-url="${project.bookingUrl}"
-          data-project-id="${project.id}"
-          data-project-name="${project.title}"
-          data-architect="${architectNames}"
-          data-country="${project.country}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="project-external-link project-book-link"
-        >
-          Book here ↗
-        </a>
-
-      `
-      : "";
 
 
 
@@ -197,7 +142,7 @@ async function initProject() {
      ARCHITECTURE WEBSITE
   ========================================= */
 
-  const architectureLink =
+  const architectureWebsite =
     project.architectureWebsite
       ? `
 
@@ -205,9 +150,161 @@ async function initProject() {
           href="${project.architectureWebsite}"
           target="_blank"
           rel="noopener noreferrer"
-          class="project-external-link"
+          class="project-info-link"
         >
           Architecture website ↗
+        </a>
+
+      `
+      : "—";
+
+
+
+  /* =========================================
+     PLACE INFO VALUES
+  ========================================= */
+
+  const placeInfoItems = [];
+
+
+  if (project.placeType) {
+
+    placeInfoItems.push(
+      project.placeType
+    );
+
+  }
+
+
+  if (project.serviceMode) {
+
+    placeInfoItems.push(
+      project.serviceMode
+    );
+
+  }
+
+
+  if (project.capacity) {
+
+    placeInfoItems.push(
+      project.capacity
+    );
+
+  }
+
+
+  const hasPrice =
+    project.priceFrom !== null &&
+    project.priceFrom !== "" &&
+    project.priceFrom !== undefined;
+
+
+  if (hasPrice) {
+
+    let price = `From ${project.currency || ""}${project.priceFrom}`;
+
+
+    if (project.priceNote) {
+
+      price +=
+        ` / ${project.priceNote}`;
+
+    }
+
+
+    placeInfoItems.push(
+      price
+    );
+
+  } else if (
+    project.priceLevel
+  ) {
+
+    placeInfoItems.push(
+      project.priceLevel
+    );
+
+  }
+
+
+
+  /* =========================================
+     BOOK / RESERVE / VISIT
+  ========================================= */
+
+  let actionUrl = "";
+
+  let actionLabel = "";
+
+
+  if (
+    project.type === "STAY"
+  ) {
+
+    actionUrl =
+      project.bookingUrl || "";
+
+    actionLabel =
+      "Book here ↗";
+
+  }
+
+
+  if (
+    project.type === "EAT" ||
+    project.type === "DRINK"
+  ) {
+
+    actionUrl =
+      project.bookingUrl || "";
+
+    actionLabel =
+      "Reserve ↗";
+
+  }
+
+
+  if (
+    project.type === "VISIT"
+  ) {
+
+    actionUrl =
+      project.visitUrl ||
+      project.bookingUrl ||
+      "";
+
+    actionLabel =
+      "Visit / Tickets ↗";
+
+  }
+
+
+  const actionLink =
+    actionUrl
+      ? `
+
+        <a
+          href="${actionUrl}"
+
+          ${
+            project.type !== "VISIT"
+              ? `
+                data-booking-url="${actionUrl}"
+                data-project-id="${project.id}"
+                data-project-name="${project.title}"
+                data-architect="${architectNames}"
+                data-country="${project.country}"
+              `
+              : ""
+          }
+
+          target="_blank"
+          rel="noopener noreferrer"
+
+          class="project-place-action"
+        >
+          ${actionLabel}
         </a>
 
       `
@@ -370,17 +467,20 @@ async function initProject() {
 
   detail.innerHTML = `
 
+
     <!-- =====================================
          HERO
     ====================================== -->
 
     <section class="project-hero">
 
+
       <div class="project-page-top">
 
         <span>
-          ${priceLine}
+          ${project.type || ""}
         </span>
+
 
         <span>
           ARCHIVE / ${project.id}
@@ -394,61 +494,158 @@ async function initProject() {
       </h1>
 
 
-      <div class="project-page-meta">
-
-        <div>
-
-          <span class="meta-label">
-
-            ${
-              projectArchitects.length > 1
-                ? "Architects"
-                : "Architect"
-            }
-
-          </span>
+    </section>
 
 
-          <div class="project-architect-links">
 
-            ${architectMarkup || "—"}
+    <!-- =====================================
+         INFORMATION
+    ====================================== -->
+
+    <section class="project-information">
+
+
+      <!-- ARCHITECTURE -->
+
+      <div class="project-information-block">
+
+
+        <div class="project-information-label">
+          Architecture
+        </div>
+
+
+        <div class="project-information-content">
+
+
+          <div class="project-information-row">
+
+            <span>
+              ${
+                projectArchitects.length > 1
+                  ? "Architects"
+                  : "Architect"
+              }
+            </span>
+
+
+            <div class="project-information-value project-architect-links">
+              ${architectMarkup || "—"}
+            </div>
 
           </div>
 
-        </div>
+
+          <div class="project-information-row">
+
+            <span>
+              Location
+            </span>
 
 
-        <div>
+            <div class="project-information-value">
 
-          <span class="meta-label">
-            Location
-          </span>
+              <a
+                href="destination.html?country=${encodeURIComponent(project.country)}"
+              >
+                ${project.city},
+                ${project.country}
+              </a>
 
+            </div>
 
-          <a
-            href="destination.html?country=${encodeURIComponent(project.country)}"
-          >
-            ${project.city},
-            ${project.country}
-          </a>
-
-        </div>
+          </div>
 
 
-        <div>
+          <div class="project-information-row">
 
-          <span class="meta-label">
-            Year
-          </span>
+            <span>
+              Year
+            </span>
 
 
-          <span>
-            ${project.year || "—"}
-          </span>
+            <div class="project-information-value">
+              ${project.year || "—"}
+            </div>
+
+          </div>
+
+
+          <div class="project-information-row">
+
+            <span>
+              Website
+            </span>
+
+
+            <div class="project-information-value">
+              ${architectureWebsite}
+            </div>
+
+          </div>
+
 
         </div>
 
       </div>
+
+
+
+      <!-- PLACE INFO -->
+
+      <div class="project-information-block project-place-information">
+
+
+        <div class="project-information-label">
+          Place info
+        </div>
+
+
+        <div class="project-place-category">
+          ${project.type || ""}
+        </div>
+
+
+        ${
+          placeInfoItems.length > 0
+            ? `
+
+              <div class="project-place-line">
+
+                ${
+                  placeInfoItems
+                    .map(
+                      item => `
+                        <span>
+                          ${item}
+                        </span>
+                      `
+                    )
+                    .join("")
+                }
+
+              </div>
+
+            `
+            : ""
+        }
+
+
+        ${
+          actionLink
+            ? `
+
+              <div class="project-place-action-wrap">
+                ${actionLink}
+              </div>
+
+            `
+            : ""
+        }
+
+
+      </div>
+
 
     </section>
 
@@ -458,36 +655,30 @@ async function initProject() {
          DESCRIPTION
     ====================================== -->
 
-    <section class="project-intro">
+    ${
+      project.description
+        ? `
 
-      <div class="project-description">
+          <section class="project-description-section">
 
-        ${
-          project.description
-            ? `
+            <div class="project-description-label">
+              About
+            </div>
+
+
+            <div class="project-description">
+
               <p>
                 ${project.description}
               </p>
-            `
-            : ""
-        }
 
-      </div>
+            </div>
 
+          </section>
 
-      <div class="project-commerce">
-
-        <div class="project-links">
-
-          ${bookingLink}
-
-          ${architectureLink}
-
-        </div>
-
-      </div>
-
-    </section>
+        `
+        : ""
+    }
 
 
 
