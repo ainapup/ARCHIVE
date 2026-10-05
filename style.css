@@ -4983,3 +4983,208 @@ body.menu-open {
   }
 
 }
+/* =========================================
+   ARCHITECT — FACTS + AWARDS
+========================================= */
+
+.architect-detail-content {
+  min-width: 0;
+}
+
+
+.architect-facts {
+  margin-top: 35px;
+
+  border-top:
+    1px solid rgba(17, 17, 17, 0.25);
+}
+
+
+.architect-fact {
+  display: grid;
+
+  grid-template-columns:
+    100px
+    minmax(0, 1fr);
+
+  gap: 20px;
+
+  padding:
+    8px
+    0;
+
+  border-bottom:
+    1px solid rgba(17, 17, 17, 0.18);
+
+  font-size: 10px;
+
+  line-height: 1.35;
+}
+
+
+.architect-fact-label {
+  font-size: 8px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+
+  opacity: 0.55;
+}
+
+
+/* =========================================
+   ARCHITECT AWARDS
+========================================= */
+
+.architect-awards {
+  padding:
+    35px
+    0
+    75px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.architect-section-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding-bottom: 12px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.architect-section-header h2 {
+  margin: 0;
+
+  font-size: 9px;
+
+  font-weight: normal;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+.architect-section-header span {
+  font-size: 9px;
+}
+
+
+.architect-awards-list {
+  width: 100%;
+}
+
+
+.architect-award-row {
+  display: grid;
+
+  grid-template-columns:
+    90px
+    minmax(220px, 1fr)
+    minmax(110px, 180px);
+
+  gap: 25px;
+
+  align-items: baseline;
+
+  padding:
+    12px
+    0;
+
+  border-bottom:
+    1px solid rgba(17, 17, 17, 0.18);
+
+  color: #111;
+
+  text-decoration: none;
+}
+
+
+.architect-award-year {
+  font-size: 9px;
+
+  letter-spacing: 0.05em;
+}
+
+
+.architect-award-name {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 19px;
+
+  line-height: 1;
+
+  letter-spacing: -0.02em;
+}
+
+
+.architect-award-recognition {
+  font-size: 8px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+
+  text-align: right;
+
+  opacity: 0.6;
+}
+
+
+a.architect-award-row:hover
+.architect-award-name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+
+/* =========================================
+   ARCHITECT — RELATED PLACES SPACING
+========================================= */
+
+.architect-related {
+  padding-top: 35px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .architect-fact {
+    grid-template-columns:
+      80px
+      1fr;
+  }
+
+
+  .architect-award-row {
+    grid-template-columns:
+      55px
+      1fr;
+
+    gap:
+      6px
+      15px;
+  }
+
+
+  .architect-award-recognition {
+    grid-column: 2;
+
+    text-align: left;
+  }
+
+}
