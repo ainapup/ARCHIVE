@@ -2,11 +2,6 @@
    ARCHIVE — DESTINATIONS INDEX
 ========================================= */
 
-const destinationsGrid =
-  document.querySelector(
-    "#destinations-grid"
-  );
-
 const continentFilters =
   document.querySelector(
     "#continent-filters"
@@ -17,11 +12,20 @@ const countrySelect =
     "#country-select"
   );
 
+const destinationsGrid =
+  document.querySelector(
+    "#destinations-grid"
+  );
 
-let allDestinations = [];
+
+let projects = [];
 
 let activeContinent = "ALL";
 
+
+/* =========================================
+   CONTINENT ORDER
+========================================= */
 
 const continentOrder = [
   "Europe",
@@ -39,77 +43,11 @@ const continentOrder = [
 
 async function initDestinations() {
 
-  const projects =
+  projects =
     await loadProjects();
 
 
-  const destinationsMap = {};
-
-
-  projects.forEach(
-    project => {
-
-      if (!project.country) {
-        return;
-      }
-
-
-      if (
-        !destinationsMap[
-          project.country
-        ]
-      ) {
-
-        destinationsMap[
-          project.country
-        ] = {
-
-          country:
-            project.country,
-
-          continent:
-            project.continent || "",
-
-          projects: [],
-
-          image:
-            project.images &&
-            project.images.length > 0
-              ? project.images[0]
-              : ""
-
-        };
-
-      }
-
-
-      destinationsMap[
-        project.country
-      ].projects.push(
-        project
-      );
-
-    }
-  );
-
-
-  allDestinations =
-    Object.values(
-      destinationsMap
-    );
-
-
-  allDestinations.sort(
-    (a, b) =>
-      a.country.localeCompare(
-        b.country
-      )
-  );
-
-
   renderContinentFilters();
-
-  renderCountrySelect();
 
   renderDestinations();
 
@@ -125,74 +63,162 @@ initDestinations();
 
 function renderContinentFilters() {
 
-  const availableContinents =
-    continentOrder.filter(
-      continent =>
-        allDestinations.some(
-          destination =>
-            destination.continent ===
-            continent
-        )
-    );
+  continentFilters.innerHTML = "";
 
 
   const filters = [
     "ALL",
-    ...availableContinents
+    ...continentOrder
   ];
 
 
-  continentFilters.innerHTML =
-    filters
-      .map(
-        continent => {
+  filters.forEach(
+    continent => {
 
-          const activeClass =
-            continent ===
-            activeContinent
-              ? "active"
-              : "";
+      const button =
+        document.createElement(
+          "button"
+        );
 
 
-          return `
+      button.type =
+        "button";
 
-            <button
-              class="continent-filter ${activeClass}"
-              data-continent="${continent}"
-              type="button"
-            >
-              ${continent}
-            </button>
 
-          `;
+      button.className =
+        "destination-filter";
+
+
+      if (
+        continent ===
+        activeContinent
+      ) {
+
+        button.classList.add(
+          "active"
+        );
+
+      }
+
+
+      button.textContent =
+        continent;
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          activeContinent =
+            continent;
+
+
+          renderContinentFilters();
+
+          renderDestinations();
 
         }
-      )
-      .join("");
+      );
 
 
-  document
-    .querySelectorAll(
-      ".continent-filter"
-    )
-    .forEach(
-      button => {
+      continentFilters.appendChild(
+        button
+      );
 
-        button.addEventListener(
-          "click",
-          () => {
+    }
+  );
 
-            activeContinent =
-              button.dataset.continent;
+}
 
 
-            renderContinentFilters();
+/* =========================================
+   CREATE DESTINATIONS
+========================================= */
 
-            renderCountrySelect();
+function getDestinations() {
 
-            renderDestinations();
+  const destinationMap = {};
 
-          }
+
+  projects.forEach(
+    project => {
+
+      if (!project.country) {
+        return;
+      }
+
+
+      if (
+        !destinationMap[
+          project.country
+        ]
+      ) {
+
+        destinationMap[
+          project.country
+        ] = {
+
+          country:
+            project.country,
+
+          continent:
+            project.continent,
+
+          projects: [],
+
+          image:
+            project.images &&
+            project.images.length > 0
+              ? project.images[0]
+              : ""
+
+        };
+
+      }
+
+
+      destinationMap[
+        project.country
+      ].projects.push(
+        project
+      );
+
+    }
+  );
+
+
+  return Object.values(
+    destinationMap
+  )
+    .sort(
+      (a, b) => {
+
+        const continentA =
+          continentOrder.indexOf(
+            a.continent
+          );
+
+        const continentB =
+          continentOrder.indexOf(
+            b.continent
+          );
+
+
+        if (
+          continentA !==
+          continentB
+        ) {
+
+          return (
+            continentA -
+            continentB
+          );
+
+        }
+
+
+        return a.country.localeCompare(
+          b.country
         );
 
       }
@@ -202,28 +228,140 @@ function renderContinentFilters() {
 
 
 /* =========================================
-   COUNTRY SELECT
+   RENDER
 ========================================= */
 
-function renderCountrySelect() {
+function renderDestinations() {
 
-  let destinations =
-    [...allDestinations];
+  const destinations =
+    getDestinations();
+
+
+  const filtered =
+    activeContinent === "ALL"
+
+      ? destinations
+
+      : destinations.filter(
+          destination =>
+            destination.continent ===
+            activeContinent
+        );
+
+
+  renderCountrySelector(
+    filtered
+  );
+
+
+  destinationsGrid.innerHTML =
+    "";
 
 
   if (
-    activeContinent !== "ALL"
+    filtered.length === 0
   ) {
 
-    destinations =
-      destinations.filter(
-        destination =>
-          destination.continent ===
-          activeContinent
-      );
+    destinationsGrid.innerHTML = `
+
+      <div class="destinations-empty">
+
+        No destinations yet.
+
+      </div>
+
+    `;
+
+    return;
 
   }
 
+
+  filtered.forEach(
+    destination => {
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+
+      card.className =
+        "destination-card";
+
+
+      card.innerHTML = `
+
+        <a
+          href="destination.html?country=${encodeURIComponent(destination.country)}"
+          class="destination-card-link"
+        >
+
+          <div class="destination-card-image">
+
+            ${
+              destination.image
+                ? `
+                  <img
+                    src="${destination.image}"
+                    alt="${destination.country}"
+                    loading="lazy"
+                  >
+                `
+                : ""
+            }
+
+          </div>
+
+
+          <div class="destination-card-info">
+
+            <h2>
+              ${destination.country}
+            </h2>
+
+
+            <div class="destination-card-meta">
+
+              <span>
+                ${destination.continent}
+              </span>
+
+              <span>
+                ${String(destination.projects.length).padStart(2, "0")}
+                ${
+                  destination.projects.length === 1
+                    ? "place"
+                    : "places"
+                }
+              </span>
+
+            </div>
+
+          </div>
+
+        </a>
+
+      `;
+
+
+      destinationsGrid.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   COUNTRY SELECTOR
+========================================= */
+
+function renderCountrySelector(
+  destinations
+) {
 
   countrySelect.innerHTML = `
 
@@ -253,7 +391,7 @@ function renderCountrySelect() {
 
 
 /* =========================================
-   COUNTRY NAVIGATION
+   COUNTRY CHANGE
 ========================================= */
 
 countrySelect.addEventListener(
@@ -274,123 +412,3 @@ countrySelect.addEventListener(
 
   }
 );
-
-
-/* =========================================
-   DESTINATION CARDS
-========================================= */
-
-function renderDestinations() {
-
-  destinationsGrid.innerHTML = "";
-
-
-  let destinations =
-    [...allDestinations];
-
-
-  if (
-    activeContinent !== "ALL"
-  ) {
-
-    destinations =
-      destinations.filter(
-        destination =>
-          destination.continent ===
-          activeContinent
-      );
-
-  }
-
-
-  destinations.forEach(
-    (destination, index) => {
-
-      const projectCount =
-        destination.projects.length;
-
-
-      const article =
-        document.createElement(
-          "article"
-        );
-
-
-      article.className =
-        "destination-card";
-
-
-      article.innerHTML = `
-
-        <a
-          class="destination-card-link"
-          href="destination.html?country=${encodeURIComponent(destination.country)}"
-        >
-
-          <div class="destination-image">
-
-            ${
-              destination.image
-                ? `
-                  <img
-                    src="${destination.image}"
-                    alt="${destination.country}"
-                    loading="lazy"
-                  >
-                `
-                : `
-                  <div
-                    class="destination-image-placeholder"
-                  ></div>
-                `
-            }
-
-
-            <span
-              class="destination-number"
-            >
-              ${String(index + 1).padStart(2, "0")}
-            </span>
-
-          </div>
-
-
-          <div class="destination-info">
-
-            <h2>
-              ${destination.country}
-            </h2>
-
-
-            <div class="destination-meta">
-
-              <span>
-                ${destination.continent}
-              </span>
-
-              <span>
-                ${String(projectCount).padStart(2, "0")}
-                ${
-                  projectCount === 1
-                    ? "project"
-                    : "projects"
-                }
-              </span>
-
-            </div>
-
-          </div>
-
-        </a>
-
-      `;
-
-
-      destinationsGrid.appendChild(
-        article
-      );
-
-    }
-  );
-
-}
