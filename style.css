@@ -7565,3 +7565,100 @@ a.project-award-row:hover
   }
 
 }
+/* =========================================================
+   ARCHIVE — SEARCH CLEAR BUTTON
+========================================================= */
+
+
+/* REMOVE BROWSER DEFAULT CROSS */
+
+#global-search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+
+  appearance: none;
+
+  display: none;
+}
+
+
+/* FIELD CONTAINER */
+
+.search-field {
+  position: relative;
+
+  width: 100%;
+}
+
+
+/* GIVE INPUT SPACE FOR THE CROSS */
+
+.search-field
+#global-search-input {
+  padding-right: 42px;
+}
+
+
+/* CUSTOM CROSS */
+
+.search-clear {
+  position: absolute;
+
+  top: 50%;
+
+  right: 2px;
+
+  transform:
+    translateY(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 28px;
+
+  height: 28px;
+
+  margin: 0;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #111;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 22px;
+
+  font-weight: 300;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition:
+    opacity 0.15s ease;
+}
+
+
+.search-clear.visible {
+  opacity: 1;
+
+  visibility: visible;
+}
+
+
+.search-clear:hover {
+  opacity: 0.45;
+}
