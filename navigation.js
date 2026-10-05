@@ -1,87 +1,4 @@
 /* =========================================
-   ARCHIVE — GOOGLE TAG MANAGER
-========================================= */
-
-(function () {
-
-  const GTM_ID = "GTM-P384GMLB";
-
-
-  /* GTM SCRIPT */
-
-  window.dataLayer =
-    window.dataLayer || [];
-
-  window.dataLayer.push({
-    "gtm.start":
-      new Date().getTime(),
-    event:
-      "gtm.js"
-  });
-
-
-  const firstScript =
-    document.getElementsByTagName(
-      "script"
-    )[0];
-
-
-  const gtmScript =
-    document.createElement(
-      "script"
-    );
-
-
-  gtmScript.async = true;
-
-  gtmScript.src =
-    "https://www.googletagmanager.com/gtm.js?id=" +
-    GTM_ID;
-
-
-  firstScript.parentNode.insertBefore(
-    gtmScript,
-    firstScript
-  );
-
-
-  /* GTM NOSCRIPT FALLBACK */
-
-  const noscript =
-    document.createElement(
-      "noscript"
-    );
-
-
-  noscript.innerHTML = `
-
-    <iframe
-      src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"
-    ></iframe>
-
-  `;
-
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-      document.body.insertBefore(
-        noscript,
-        document.body.firstChild
-      );
-
-    }
-  );
-
-})();
-
-
-
-/* =========================================
    ARCHIVE — GLOBAL NAVIGATION
 ========================================= */
 
@@ -90,9 +7,9 @@ document.addEventListener(
   () => {
 
 
-    /* -----------------------------------------
+    /* =========================================
        HEADER
-    ----------------------------------------- */
+    ========================================= */
 
     const header =
       document.querySelector(
@@ -174,9 +91,9 @@ document.addEventListener(
 
 
 
-    /* -----------------------------------------
+    /* =========================================
        MOBILE MENU
-    ----------------------------------------- */
+    ========================================= */
 
     const mobileMenu =
       document.createElement(
@@ -364,9 +281,9 @@ document.addEventListener(
 
 
 
-    /* -----------------------------------------
+    /* =========================================
        ACTIVE NAVIGATION
-    ----------------------------------------- */
+    ========================================= */
 
     const currentFile =
       window.location.pathname
@@ -428,9 +345,9 @@ document.addEventListener(
 
 
 
-    /* -----------------------------------------
+    /* =========================================
        FOOTER
-    ----------------------------------------- */
+    ========================================= */
 
     const footer =
       document.createElement(
@@ -513,6 +430,30 @@ document.addEventListener(
         <div class="footer-column">
 
           <span class="footer-label">
+            Legal
+          </span>
+
+          <a href="privacy.html">
+            Privacy
+          </a>
+
+          <a href="cookies.html">
+            Cookies
+          </a>
+
+          <a
+            href="#"
+            id="cookie-settings-link"
+          >
+            Cookie settings
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <span class="footer-label">
             Follow
           </span>
 
@@ -544,6 +485,40 @@ document.addEventListener(
     document.body.appendChild(
       footer
     );
+
+
+
+    /* =========================================
+       COOKIE CONSENT SCRIPT
+    ========================================= */
+
+    if (
+      !document.querySelector(
+        'script[data-archive-cookie-consent]'
+      )
+    ) {
+
+      const cookieScript =
+        document.createElement(
+          "script"
+        );
+
+
+      cookieScript.src =
+        "cookie-consent.js";
+
+
+      cookieScript.setAttribute(
+        "data-archive-cookie-consent",
+        "true"
+      );
+
+
+      document.body.appendChild(
+        cookieScript
+      );
+
+    }
 
   }
 );
