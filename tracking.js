@@ -1,10 +1,10 @@
 /* =========================================
-   ARCHIVE — OUTBOUND LINK TRACKING
+   ARCHIVE — BOOKING TRACKING
 ========================================= */
 
 
 /* =========================================
-   ADD ARCHIVE REFERRAL PARAMETERS
+   BUILD TRACKED URL
 ========================================= */
 
 function buildTrackedUrl(
@@ -88,9 +88,9 @@ function buildTrackedUrl(
 
   } catch (error) {
 
-    console.warn(
-      "ARCHIVE — Could not track URL:",
-      originalUrl
+    console.error(
+      "ARCHIVE — Invalid booking URL",
+      error
     );
 
 
@@ -102,7 +102,7 @@ function buildTrackedUrl(
 
 
 /* =========================================
-   DATA LAYER EVENT
+   TRACK BOOKING CLICK
 ========================================= */
 
 function trackBookingClick(link) {
@@ -111,7 +111,7 @@ function trackBookingClick(link) {
     window.dataLayer || [];
 
 
-  window.dataLayer.push({
+  const bookingEvent = {
 
     event:
       "booking_click",
@@ -131,13 +131,51 @@ function trackBookingClick(link) {
     booking_url:
       link.href || ""
 
-  });
+  };
+
+
+  window.dataLayer.push(
+    bookingEvent
+  );
+
+
+  console.log(
+    "ARCHIVE booking_click",
+    bookingEvent
+  );
 
 }
 
 
 /* =========================================
-   APPLY BOOKING TRACKING
+   GLOBAL CLICK LISTENER
+========================================= */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    const bookingLink =
+      event.target.closest(
+        "[data-booking-url]"
+      );
+
+
+    if (!bookingLink) {
+      return;
+    }
+
+
+    trackBookingClick(
+      bookingLink
+    );
+
+  }
+);
+
+
+/* =========================================
+   APPLY UTM PARAMETERS
 ========================================= */
 
 function applyBookingTracking() {
@@ -151,16 +189,6 @@ function applyBookingTracking() {
   bookingLinks.forEach(
     link => {
 
-      if (
-        link.dataset.trackingReady ===
-        "true"
-      ) {
-
-        return;
-
-      }
-
-
       const originalUrl =
         link.dataset.bookingUrl;
 
@@ -173,20 +201,6 @@ function applyBookingTracking() {
           originalUrl,
           projectId
         );
-
-
-      link.addEventListener(
-        "click",
-        () => {
-
-          trackBookingClick(link);
-
-        }
-      );
-
-
-      link.dataset.trackingReady =
-        "true";
 
     }
   );
