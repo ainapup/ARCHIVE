@@ -47,7 +47,10 @@ async function initDestination() {
     [
       ...new Set(
         projects
-          .map(project => project.country)
+          .map(
+            project =>
+              project.country
+          )
           .filter(Boolean)
       )
     ]
@@ -127,10 +130,13 @@ async function initDestination() {
     countElement.textContent =
       "00 places";
 
+
     projectsContainer.innerHTML = `
+
       <div class="destination-empty">
         No projects found.
       </div>
+
     `;
 
     return;
@@ -139,7 +145,8 @@ async function initDestination() {
 
 
   const continent =
-    filteredProjects[0].continent;
+    filteredProjects[0]
+      .continent;
 
 
   titleElement.textContent =
@@ -193,6 +200,12 @@ async function initDestination() {
         "";
 
 
+      const architectNames =
+        getProjectArchitectNames(
+          project
+        );
+
+
       const hasPrice =
         project.priceFrom !== null &&
         project.priceFrom !== "" &&
@@ -217,18 +230,20 @@ async function initDestination() {
       const bookingLink =
         project.bookingUrl
           ? `
+
             <a
               href="${project.bookingUrl}"
               data-booking-url="${project.bookingUrl}"
               data-project-id="${project.id}"
               data-project-name="${project.title}"
-              data-architect="${project.architect}"
+              data-architect="${architectNames}"
               data-country="${project.country}"
               target="_blank"
               rel="noopener noreferrer"
             >
               Book here ↗
             </a>
+
           `
           : "";
 
@@ -236,6 +251,7 @@ async function initDestination() {
       const architectureLink =
         project.architectureWebsite
           ? `
+
             <a
               href="${project.architectureWebsite}"
               target="_blank"
@@ -243,6 +259,7 @@ async function initDestination() {
             >
               Architecture website ↗
             </a>
+
           `
           : "";
 
@@ -271,7 +288,7 @@ async function initDestination() {
           <div class="destination-project-secondary">
 
             <span>
-              ${project.architect}
+              ${architectNames}
             </span>
 
             <span>
