@@ -14,7 +14,7 @@
 
   <link
     rel="stylesheet"
-    href="style.css?v=20261005-map2"
+    href="style.css?v=20261005-map-final"
   >
 
   <link
@@ -26,6 +26,7 @@
 
 
 <body>
+
 
   <header class="site-header"></header>
 
@@ -39,9 +40,11 @@
         ARCHIVE / MAP
       </div>
 
+
       <h1>
         Map
       </h1>
+
 
       <p>
         Explore places through geography,
@@ -55,11 +58,12 @@
     <section class="map-controls">
 
 
-      <div class="map-filter-group">
+      <div class="map-control-block">
 
-        <span class="map-filter-label">
-          Type
-        </span>
+        <div class="map-control-label">
+          TYPE
+        </div>
+
 
         <div
           class="map-type-filters"
@@ -71,7 +75,7 @@
             class="map-type-filter active"
             data-type="ALL"
           >
-            All
+            ALL
           </button>
 
           <button
@@ -79,7 +83,7 @@
             class="map-type-filter"
             data-type="STAY"
           >
-            Stay
+            STAY
           </button>
 
           <button
@@ -87,7 +91,7 @@
             class="map-type-filter"
             data-type="EAT"
           >
-            Eat
+            EAT
           </button>
 
           <button
@@ -95,7 +99,7 @@
             class="map-type-filter"
             data-type="DRINK"
           >
-            Drink
+            DRINK
           </button>
 
           <button
@@ -103,7 +107,7 @@
             class="map-type-filter"
             data-type="VISIT"
           >
-            Visit
+            VISIT
           </button>
 
         </div>
@@ -112,14 +116,15 @@
 
 
 
-      <div class="map-filter-group map-architect-filter">
+      <div class="map-control-block map-control-architect">
 
         <label
-          class="map-filter-label"
+          class="map-control-label"
           for="map-architect-select"
         >
-          Architect
+          ARCHITECT
         </label>
+
 
         <select id="map-architect-select">
 
@@ -133,10 +138,10 @@
 
 
 
-      <div class="map-result-count">
+      <div class="map-control-count">
 
         <span id="map-result-count">
-          00 places
+          00 PLACES
         </span>
 
       </div>
@@ -161,9 +166,9 @@
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   ></script>
 
-  <script src="projects.js?v=20261005-map2"></script>
+  <script src="projects.js?v=20261005-map-final"></script>
 
-  <script src="map.js?v=20261005-map2"></script>
+  <script src="map.js?v=20261005-map-final"></script>
 
   <script src="navigation.js"></script>
 
