@@ -32,7 +32,9 @@ async function initArchitects() {
 
   architects.sort(
     (a, b) =>
-      a.name.localeCompare(b.name)
+      a.name.localeCompare(
+        b.name
+      )
   );
 
 
@@ -66,9 +68,13 @@ architectSearch.addEventListener(
         architect => {
 
           const searchable = `
+
             ${architect.name || ""}
+
             ${architect.location || ""}
+
             ${architect.category || ""}
+
           `
           .toLowerCase();
 
@@ -168,11 +174,9 @@ function renderArchitects(
                 const projectCount =
                   projects.filter(
                     project =>
-                      project.architectId === architect.id ||
-
-                      (
-                        !project.architectId &&
-                        project.architect === architect.name
+                      projectHasArchitect(
+                        project,
+                        architect
                       )
                   ).length;
 
@@ -188,11 +192,9 @@ function renderArchitects(
                       ${architect.name}
                     </span>
 
-
                     <span class="architect-row-location">
                       ${architect.location || ""}
                     </span>
-
 
                     <span class="architect-count">
                       ${String(projectCount).padStart(2, "0")}
