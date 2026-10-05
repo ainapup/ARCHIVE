@@ -36,9 +36,7 @@ async function initArchitect() {
 
     architectDetail.innerHTML = `
 
-      <section
-        class="architect-not-found"
-      >
+      <section class="architect-not-found">
         Architect not found.
       </section>
 
@@ -56,10 +54,237 @@ async function initArchitect() {
   const relatedProjects =
     projects.filter(
       project =>
-        project.architect ===
-        architect.name
+        project.architect === architect.name
     );
 
+
+  const isStudio =
+    architect.category === "Architecture studio" ||
+    architect.category === "Design studio";
+
+
+  /* =========================================
+     DATES / FOUNDERS
+  ========================================= */
+
+  const dateRows = [];
+
+
+  if (isStudio) {
+
+    if (architect.foundedYear) {
+
+      dateRows.push(`
+        <div class="architect-fact">
+          <span class="architect-fact-label">
+            Founded
+          </span>
+
+          <span>
+            ${architect.foundedYear}
+          </span>
+        </div>
+      `);
+
+    }
+
+
+    if (architect.closedYear) {
+
+      dateRows.push(`
+        <div class="architect-fact">
+          <span class="architect-fact-label">
+            Closed
+          </span>
+
+          <span>
+            ${architect.closedYear}
+          </span>
+        </div>
+      `);
+
+    }
+
+  } else {
+
+    if (architect.birthYear) {
+
+      dateRows.push(`
+        <div class="architect-fact">
+          <span class="architect-fact-label">
+            Born
+          </span>
+
+          <span>
+            ${architect.birthYear}
+          </span>
+        </div>
+      `);
+
+    }
+
+
+    if (architect.deathYear) {
+
+      dateRows.push(`
+        <div class="architect-fact">
+          <span class="architect-fact-label">
+            Died
+          </span>
+
+          <span>
+            ${architect.deathYear}
+          </span>
+        </div>
+      `);
+
+    }
+
+  }
+
+
+  if (architect.location) {
+
+    dateRows.push(`
+      <div class="architect-fact">
+        <span class="architect-fact-label">
+          Based in
+        </span>
+
+        <span>
+          ${architect.location}
+        </span>
+      </div>
+    `);
+
+  }
+
+
+  if (
+    Array.isArray(architect.founders) &&
+    architect.founders.length > 0
+  ) {
+
+    dateRows.push(`
+      <div class="architect-fact">
+        <span class="architect-fact-label">
+          Founders
+        </span>
+
+        <span>
+          ${architect.founders.join(", ")}
+        </span>
+      </div>
+    `);
+
+  }
+
+
+  /* =========================================
+     AWARDS
+  ========================================= */
+
+  let awardsMarkup = "";
+
+
+  if (
+    Array.isArray(architect.awards) &&
+    architect.awards.length > 0
+  ) {
+
+    const sortedAwards =
+      [...architect.awards]
+        .sort(
+          (a, b) =>
+            Number(b.year || 0) -
+            Number(a.year || 0)
+        );
+
+
+    const awardRows =
+      sortedAwards
+        .map(
+          award => {
+
+            const awardContent = `
+
+              <span class="architect-award-year">
+                ${award.year || "—"}
+              </span>
+
+              <span class="architect-award-name">
+                ${award.name}
+              </span>
+
+              <span class="architect-award-recognition">
+                ${award.recognition || ""}
+              </span>
+
+            `;
+
+
+            if (award.url) {
+
+              return `
+
+                <a
+                  class="architect-award-row"
+                  href="${award.url}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ${awardContent}
+                </a>
+
+              `;
+
+            }
+
+
+            return `
+
+              <div class="architect-award-row">
+                ${awardContent}
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+    awardsMarkup = `
+
+      <section class="architect-awards">
+
+        <div class="architect-section-header">
+
+          <h2>
+            Awards & Recognition
+          </h2>
+
+          <span>
+            ${String(architect.awards.length).padStart(2, "0")}
+          </span>
+
+        </div>
+
+
+        <div class="architect-awards-list">
+          ${awardRows}
+        </div>
+
+      </section>
+
+    `;
+
+  }
+
+
+  /* =========================================
+     RELATED PROJECTS
+  ========================================= */
 
   const relatedGrid =
     relatedProjects
@@ -131,6 +356,10 @@ async function initArchitect() {
       .join("");
 
 
+  /* =========================================
+     PAGE OUTPUT
+  ========================================= */
+
   architectDetail.innerHTML = `
 
     <section class="architect-detail-hero">
@@ -176,14 +405,29 @@ async function initArchitect() {
       </div>
 
 
-      <div class="architect-detail-description">
+      <div class="architect-detail-content">
+
+        <div class="architect-detail-description">
+
+          ${
+            architect.description
+              ? `
+                <p>
+                  ${architect.description}
+                </p>
+              `
+              : ""
+          }
+
+        </div>
+
 
         ${
-          architect.description
+          dateRows.length > 0
             ? `
-              <p>
-                ${architect.description}
-              </p>
+              <div class="architect-facts">
+                ${dateRows.join("")}
+              </div>
             `
             : ""
         }
@@ -227,6 +471,9 @@ async function initArchitect() {
       </div>
 
     </section>
+
+
+    ${awardsMarkup}
 
 
     <section class="architect-related">
