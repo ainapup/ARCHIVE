@@ -32,6 +32,14 @@ content:
         type: string
         required: true
 
+      - name: architectId
+        label: Architect ID
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Use the architect ID, for example: tadao-ando"
+
       - name: city
         label: City
         type: string
