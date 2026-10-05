@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>ARCHIVE — Destination</title>
+  <title>ARCHIVE — Destinations</title>
 
   <link
     rel="stylesheet"
@@ -20,46 +20,48 @@
 </head>
 
 
-<body class="destination-detail-body">
+<body>
 
   <header class="site-header"></header>
 
 
-  <main class="destination-detail-page">
+  <main class="destinations-page">
 
-    <section class="destination-detail-header">
+    <section class="destinations-header">
 
-      <div class="destination-detail-kicker">
-        ARCHIVE / DESTINATION
+      <div class="destinations-kicker">
+        ARCHIVE / DESTINATIONS
       </div>
 
 
-      <h1 id="destination-title">
-        Destination
+      <h1>
+        Destinations
       </h1>
 
 
-      <div class="destination-detail-meta">
+      <p>
+        Explore architecture through place.
+      </p>
 
-        <span id="destination-continent">
-          —
-        </span>
-
-        <span id="destination-count">
-          00 places
-        </span>
-
-      </div>
+    </section>
 
 
-      <div class="destination-switcher">
+    <section class="destinations-controls">
 
-        <label for="destination-select">
-          Change destination
+      <div
+        class="continent-filters"
+        id="continent-filters"
+      ></div>
+
+
+      <div class="country-selector">
+
+        <label for="country-select">
+          Country
         </label>
 
 
-        <select id="destination-select">
+        <select id="country-select">
 
           <option value="">
             Select destination
@@ -72,19 +74,21 @@
     </section>
 
 
-    <section
-      id="destination-projects"
-      class="destination-projects"
-    ></section>
+    <section class="destinations-grid-section">
+
+      <div
+        id="destinations-grid"
+        class="destinations-grid"
+      ></div>
+
+    </section>
 
   </main>
 
 
   <script src="projects.js"></script>
 
-  <script src="tracking.js"></script>
-
-  <script src="destination.js"></script>
+  <script src="destinations.js"></script>
 
   <script src="navigation.js"></script>
 
