@@ -6,12 +6,13 @@ async function loadProjects() {
 
   try {
 
-    const response = await fetch(
-      "data/projects.json",
-      {
-        cache: "no-store"
-      }
-    );
+    const response =
+      await fetch(
+        "data/projects.json",
+        {
+          cache: "no-store"
+        }
+      );
 
 
     if (!response.ok) {
@@ -23,7 +24,8 @@ async function loadProjects() {
     }
 
 
-    const projects = await response.json();
+    const projects =
+      await response.json();
 
 
     return projects;
@@ -40,5 +42,140 @@ async function loadProjects() {
     return [];
 
   }
+
+}
+
+
+
+/* =========================================
+   PROJECT ARCHITECTS
+   Supports new + legacy data
+========================================= */
+
+function getProjectArchitects(project) {
+
+  /*
+    NEW FORMAT
+  */
+
+  if (
+    Array.isArray(project.architects) &&
+    project.architects.length > 0
+  ) {
+
+    return project.architects
+      .filter(
+        architect =>
+          architect &&
+          (
+            architect.name ||
+            architect.id
+          )
+      )
+      .map(
+        architect => ({
+
+          name:
+            architect.name || "",
+
+          id:
+            architect.id || ""
+
+        })
+      );
+
+  }
+
+
+  /*
+    LEGACY FORMAT
+  */
+
+  if (
+    project.architect ||
+    project.architectId
+  ) {
+
+    return [
+      {
+
+        name:
+          project.architect || "",
+
+        id:
+          project.architectId || ""
+
+      }
+    ];
+
+  }
+
+
+  return [];
+
+}
+
+
+
+/* =========================================
+   DISPLAY ARCHITECT NAMES
+========================================= */
+
+function getProjectArchitectNames(
+  project
+) {
+
+  return getProjectArchitects(
+    project
+  )
+    .map(
+      architect =>
+        architect.name
+    )
+    .filter(Boolean)
+    .join(" · ");
+
+}
+
+
+
+/* =========================================
+   PROJECT BELONGS TO ARCHITECT
+========================================= */
+
+function projectHasArchitect(
+  project,
+  architect
+) {
+
+  const projectArchitects =
+    getProjectArchitects(
+      project
+    );
+
+
+  return projectArchitects.some(
+    item => {
+
+      if (
+        item.id &&
+        architect.id
+      ) {
+
+        return (
+          item.id ===
+          architect.id
+        );
+
+      }
+
+
+      return (
+        item.name ===
+        architect.name
+      );
+
+    }
+  );
 
 }
