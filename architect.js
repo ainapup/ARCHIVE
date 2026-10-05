@@ -54,7 +54,13 @@ async function initArchitect() {
   const relatedProjects =
     projects.filter(
       project =>
-        project.architect === architect.name
+
+        project.architectId === architect.id ||
+
+        (
+          !project.architectId &&
+          project.architect === architect.name
+        )
     );
 
 
@@ -64,18 +70,19 @@ async function initArchitect() {
 
 
   /* =========================================
-     DATES / FOUNDERS
+     FACTS
   ========================================= */
 
-  const dateRows = [];
+  const factRows = [];
 
 
   if (isStudio) {
 
     if (architect.foundedYear) {
 
-      dateRows.push(`
+      factRows.push(`
         <div class="architect-fact">
+
           <span class="architect-fact-label">
             Founded
           </span>
@@ -83,6 +90,7 @@ async function initArchitect() {
           <span>
             ${architect.foundedYear}
           </span>
+
         </div>
       `);
 
@@ -91,8 +99,9 @@ async function initArchitect() {
 
     if (architect.closedYear) {
 
-      dateRows.push(`
+      factRows.push(`
         <div class="architect-fact">
+
           <span class="architect-fact-label">
             Closed
           </span>
@@ -100,6 +109,7 @@ async function initArchitect() {
           <span>
             ${architect.closedYear}
           </span>
+
         </div>
       `);
 
@@ -109,8 +119,9 @@ async function initArchitect() {
 
     if (architect.birthYear) {
 
-      dateRows.push(`
+      factRows.push(`
         <div class="architect-fact">
+
           <span class="architect-fact-label">
             Born
           </span>
@@ -118,6 +129,7 @@ async function initArchitect() {
           <span>
             ${architect.birthYear}
           </span>
+
         </div>
       `);
 
@@ -126,8 +138,9 @@ async function initArchitect() {
 
     if (architect.deathYear) {
 
-      dateRows.push(`
+      factRows.push(`
         <div class="architect-fact">
+
           <span class="architect-fact-label">
             Died
           </span>
@@ -135,6 +148,7 @@ async function initArchitect() {
           <span>
             ${architect.deathYear}
           </span>
+
         </div>
       `);
 
@@ -145,8 +159,9 @@ async function initArchitect() {
 
   if (architect.location) {
 
-    dateRows.push(`
+    factRows.push(`
       <div class="architect-fact">
+
         <span class="architect-fact-label">
           Based in
         </span>
@@ -154,6 +169,7 @@ async function initArchitect() {
         <span>
           ${architect.location}
         </span>
+
       </div>
     `);
 
@@ -165,8 +181,9 @@ async function initArchitect() {
     architect.founders.length > 0
   ) {
 
-    dateRows.push(`
+    factRows.push(`
       <div class="architect-fact">
+
         <span class="architect-fact-label">
           Founders
         </span>
@@ -174,6 +191,7 @@ async function initArchitect() {
         <span>
           ${architect.founders.join(", ")}
         </span>
+
       </div>
     `);
 
@@ -206,7 +224,7 @@ async function initArchitect() {
         .map(
           award => {
 
-            const awardContent = `
+            const content = `
 
               <span class="architect-award-year">
                 ${award.year || "—"}
@@ -233,7 +251,7 @@ async function initArchitect() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  ${awardContent}
+                  ${content}
                 </a>
 
               `;
@@ -244,7 +262,7 @@ async function initArchitect() {
             return `
 
               <div class="architect-award-row">
-                ${awardContent}
+                ${content}
               </div>
 
             `;
@@ -321,6 +339,7 @@ async function initArchitect() {
                       : ""
                   }
 
+
                   <span class="project-number">
                     ${String(index + 1).padStart(2, "0")}
                   </span>
@@ -357,7 +376,7 @@ async function initArchitect() {
 
 
   /* =========================================
-     PAGE OUTPUT
+     OUTPUT
   ========================================= */
 
   architectDetail.innerHTML = `
@@ -423,10 +442,10 @@ async function initArchitect() {
 
 
         ${
-          dateRows.length > 0
+          factRows.length > 0
             ? `
               <div class="architect-facts">
-                ${dateRows.join("")}
+                ${factRows.join("")}
               </div>
             `
             : ""
