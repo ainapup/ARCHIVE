@@ -2,22 +2,18 @@
    ARCHIVE — PROJECT PAGE
 ========================================= */
 
-
 const params =
   new URLSearchParams(
     window.location.search
   );
 
-
 const projectId =
   params.get("id");
-
 
 const detail =
   document.querySelector(
     "#project-detail"
   );
-
 
 
 /* =========================================
@@ -28,7 +24,6 @@ async function initProject() {
 
   const projects =
     await loadProjects();
-
 
   const architects =
     await loadArchitects();
@@ -58,7 +53,6 @@ async function initProject() {
 
   document.title =
     `ARCHIVE — ${project.title}`;
-
 
 
   /* =========================================
@@ -137,31 +131,8 @@ async function initProject() {
     );
 
 
-
   /* =========================================
-     ARCHITECTURE WEBSITE
-  ========================================= */
-
-  const architectureWebsite =
-    project.architectureWebsite
-      ? `
-
-        <a
-          href="${project.architectureWebsite}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="project-info-link"
-        >
-          Architecture website ↗
-        </a>
-
-      `
-      : "—";
-
-
-
-  /* =========================================
-     PLACE INFO VALUES
+     PLACE INFO
   ========================================= */
 
   const placeInfoItems = [];
@@ -202,7 +173,8 @@ async function initProject() {
 
   if (hasPrice) {
 
-    let price = `From ${project.currency || ""}${project.priceFrom}`;
+    let price =
+      `From ${project.currency || ""}${project.priceFrom}`;
 
 
     if (project.priceNote) {
@@ -228,19 +200,15 @@ async function initProject() {
   }
 
 
-
   /* =========================================
-     BOOK / RESERVE / VISIT
+     ACTION
   ========================================= */
 
   let actionUrl = "";
-
   let actionLabel = "";
 
 
-  if (
-    project.type === "STAY"
-  ) {
+  if (project.type === "STAY") {
 
     actionUrl =
       project.bookingUrl || "";
@@ -265,9 +233,7 @@ async function initProject() {
   }
 
 
-  if (
-    project.type === "VISIT"
-  ) {
+  if (project.type === "VISIT") {
 
     actionUrl =
       project.visitUrl ||
@@ -301,7 +267,6 @@ async function initProject() {
 
           target="_blank"
           rel="noopener noreferrer"
-
           class="project-place-action"
         >
           ${actionLabel}
@@ -310,6 +275,25 @@ async function initProject() {
       `
       : "";
 
+
+  /* =========================================
+     ARCHITECTURE WEBSITE
+  ========================================= */
+
+  const architectureWebsite =
+    project.architectureWebsite
+      ? `
+
+        <a
+          href="${project.architectureWebsite}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Architecture website ↗
+        </a>
+
+      `
+      : "—";
 
 
   /* =========================================
@@ -402,7 +386,6 @@ async function initProject() {
 
         </div>
 
-
         <div class="project-awards-list">
           ${rows}
         </div>
@@ -412,7 +395,6 @@ async function initProject() {
     `;
 
   }
-
 
 
   /* =========================================
@@ -460,17 +442,12 @@ async function initProject() {
       .join("");
 
 
-
   /* =========================================
      OUTPUT
   ========================================= */
 
   detail.innerHTML = `
 
-
-    <!-- =====================================
-         HERO
-    ====================================== -->
 
     <section class="project-hero">
 
@@ -480,7 +457,6 @@ async function initProject() {
         <span>
           ${project.type || ""}
         </span>
-
 
         <span>
           ARCHIVE / ${project.id}
@@ -494,151 +470,103 @@ async function initProject() {
       </h1>
 
 
-    </section>
+      <div class="project-facts">
 
 
+        <div class="project-fact">
 
-    <!-- =====================================
-         INFORMATION
-    ====================================== -->
+          <span class="project-fact-label">
+            ${
+              projectArchitects.length > 1
+                ? "Architects"
+                : "Architect"
+            }
+          </span>
 
-    <section class="project-information">
+          <div class="project-fact-value">
+            ${architectMarkup || "—"}
+          </div>
 
-
-      <!-- ARCHITECTURE -->
-
-      <div class="project-information-block">
-
-
-        <div class="project-information-label">
-          Architecture
         </div>
 
 
-        <div class="project-information-content">
+        <div class="project-fact">
 
+          <span class="project-fact-label">
+            Location
+          </span>
 
-          <div class="project-information-row">
-
-            <span>
-              ${
-                projectArchitects.length > 1
-                  ? "Architects"
-                  : "Architect"
-              }
-            </span>
-
-
-            <div class="project-information-value project-architect-links">
-              ${architectMarkup || "—"}
-            </div>
-
-          </div>
-
-
-          <div class="project-information-row">
-
-            <span>
-              Location
-            </span>
-
-
-            <div class="project-information-value">
-
-              <a
-                href="destination.html?country=${encodeURIComponent(project.country)}"
-              >
-                ${project.city},
-                ${project.country}
-              </a>
-
-            </div>
-
-          </div>
-
-
-          <div class="project-information-row">
-
-            <span>
-              Year
-            </span>
-
-
-            <div class="project-information-value">
-              ${project.year || "—"}
-            </div>
-
-          </div>
-
-
-          <div class="project-information-row">
-
-            <span>
-              Website
-            </span>
-
-
-            <div class="project-information-value">
-              ${architectureWebsite}
-            </div>
-
-          </div>
-
+          <a
+            class="project-fact-value"
+            href="destination.html?country=${encodeURIComponent(project.country)}"
+          >
+            ${project.city},
+            ${project.country}
+          </a>
 
         </div>
+
+
+        <div class="project-fact">
+
+          <span class="project-fact-label">
+            Year
+          </span>
+
+          <span class="project-fact-value">
+            ${project.year || "—"}
+          </span>
+
+        </div>
+
+
+        <div class="project-fact">
+
+          <span class="project-fact-label">
+            Website
+          </span>
+
+          <div class="project-fact-value">
+            ${architectureWebsite}
+          </div>
+
+        </div>
+
 
       </div>
 
 
-
-      <!-- PLACE INFO -->
-
-      <div class="project-information-block project-place-information">
+      <div class="project-place-strip">
 
 
-        <div class="project-information-label">
-          Place info
+        <div class="project-place-details">
+
+          <span class="project-place-main-type">
+            ${project.type || ""}
+          </span>
+
+
+          ${
+            placeInfoItems
+              .map(
+                item => `
+                  <span>
+                    ${item}
+                  </span>
+                `
+              )
+              .join("")
+          }
+
         </div>
-
-
-        <div class="project-place-category">
-          ${project.type || ""}
-        </div>
-
-
-        ${
-          placeInfoItems.length > 0
-            ? `
-
-              <div class="project-place-line">
-
-                ${
-                  placeInfoItems
-                    .map(
-                      item => `
-                        <span>
-                          ${item}
-                        </span>
-                      `
-                    )
-                    .join("")
-                }
-
-              </div>
-
-            `
-            : ""
-        }
 
 
         ${
           actionLink
             ? `
-
-              <div class="project-place-action-wrap">
+              <div class="project-place-book">
                 ${actionLink}
               </div>
-
             `
             : ""
         }
@@ -649,22 +577,12 @@ async function initProject() {
 
     </section>
 
-
-
-    <!-- =====================================
-         DESCRIPTION
-    ====================================== -->
 
     ${
       project.description
         ? `
 
           <section class="project-description-section">
-
-            <div class="project-description-label">
-              About
-            </div>
-
 
             <div class="project-description">
 
@@ -681,14 +599,8 @@ async function initProject() {
     }
 
 
-
     ${awardsMarkup}
 
-
-
-    <!-- =====================================
-         GALLERY
-    ====================================== -->
 
     ${
       uniqueImages.length > 0
@@ -711,11 +623,6 @@ async function initProject() {
 
   `;
 
-
-
-  /* =========================================
-     BOOKING TRACKING
-  ========================================= */
 
   if (
     typeof applyBookingTracking ===
