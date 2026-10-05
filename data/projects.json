@@ -2,8 +2,12 @@
   {
     "id": "casa-wabi",
     "title": "Casa Wabi",
-    "architect": "Tadao Ando",
-    "architectId": "tadao-ando",
+"architects": [
+  {
+    "name": "Tadao Ando",
+    "id": "tadao-ando"
+  }
+],
     "city": "Puerto Escondido",
     "country": "Mexico",
     "continent": "North America",
