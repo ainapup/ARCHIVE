@@ -26,11 +26,6 @@ function buildTrackedUrl(
       );
 
 
-    /*
-      Do not overwrite existing UTM values
-      if a partner has supplied specific ones.
-    */
-
     if (
       !url.searchParams.has(
         "utm_source"
@@ -107,7 +102,42 @@ function buildTrackedUrl(
 
 
 /* =========================================
-   APPLY TRACKING TO BOOKING LINKS
+   DATA LAYER EVENT
+========================================= */
+
+function trackBookingClick(link) {
+
+  window.dataLayer =
+    window.dataLayer || [];
+
+
+  window.dataLayer.push({
+
+    event:
+      "booking_click",
+
+    project_id:
+      link.dataset.projectId || "",
+
+    project_name:
+      link.dataset.projectName || "",
+
+    architect:
+      link.dataset.architect || "",
+
+    country:
+      link.dataset.country || "",
+
+    booking_url:
+      link.href || ""
+
+  });
+
+}
+
+
+/* =========================================
+   APPLY BOOKING TRACKING
 ========================================= */
 
 function applyBookingTracking() {
@@ -121,6 +151,16 @@ function applyBookingTracking() {
   bookingLinks.forEach(
     link => {
 
+      if (
+        link.dataset.trackingReady ===
+        "true"
+      ) {
+
+        return;
+
+      }
+
+
       const originalUrl =
         link.dataset.bookingUrl;
 
@@ -133,6 +173,20 @@ function applyBookingTracking() {
           originalUrl,
           projectId
         );
+
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          trackBookingClick(link);
+
+        }
+      );
+
+
+      link.dataset.trackingReady =
+        "true";
 
     }
   );
