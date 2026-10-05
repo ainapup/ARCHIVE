@@ -36,9 +36,7 @@ async function initProject() {
 
     detail.innerHTML = `
 
-      <section
-        class="project-not-found"
-      >
+      <section class="project-not-found">
         Project not found.
       </section>
 
@@ -52,14 +50,17 @@ async function initProject() {
   const architect =
     architects.find(
       item =>
-        item.name ===
-        project.architect
+        item.name === project.architect
     );
 
 
   document.title =
     `ARCHIVE — ${project.title}`;
 
+
+  /* =========================================
+     GALLERY
+  ========================================= */
 
   const gallery =
     project.images &&
@@ -88,6 +89,10 @@ async function initProject() {
       : "";
 
 
+  /* =========================================
+     PRICE
+  ========================================= */
+
   const hasPrice =
     project.priceFrom !== null &&
     project.priceFrom !== "" &&
@@ -98,16 +103,22 @@ async function initProject() {
     hasPrice
       ? `
         ${project.type}
-        · FROM
-        ${project.currency || ""}${project.priceFrom}
-        ${
-          project.priceNote
-            ? ` / ${project.priceNote.toUpperCase()}`
-            : ""
-        }
+        ·
+        <strong>
+          FROM ${project.currency || ""}${project.priceFrom}
+          ${
+            project.priceNote
+              ? ` / ${project.priceNote.toUpperCase()}`
+              : ""
+          }
+        </strong>
       `
       : project.type;
 
+
+  /* =========================================
+     LINKS
+  ========================================= */
 
   const bookingLink =
     project.bookingUrl
@@ -139,6 +150,10 @@ async function initProject() {
       : "";
 
 
+  /* =========================================
+     ARCHITECT LINK
+  ========================================= */
+
   const architectMarkup =
     architect
 
@@ -157,15 +172,117 @@ async function initProject() {
       `;
 
 
+  /* =========================================
+     AWARDS
+  ========================================= */
+
+  let awardsMarkup = "";
+
+
+  if (
+    Array.isArray(project.awards) &&
+    project.awards.length > 0
+  ) {
+
+    const sortedAwards =
+      [...project.awards]
+        .sort(
+          (a, b) =>
+            Number(b.year || 0) -
+            Number(a.year || 0)
+        );
+
+
+    const awardRows =
+      sortedAwards
+        .map(
+          award => {
+
+            const awardContent = `
+
+              <span class="project-award-year">
+                ${award.year || "—"}
+              </span>
+
+              <span class="project-award-name">
+                ${award.name}
+              </span>
+
+              <span class="project-award-recognition">
+                ${award.recognition || ""}
+              </span>
+
+            `;
+
+
+            if (award.url) {
+
+              return `
+
+                <a
+                  class="project-award-row"
+                  href="${award.url}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ${awardContent}
+                </a>
+
+              `;
+
+            }
+
+
+            return `
+
+              <div class="project-award-row">
+                ${awardContent}
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+    awardsMarkup = `
+
+      <section class="project-awards">
+
+        <div class="project-awards-header">
+
+          <h2>
+            Awards
+          </h2>
+
+          <span>
+            ${String(project.awards.length).padStart(2, "0")}
+          </span>
+
+        </div>
+
+
+        <div class="project-awards-list">
+          ${awardRows}
+        </div>
+
+      </section>
+
+    `;
+
+  }
+
+
+  /* =========================================
+     OUTPUT
+  ========================================= */
+
   detail.innerHTML = `
 
-    <section
-      class="project-hero"
-    >
+    <section class="project-hero">
 
-      <div
-        class="project-page-top"
-      >
+      <div class="project-page-top">
 
         <span>
           ${priceLine}
@@ -183,15 +300,11 @@ async function initProject() {
       </h1>
 
 
-      <div
-        class="project-page-meta"
-      >
+      <div class="project-page-meta">
 
         <div>
 
-          <span
-            class="meta-label"
-          >
+          <span class="meta-label">
             Architect
           </span>
 
@@ -202,9 +315,7 @@ async function initProject() {
 
         <div>
 
-          <span
-            class="meta-label"
-          >
+          <span class="meta-label">
             Location
           </span>
 
@@ -220,9 +331,7 @@ async function initProject() {
 
         <div>
 
-          <span
-            class="meta-label"
-          >
+          <span class="meta-label">
             Year
           </span>
 
@@ -237,13 +346,9 @@ async function initProject() {
     </section>
 
 
-    <section
-      class="project-intro"
-    >
+    <section class="project-intro">
 
-      <div
-        class="project-description"
-      >
+      <div class="project-description">
 
         ${
           project.description
@@ -258,13 +363,9 @@ async function initProject() {
       </div>
 
 
-      <div
-        class="project-commerce"
-      >
+      <div class="project-commerce">
 
-        <div
-          class="project-links"
-        >
+        <div class="project-links">
 
           ${bookingLink}
 
@@ -277,12 +378,13 @@ async function initProject() {
     </section>
 
 
+    ${awardsMarkup}
+
+
     ${
       gallery
         ? `
-          <section
-            class="project-gallery"
-          >
+          <section class="project-gallery">
             ${gallery}
           </section>
         `
