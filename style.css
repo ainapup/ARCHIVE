@@ -9031,3 +9031,58 @@ body:has(.project-page)
   }
 
 }
+/* =========================================================
+   ARCHIVE — PROJECT DESCRIPTION WIDTH FIX
+========================================================= */
+
+.project-description-section {
+  display: block;
+
+  padding:
+    34px
+    0
+    42px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.project-description {
+  width: min(72vw, 1100px);
+
+  max-width: none;
+}
+
+
+.project-description p {
+  margin: 0;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(32px, 3.4vw, 50px);
+
+  line-height: 1.04;
+
+  letter-spacing:
+    -0.035em;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .project-description {
+    width: 100%;
+  }
+
+
+  .project-description p {
+    font-size: 30px;
+  }
+
+}
