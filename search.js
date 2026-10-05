@@ -68,7 +68,9 @@ searchInput.addEventListener(
     }
 
 
-    renderResults(query);
+    renderResults(
+      query
+    );
 
   }
 );
@@ -78,21 +80,25 @@ searchInput.addEventListener(
    RESULTS
 ========================================= */
 
-function renderResults(query) {
-
-  /* -----------------------------------------
-     PLACES
-  ----------------------------------------- */
+function renderResults(
+  query
+) {
 
   const matchingProjects =
     projects.filter(
       project => {
 
+        const architectNames =
+          getProjectArchitectNames(
+            project
+          );
+
+
         const searchableText = `
 
           ${project.title || ""}
 
-          ${project.architect || ""}
+          ${architectNames}
 
           ${project.city || ""}
 
@@ -115,10 +121,6 @@ function renderResults(query) {
       }
     );
 
-
-  /* -----------------------------------------
-     ARCHITECTS
-  ----------------------------------------- */
 
   const matchingArchitects =
     architects.filter(
@@ -146,17 +148,17 @@ function renderResults(query) {
     );
 
 
-  /* -----------------------------------------
-     DESTINATIONS
-  ----------------------------------------- */
-
   const destinationMap = {};
 
 
   projects.forEach(
     project => {
 
-      if (!destinationMap[project.country]) {
+      if (
+        !destinationMap[
+          project.country
+        ]
+      ) {
 
         destinationMap[
           project.country
@@ -171,9 +173,7 @@ function renderResults(query) {
           image:
             project.images &&
             project.images.length > 0
-
               ? project.images[0]
-
               : ""
 
         };
@@ -184,37 +184,30 @@ function renderResults(query) {
   );
 
 
-  const destinations =
+  const matchingDestinations =
     Object.values(
       destinationMap
-    );
+    )
+      .filter(
+        destination => {
+
+          const searchableText = `
+
+            ${destination.country || ""}
+
+            ${destination.continent || ""}
+
+          `
+          .toLowerCase();
 
 
-  const matchingDestinations =
-    destinations.filter(
-      destination => {
+          return searchableText.includes(
+            query
+          );
 
-        const searchableText = `
+        }
+      );
 
-          ${destination.country || ""}
-
-          ${destination.continent || ""}
-
-        `
-        .toLowerCase();
-
-
-        return searchableText.includes(
-          query
-        );
-
-      }
-    );
-
-
-  /* -----------------------------------------
-     NO RESULTS
-  ----------------------------------------- */
 
   if (
     matchingProjects.length === 0 &&
@@ -238,10 +231,6 @@ function renderResults(query) {
   }
 
 
-  /* -----------------------------------------
-     OUTPUT
-  ----------------------------------------- */
-
   searchResults.innerHTML = `
 
     ${
@@ -252,19 +241,17 @@ function renderResults(query) {
         : ""
     }
 
-
     ${
       matchingArchitects.length > 0
-        ? renderArchitects(
+        ? renderArchitectResults(
             matchingArchitects
           )
         : ""
     }
 
-
     ${
       matchingDestinations.length > 0
-        ? renderDestinations(
+        ? renderDestinationResults(
             matchingDestinations
           )
         : ""
@@ -291,25 +278,25 @@ function renderPlaces(
           const image =
             project.images &&
             project.images.length > 0
-
               ? project.images[0]
-
               : "";
+
+
+          const architectNames =
+            getProjectArchitectNames(
+              project
+            );
 
 
           return `
 
-            <article
-              class="search-place"
-            >
+            <article class="search-place">
 
               <a
                 href="project.html?id=${encodeURIComponent(project.id)}"
               >
 
-                <div
-                  class="search-place-image"
-                >
+                <div class="search-place-image">
 
                   ${
                     image
@@ -325,16 +312,14 @@ function renderPlaces(
                 </div>
 
 
-                <div
-                  class="search-place-info"
-                >
+                <div class="search-place-info">
 
                   <strong>
                     ${project.title}
                   </strong>
 
                   <span>
-                    ${project.architect}
+                    ${architectNames}
                   </span>
 
                   <span>
@@ -357,13 +342,9 @@ function renderPlaces(
 
   return `
 
-    <section
-      class="search-result-section"
-    >
+    <section class="search-result-section">
 
-      <div
-        class="search-result-header"
-      >
+      <div class="search-result-header">
 
         <h2>
           Places
@@ -376,12 +357,8 @@ function renderPlaces(
       </div>
 
 
-      <div
-        class="search-places-grid"
-      >
-
+      <div class="search-places-grid">
         ${cards}
-
       </div>
 
     </section>
@@ -395,7 +372,7 @@ function renderPlaces(
    ARCHITECTS
 ========================================= */
 
-function renderArchitects(
+function renderArchitectResults(
   results
 ) {
 
@@ -426,13 +403,9 @@ function renderArchitects(
 
   return `
 
-    <section
-      class="search-result-section"
-    >
+    <section class="search-result-section">
 
-      <div
-        class="search-result-header"
-      >
+      <div class="search-result-header">
 
         <h2>
           Architects
@@ -443,7 +416,6 @@ function renderArchitects(
         </span>
 
       </div>
-
 
       <div>
         ${rows}
@@ -460,7 +432,7 @@ function renderArchitects(
    DESTINATIONS
 ========================================= */
 
-function renderDestinations(
+function renderDestinationResults(
   results
 ) {
 
@@ -491,13 +463,9 @@ function renderDestinations(
 
   return `
 
-    <section
-      class="search-result-section"
-    >
+    <section class="search-result-section">
 
-      <div
-        class="search-result-header"
-      >
+      <div class="search-result-header">
 
         <h2>
           Destinations
@@ -508,7 +476,6 @@ function renderDestinations(
         </span>
 
       </div>
-
 
       <div>
         ${rows}
@@ -525,12 +492,17 @@ function renderDestinations(
    SAFE TEXT
 ========================================= */
 
-function escapeHtml(text) {
+function escapeHtml(
+  text
+) {
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  div.textContent = text;
+  div.textContent =
+    text;
 
   return div.innerHTML;
 
