@@ -47,21 +47,78 @@ async function initProject() {
   }
 
 
-  const architect =
-    architects.find(
-      item =>
-
-        item.id === project.architectId ||
-
-        (
-          !project.architectId &&
-          item.name === project.architect
-        )
+  const projectArchitects =
+    getProjectArchitects(
+      project
     );
 
 
   document.title =
     `ARCHIVE — ${project.title}`;
+
+
+  /* =========================================
+     ARCHITECTS
+  ========================================= */
+
+  const architectMarkup =
+    projectArchitects
+      .map(
+        projectArchitect => {
+
+          const architect =
+            architects.find(
+              item => {
+
+                if (
+                  projectArchitect.id
+                ) {
+
+                  return (
+                    item.id ===
+                    projectArchitect.id
+                  );
+
+                }
+
+
+                return (
+                  item.name ===
+                  projectArchitect.name
+                );
+
+              }
+            );
+
+
+          if (architect) {
+
+            return `
+
+              <a
+                href="architect.html?id=${encodeURIComponent(architect.id)}"
+              >
+                ${architect.name}
+              </a>
+
+            `;
+
+          }
+
+
+          return `
+
+            <span>
+              ${projectArchitect.name}
+            </span>
+
+          `;
+
+        }
+      )
+      .join(
+        '<span class="project-architect-separator"> · </span>'
+      );
 
 
   /* =========================================
@@ -124,6 +181,12 @@ async function initProject() {
      BOOKING
   ========================================= */
 
+  const architectNames =
+    getProjectArchitectNames(
+      project
+    );
+
+
   const bookingLink =
     project.bookingUrl
       ? `
@@ -133,7 +196,7 @@ async function initProject() {
           data-booking-url="${project.bookingUrl}"
           data-project-id="${project.id}"
           data-project-name="${project.title}"
-          data-architect="${project.architect}"
+          data-architect="${architectNames}"
           data-country="${project.country}"
           target="_blank"
           rel="noopener noreferrer"
@@ -145,10 +208,6 @@ async function initProject() {
       `
       : "";
 
-
-  /* =========================================
-     ARCHITECTURE WEBSITE
-  ========================================= */
 
   const architectureLink =
     project.architectureWebsite
@@ -165,28 +224,6 @@ async function initProject() {
 
       `
       : "";
-
-
-  /* =========================================
-     ARCHITECT
-  ========================================= */
-
-  const architectMarkup =
-    architect
-
-      ? `
-        <a
-          href="architect.html?id=${encodeURIComponent(architect.id)}"
-        >
-          ${architect.name}
-        </a>
-      `
-
-      : `
-        <span>
-          ${project.architect}
-        </span>
-      `;
 
 
   /* =========================================
@@ -279,7 +316,6 @@ async function initProject() {
 
         </div>
 
-
         <div class="project-awards-list">
           ${rows}
         </div>
@@ -322,10 +358,16 @@ async function initProject() {
         <div>
 
           <span class="meta-label">
-            Architect
+            ${
+              projectArchitects.length > 1
+                ? "Architects"
+                : "Architect"
+            }
           </span>
 
-          ${architectMarkup}
+          <div class="project-architect-links">
+            ${architectMarkup || "—"}
+          </div>
 
         </div>
 
