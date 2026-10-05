@@ -8727,3 +8727,307 @@ body:has(.project-page)
   }
 
 }
+/* =========================================================
+   ARCHIVE — PROJECT DETAIL
+   COMPACT FINAL COMPOSITION
+========================================================= */
+
+
+/* HERO */
+
+.project-hero {
+  padding:
+    30px
+    0
+    0;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.project-page-top {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 48px;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+.project-hero h1 {
+  margin: 0 0 42px;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(68px, 8.5vw, 128px);
+
+  line-height: 0.84;
+
+  font-weight: normal;
+
+  letter-spacing: -0.06em;
+}
+
+
+/* =========================================
+   ARCHITECTURE FACTS
+========================================= */
+
+.project-facts {
+  display: grid;
+
+  grid-template-columns:
+    1.1fr
+    1.6fr
+    0.55fr
+    1fr;
+
+  gap: 32px;
+
+  padding:
+    18px
+    0
+    20px;
+
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.28);
+}
+
+
+.project-fact {
+  min-width: 0;
+}
+
+
+.project-fact-label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #777;
+
+  font-size: 8px;
+
+  line-height: 1;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+.project-fact-value {
+  color: #111;
+
+  font-size: 10px;
+
+  line-height: 1.35;
+
+  text-decoration: none;
+}
+
+
+.project-fact-value a {
+  color: #111;
+
+  text-decoration: none;
+}
+
+
+.project-fact-value:hover,
+.project-fact-value a:hover {
+  opacity: 0.5;
+}
+
+
+/* =========================================
+   PLACE STRIP
+========================================= */
+
+.project-place-strip {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 30px;
+
+  padding:
+    16px
+    0
+    18px;
+
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.28);
+}
+
+
+.project-place-details {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 0;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+
+.project-place-details > span {
+  display: flex;
+
+  align-items: center;
+}
+
+
+.project-place-details > span:not(:last-child)::after {
+  content: "|";
+
+  display: inline-block;
+
+  margin:
+    0
+    10px;
+
+  color: #999;
+}
+
+
+.project-place-main-type {
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+.project-place-action {
+  display: inline-block;
+
+  padding-bottom: 3px;
+
+  color: #111;
+
+  border-bottom:
+    1px solid #111;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  white-space: nowrap;
+}
+
+
+.project-place-action:hover {
+  opacity: 0.5;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.project-description-section {
+  padding:
+    28px
+    0
+    36px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.project-description {
+  max-width: 1050px;
+}
+
+
+.project-description p {
+  margin: 0;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(27px, 3vw, 44px);
+
+  line-height: 1.04;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* =========================================
+   GALLERY
+========================================= */
+
+.project-gallery {
+  padding-top: 22px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+  .project-page-top {
+    margin-bottom: 38px;
+  }
+
+
+  .project-hero h1 {
+    margin-bottom: 32px;
+
+    font-size: 60px;
+  }
+
+
+  .project-facts {
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap:
+      18px
+      20px;
+  }
+
+
+  .project-place-strip {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 14px;
+  }
+
+
+  .project-description-section {
+    padding:
+      24px
+      0
+      30px;
+  }
+
+}
