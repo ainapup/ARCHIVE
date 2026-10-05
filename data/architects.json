@@ -1,22 +1,24 @@
-{
-  "id": "tadao-ando",
-  "name": "Tadao Ando",
-  "category": "Architect",
-  "location": "Osaka, Japan",
-  "birthYear": "1941",
-  "deathYear": "",
-  "foundedYear": "",
-  "closedYear": "",
-  "founders": [],
-  "description": "...",
-  "website": "...",
-  "image": "...",
-  "awards": [
-    {
-      "name": "Pritzker Architecture Prize",
-      "year": "1995",
-      "recognition": "Laureate",
-      "url": ""
-    }
-  ]
-}
+[
+  {
+    "id": "tadao-ando",
+    "name": "Tadao Ando",
+    "category": "Architect",
+    "location": "Osaka, Japan",
+    "birthYear": "1941",
+    "deathYear": "",
+    "foundedYear": "",
+    "closedYear": "",
+    "founders": [],
+    "description": "Tadao Ando is a Japanese architect whose work is characterised by precise geometries, exposed concrete, natural light and a close relationship between architecture, landscape and human experience.",
+    "website": "",
+    "image": "",
+    "awards": [
+      {
+        "name": "Pritzker Architecture Prize",
+        "year": "1995",
+        "recognition": "Laureate",
+        "url": ""
+      }
+    ]
+  }
+]
