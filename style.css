@@ -5188,3 +5188,159 @@ a.architect-award-row:hover
   }
 
 }
+/* =========================================
+   PROJECT AWARDS
+========================================= */
+
+.project-awards {
+  margin:
+    0
+    32px;
+
+  padding:
+    32px
+    0
+    65px;
+
+  border-top:
+    1px solid #111;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.project-awards-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding-bottom: 12px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.project-awards-header h2 {
+  margin: 0;
+
+  font-size: 9px;
+
+  font-weight: normal;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+.project-awards-header span {
+  font-size: 9px;
+}
+
+
+.project-award-row {
+  display: grid;
+
+  grid-template-columns:
+    90px
+    minmax(220px, 1fr)
+    minmax(110px, 180px);
+
+  gap: 25px;
+
+  align-items: baseline;
+
+  padding:
+    12px
+    0;
+
+  border-bottom:
+    1px solid rgba(17, 17, 17, 0.18);
+
+  color: #111;
+
+  text-decoration: none;
+}
+
+
+.project-award-year {
+  font-size: 9px;
+
+  letter-spacing: 0.05em;
+}
+
+
+.project-award-name {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  letter-spacing: -0.02em;
+}
+
+
+.project-award-recognition {
+  font-size: 8px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+
+  text-align: right;
+
+  opacity: 0.6;
+}
+
+
+a.project-award-row:hover
+.project-award-name {
+  text-decoration: underline;
+
+  text-underline-offset: 3px;
+}
+
+
+.project-page-top strong {
+  font-weight: 700;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .project-awards {
+    margin:
+      0
+      18px;
+
+    padding-bottom: 50px;
+  }
+
+
+  .project-award-row {
+    grid-template-columns:
+      55px
+      1fr;
+
+    gap:
+      6px
+      15px;
+  }
+
+
+  .project-award-recognition {
+    grid-column: 2;
+
+    text-align: left;
+  }
+
+}
