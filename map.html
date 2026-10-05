@@ -5,11 +5,17 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>ARCHIVE — Map</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
   <link
     rel="stylesheet"
@@ -18,12 +24,28 @@
 
 </head>
 
+
 <body>
+
+
+  <!-- =====================================
+       GLOBAL HEADER
+  ====================================== -->
 
   <header class="site-header"></header>
 
 
+
+  <!-- =====================================
+       MAP PAGE
+  ====================================== -->
+
   <main class="map-page">
+
+
+    <!-- =================================
+         HEADER
+    ================================== -->
 
     <section class="map-header">
 
@@ -31,16 +53,134 @@
         ARCHIVE / MAP
       </div>
 
+
       <h1>
         Map
       </h1>
 
+
       <p>
-        Explore the archive geographically.
+        Explore places through geography,
+        use and architecture.
       </p>
 
     </section>
 
+
+
+    <!-- =================================
+         MAP FILTERS
+    ================================== -->
+
+    <section class="map-controls">
+
+
+      <!-- TYPE -->
+
+      <div class="map-filter-group">
+
+        <span class="map-filter-label">
+          Type
+        </span>
+
+
+        <div
+          class="map-type-filters"
+          id="map-type-filters"
+        >
+
+          <button
+            type="button"
+            class="map-type-filter active"
+            data-type="ALL"
+          >
+            All
+          </button>
+
+
+          <button
+            type="button"
+            class="map-type-filter"
+            data-type="STAY"
+          >
+            Stay
+          </button>
+
+
+          <button
+            type="button"
+            class="map-type-filter"
+            data-type="EAT"
+          >
+            Eat
+          </button>
+
+
+          <button
+            type="button"
+            class="map-type-filter"
+            data-type="DRINK"
+          >
+            Drink
+          </button>
+
+
+          <button
+            type="button"
+            class="map-type-filter"
+            data-type="VISIT"
+          >
+            Visit
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ARCHITECT -->
+
+      <div class="map-filter-group map-architect-filter">
+
+        <label
+          class="map-filter-label"
+          for="map-architect-select"
+        >
+          Architect
+        </label>
+
+
+        <select id="map-architect-select">
+
+          <option value="ALL">
+            All architects
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+      <!-- RESULT COUNT -->
+
+      <div class="map-result-count">
+
+        <span id="map-result-count">
+          00 places
+        </span>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =================================
+         MAP
+    ================================== -->
 
     <section class="map-section">
 
@@ -48,16 +188,31 @@
 
     </section>
 
+
   </main>
 
+
+
+  <!-- =====================================
+       LEAFLET
+  ====================================== -->
 
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   ></script>
 
+
+
+  <!-- =====================================
+       ARCHIVE
+  ====================================== -->
+
   <script src="projects.js"></script>
+
   <script src="map.js"></script>
+
   <script src="navigation.js"></script>
+
 
 </body>
 
