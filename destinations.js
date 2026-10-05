@@ -19,13 +19,8 @@ const destinationsGrid =
 
 
 let projects = [];
-
 let activeContinent = "ALL";
 
-
-/* =========================================
-   CONTINENT ORDER
-========================================= */
 
 const continentOrder = [
   "Europe",
@@ -46,15 +41,47 @@ async function initDestinations() {
   projects =
     await loadProjects();
 
-
   renderContinentFilters();
 
   renderDestinations();
+
+  scrollToDestinations();
 
 }
 
 
 initDestinations();
+
+
+/* =========================================
+   AUTO SCROLL TO CONTENT
+========================================= */
+
+function scrollToDestinations() {
+
+  const target =
+    document.querySelector(
+      "#destinations-content"
+    );
+
+  if (!target) {
+    return;
+  }
+
+
+  setTimeout(
+    () => {
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    },
+    150
+  );
+
+}
 
 
 /* =========================================
@@ -81,9 +108,7 @@ function renderContinentFilters() {
         );
 
 
-      button.type =
-        "button";
-
+      button.type = "button";
 
       button.className =
         "destination-filter";
@@ -111,7 +136,6 @@ function renderContinentFilters() {
 
           activeContinent =
             continent;
-
 
           renderContinentFilters();
 
@@ -265,9 +289,7 @@ function renderDestinations() {
     destinationsGrid.innerHTML = `
 
       <div class="destinations-empty">
-
         No destinations yet.
-
       </div>
 
     `;
@@ -279,6 +301,16 @@ function renderDestinations() {
 
   filtered.forEach(
     destination => {
+
+      const firstProject =
+        destination.projects[0];
+
+
+      const architectNames =
+        typeof getProjectArchitectNames === "function"
+          ? getProjectArchitectNames(firstProject)
+          : "";
+
 
       const card =
         document.createElement(
@@ -316,9 +348,17 @@ function renderDestinations() {
 
           <div class="destination-card-info">
 
-            <h2>
-              ${destination.country}
-            </h2>
+            <div class="destination-card-top">
+
+              <h2>
+                ${destination.country}
+              </h2>
+
+              <span class="destination-card-count">
+                ${String(destination.projects.length).padStart(2, "0")}
+              </span>
+
+            </div>
 
 
             <div class="destination-card-meta">
@@ -327,16 +367,28 @@ function renderDestinations() {
                 ${destination.continent}
               </span>
 
-              <span>
-                ${String(destination.projects.length).padStart(2, "0")}
-                ${
-                  destination.projects.length === 1
-                    ? "place"
-                    : "places"
-                }
-              </span>
+              ${
+                firstProject
+                  ? `
+                    <span>
+                      ${firstProject.city || ""}
+                    </span>
+                  `
+                  : ""
+              }
 
             </div>
+
+
+            ${
+              architectNames
+                ? `
+                  <div class="destination-card-architect">
+                    ${architectNames}
+                  </div>
+                `
+                : ""
+            }
 
           </div>
 
