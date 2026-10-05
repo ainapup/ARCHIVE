@@ -27,18 +27,28 @@ content:
         type: string
         required: true
 
-      - name: architect
-        label: Architect / Studio
-        type: string
+
+      - name: architects
+        label: Architects / Studios
+        type: object
+        list: true
         required: true
 
-      - name: architectId
-        label: Architect ID
-        type: string
-        required: true
-        pattern:
-          regex: "^[a-z0-9-]+$"
-          message: "Use the architect ID, for example: tadao-ando"
+        fields:
+
+          - name: name
+            label: Architect / Studio name
+            type: string
+            required: true
+
+          - name: id
+            label: Architect ID
+            type: string
+            required: true
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: "Example: tadao-ando"
+
 
       - name: city
         label: City
@@ -123,6 +133,7 @@ content:
         label: Price note
         type: string
 
+
       - name: awards
         label: Awards
         type: object
@@ -157,6 +168,7 @@ content:
           - name: url
             label: Award link
             type: string
+
 
 
   - name: architects
