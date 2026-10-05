@@ -5760,3 +5760,150 @@ a.project-award-row:hover
   }
 
 }
+/* =========================================
+   ARCHIVE — COOKIE CONSENT
+========================================= */
+
+.archive-cookie-banner {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 99999;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(300px, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 40px;
+
+  padding:
+    20px
+    32px;
+
+  background: #f4f3ee;
+
+  border-top:
+    1px solid #111;
+}
+
+
+.archive-cookie-copy {
+  max-width: 650px;
+}
+
+
+.archive-cookie-copy p {
+  margin:
+    0
+    0
+    7px;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 18px;
+
+  line-height: 1.15;
+}
+
+
+.archive-cookie-copy a {
+  color: #111;
+
+  text-decoration: none;
+
+  font-size: 8px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.archive-cookie-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.archive-cookie-actions button {
+  min-width: 105px;
+
+  padding:
+    11px
+    18px;
+
+  border:
+    1px solid #111;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #111;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+}
+
+
+.archive-cookie-actions button:hover {
+  background: #111;
+
+  color: #f4f3ee;
+}
+
+
+@media (max-width: 700px) {
+
+  .archive-cookie-banner {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+
+    padding:
+      20px
+      18px;
+  }
+
+
+  .archive-cookie-actions {
+    display: grid;
+
+    grid-template-columns:
+      1fr
+      1fr;
+
+    width: 100%;
+  }
+
+
+  .archive-cookie-actions button {
+    width: 100%;
+  }
+
+}
