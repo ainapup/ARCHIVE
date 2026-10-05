@@ -13,7 +13,7 @@
     "city": "Puerto Escondido",
     "country": "Mexico",
     "continent": "North America",
-    "type": "STAY",
+    "type": "VISIT",
     "year": "2014",
     "description": "A coastal arts foundation and residence defined by concrete, landscape and the horizon.",
     "latitude": 15.9389722222,
@@ -23,11 +23,8 @@
       "images/projects/casa-wabi/02.jpg",
       "images/projects/casa-wabi/03.jpg"
     ],
-    "architectureWebsite": "https://casawabi.org/architecture/casa-wabi-l-tadao-ando/",
-    "bookingUrl": "https://casawabi.org/arquitectura-e-intervenciones-de-arte/",
-    "priceFrom": 250,
-    "currency": "€",
-    "priceNote": "NIGHT",
+    "placeType": "Art foundation / artist residency",
+    "serviceMode": "Visit / residency",
     "awards": [
       {
         "name": "Example Architecture Award",
