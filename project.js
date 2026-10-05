@@ -117,27 +117,36 @@ async function initProject() {
 
 
   /* =========================================
-     LINKS
+     BOOKING
   ========================================= */
 
   const bookingLink =
     project.bookingUrl
       ? `
+
         <a
           href="${project.bookingUrl}"
+          data-booking-url="${project.bookingUrl}"
+          data-project-id="${project.id}"
           target="_blank"
           rel="noopener noreferrer"
           class="project-external-link project-book-link"
         >
           Book here ↗
         </a>
+
       `
       : "";
 
 
+  /* =========================================
+     ARCHITECTURE LINK
+  ========================================= */
+
   const architectureLink =
     project.architectureWebsite
       ? `
+
         <a
           href="${project.architectureWebsite}"
           target="_blank"
@@ -146,12 +155,13 @@ async function initProject() {
         >
           Architecture website ↗
         </a>
+
       `
       : "";
 
 
   /* =========================================
-     ARCHITECT LINK
+     ARCHITECT
   ========================================= */
 
   const architectMarkup =
@@ -392,6 +402,21 @@ async function initProject() {
     }
 
   `;
+
+
+  /*
+    The page content has just been created,
+    so apply tracking now.
+  */
+
+  if (
+    typeof applyBookingTracking ===
+    "function"
+  ) {
+
+    applyBookingTracking();
+
+  }
 
 }
 
