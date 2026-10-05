@@ -43,10 +43,6 @@ async function initDestination() {
     await loadProjects();
 
 
-  /* =========================================
-     DESTINATION SELECTOR
-  ========================================= */
-
   const countries =
     [
       ...new Set(
@@ -111,10 +107,6 @@ async function initDestination() {
   );
 
 
-  /* =========================================
-     PROJECTS
-  ========================================= */
-
   const filteredProjects =
     projects.filter(
       project =>
@@ -122,7 +114,9 @@ async function initDestination() {
     );
 
 
-  if (filteredProjects.length === 0) {
+  if (
+    filteredProjects.length === 0
+  ) {
 
     titleElement.textContent =
       country || "Destination";
@@ -188,10 +182,15 @@ async function initDestination() {
         images[0] || "";
 
       const image2 =
-        images[1] || images[0] || "";
+        images[1] ||
+        images[0] ||
+        "";
 
       const image3 =
-        images[2] || images[1] || images[0] || "";
+        images[2] ||
+        images[1] ||
+        images[0] ||
+        "";
 
 
       const hasPrice =
@@ -204,7 +203,8 @@ async function initDestination() {
         hasPrice
           ? `
             <strong class="destination-project-price">
-              FROM ${project.currency || ""}${project.priceFrom}${
+              FROM ${project.currency || ""}${project.priceFrom}
+              ${
                 project.priceNote
                   ? ` / ${project.priceNote.toUpperCase()}`
                   : ""
@@ -219,6 +219,11 @@ async function initDestination() {
           ? `
             <a
               href="${project.bookingUrl}"
+              data-booking-url="${project.bookingUrl}"
+              data-project-id="${project.id}"
+              data-project-name="${project.title}"
+              data-architect="${project.architect}"
+              data-country="${project.country}"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -270,7 +275,8 @@ async function initDestination() {
             </span>
 
             <span>
-              ${project.city}, ${project.country}
+              ${project.city},
+              ${project.country}
             </span>
 
           </div>
@@ -306,11 +312,23 @@ async function initDestination() {
 
         <div class="destination-project-gallery">
 
-          ${createImageBlock(image1, project, 1)}
+          ${createImageBlock(
+            image1,
+            project,
+            1
+          )}
 
-          ${createImageBlock(image2, project, 2)}
+          ${createImageBlock(
+            image2,
+            project,
+            2
+          )}
 
-          ${createImageBlock(image3, project, 3)}
+          ${createImageBlock(
+            image3,
+            project,
+            3
+          )}
 
         </div>
 
@@ -323,6 +341,16 @@ async function initDestination() {
 
     }
   );
+
+
+  if (
+    typeof applyBookingTracking ===
+    "function"
+  ) {
+
+    applyBookingTracking();
+
+  }
 
 }
 
