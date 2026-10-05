@@ -3,14 +3,28 @@
 ========================================= */
 
 const projectGrid =
-  document.querySelector(".project-grid");
+  document.querySelector(
+    ".project-grid"
+  );
 
 const filterButtons =
-  document.querySelectorAll(".filters button");
+  document.querySelectorAll(
+    ".filter-button"
+  );
 
+
+let allProjects = [];
+let activeType = "ALL";
+
+
+/* =========================================
+   URL FILTERS
+========================================= */
 
 const params =
-  new URLSearchParams(window.location.search);
+  new URLSearchParams(
+    window.location.search
+  );
 
 const architectFilter =
   params.get("architect");
@@ -19,83 +33,157 @@ const countryFilter =
   params.get("country");
 
 
-let projects = [];
+/* =========================================
+   INITIALISE
+========================================= */
+
+async function initPlaces() {
+
+  allProjects =
+    await loadProjects();
+
+
+  renderProjects();
+
+}
+
+
+initPlaces();
 
 
 /* =========================================
-   RENDER PROJECTS
+   FILTER BUTTONS
 ========================================= */
 
-function renderProjects(typeFilter = "ALL") {
+filterButtons.forEach(
+  button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        activeType =
+          button.dataset.filter ||
+          button.textContent
+            .trim()
+            .toUpperCase();
+
+
+        filterButtons.forEach(
+          item =>
+            item.classList.remove(
+              "active"
+            )
+        );
+
+
+        button.classList.add(
+          "active"
+        );
+
+
+        renderProjects();
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderProjects() {
+
+  if (!projectGrid) {
+    return;
+  }
+
 
   projectGrid.innerHTML = "";
 
 
-  let filteredProjects = [...projects];
+  let projects =
+    [...allProjects];
 
+
+  /* TYPE */
+
+  if (
+    activeType !== "ALL"
+  ) {
+
+    projects =
+      projects.filter(
+        project =>
+          project.type ===
+          activeType
+      );
+
+  }
+
+
+  /* ARCHITECT */
 
   if (architectFilter) {
 
-    filteredProjects =
-      filteredProjects.filter(
+    projects =
+      projects.filter(
         project =>
-          project.architect === architectFilter
+
+          getProjectArchitects(
+            project
+          )
+            .some(
+              architect =>
+                architect.name ===
+                architectFilter
+            )
       );
 
   }
 
+
+  /* COUNTRY */
 
   if (countryFilter) {
 
-    filteredProjects =
-      filteredProjects.filter(
+    projects =
+      projects.filter(
         project =>
-          project.country === countryFilter
+          project.country ===
+          countryFilter
       );
 
   }
 
 
-  if (typeFilter !== "ALL") {
-
-    filteredProjects =
-      filteredProjects.filter(
-        project =>
-          project.type === typeFilter
-      );
-
-  }
-
-
-  if (filteredProjects.length === 0) {
-
-    projectGrid.innerHTML = `
-
-      <div class="empty-results">
-        No projects found.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  filteredProjects.forEach(
+  projects.forEach(
     (project, index) => {
 
-      const article =
-        document.createElement("article");
-
-      article.classList.add("project");
-
-
-      const mainImage =
+      const image =
         project.images &&
         project.images.length > 0
           ? project.images[0]
           : "";
+
+
+      const architectNames =
+        getProjectArchitectNames(
+          project
+        );
+
+
+      const article =
+        document.createElement(
+          "article"
+        );
+
+
+      article.className =
+        "project";
 
 
       article.innerHTML = `
@@ -108,16 +196,17 @@ function renderProjects(typeFilter = "ALL") {
           <div class="project-image">
 
             ${
-              mainImage
+              image
                 ? `
                   <img
-                    src="${mainImage}"
+                    src="${image}"
                     alt="${project.title}"
                     loading="lazy"
                   >
                 `
                 : ""
             }
+
 
             <span class="project-number">
               ${String(index + 1).padStart(2, "0")}
@@ -128,21 +217,26 @@ function renderProjects(typeFilter = "ALL") {
 
           <div class="project-info">
 
-            <h3>
+            <h2>
               ${project.title}
-            </h3>
+            </h2>
 
             <p>
-              ${project.architect}
+              ${architectNames}
             </p>
 
-            <p>
-              ${project.city}, ${project.country}
-            </p>
+            <div class="project-meta">
 
-            <span class="project-type">
-              ${project.type}
-            </span>
+              <span>
+                ${project.city},
+                ${project.country}
+              </span>
+
+              <span>
+                ${project.type}
+              </span>
+
+            </div>
 
           </div>
 
@@ -151,59 +245,11 @@ function renderProjects(typeFilter = "ALL") {
       `;
 
 
-      projectGrid.appendChild(article);
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   FILTER BUTTONS
-========================================= */
-
-filterButtons.forEach((button) => {
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      filterButtons.forEach(
-        item =>
-          item.classList.remove("active")
+      projectGrid.appendChild(
+        article
       );
 
-
-      button.classList.add("active");
-
-
-      const filter =
-        button
-          .textContent
-          .trim()
-          .toUpperCase();
-
-
-      renderProjects(filter);
-
     }
   );
 
-});
-
-
-/* =========================================
-   LOAD DATA
-========================================= */
-
-async function initPlaces() {
-
-  projects = await loadProjects();
-
-  renderProjects();
-
 }
-
-
-initPlaces();
