@@ -22,12 +22,27 @@
 
 <body>
 
+
+  <!-- =====================================
+       GLOBAL HEADER
+  ====================================== -->
+
   <header class="site-header"></header>
 
 
+
+  <!-- =====================================
+       MAIN
+  ====================================== -->
+
   <main class="destinations-page">
 
-    <section class="destinations-header">
+
+    <!-- =================================
+         INTRO
+    ================================== -->
+
+    <section class="destinations-hero">
 
       <div class="destinations-kicker">
         ARCHIVE / DESTINATIONS
@@ -39,25 +54,39 @@
       </h1>
 
 
-      <p>
+      <p class="destinations-intro">
         Explore architecture through place.
       </p>
 
     </section>
 
 
-    <section class="destinations-controls">
+
+    <!-- =================================
+         DESTINATION CONTENT
+    ================================== -->
+
+    <section
+      class="destinations-controls"
+      id="destinations-content"
+    >
+
+
+      <!-- CONTINENT FILTERS -->
 
       <div
-        class="continent-filters"
         id="continent-filters"
+        class="continent-filters"
       ></div>
 
+
+
+      <!-- COUNTRY SELECTOR -->
 
       <div class="country-selector">
 
         <label for="country-select">
-          Country
+          Destination
         </label>
 
 
@@ -71,26 +100,35 @@
 
       </div>
 
-    </section>
-
-
-    <section class="destinations-grid-section">
-
-      <div
-        id="destinations-grid"
-        class="destinations-grid"
-      ></div>
 
     </section>
+
+
+
+    <!-- =================================
+         DESTINATIONS GRID
+    ================================== -->
+
+    <section
+      id="destinations-grid"
+      class="destinations-grid"
+    ></section>
+
 
   </main>
 
+
+
+  <!-- =====================================
+       SCRIPTS
+  ====================================== -->
 
   <script src="projects.js"></script>
 
   <script src="destinations.js"></script>
 
   <script src="navigation.js"></script>
+
 
 </body>
 
