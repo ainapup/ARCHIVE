@@ -9086,3 +9086,139 @@ body:has(.project-page)
   }
 
 }
+/* =========================================================
+   ARCHIVE — PROJECT PLACE STRIP
+   FINAL ARCHITECTURAL ALIGNMENT
+========================================================= */
+
+.project-place-strip {
+  display: flex;
+
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 28px;
+
+  padding:
+    16px
+    0
+    17px;
+
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.28);
+}
+
+
+/* PLACE INFORMATION */
+
+.project-place-details {
+  display: flex;
+
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 0;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+
+.project-place-details > span {
+  display: flex;
+
+  align-items: center;
+}
+
+
+.project-place-details > span:not(:last-child)::after {
+  content: "|";
+
+  margin:
+    0
+    11px;
+
+  color: #999;
+}
+
+
+.project-place-main-type {
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+/* BOOK / RESERVE / VISIT */
+
+.project-place-book {
+  display: flex;
+
+  align-items: center;
+
+  margin: 0;
+
+  padding: 0;
+}
+
+
+.project-place-action {
+  display: inline-block;
+
+  margin: 0;
+
+  padding-bottom: 2px;
+
+  color: #111;
+
+  border-bottom:
+    1px solid #111;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  line-height: 1.4;
+
+  white-space: nowrap;
+}
+
+
+.project-place-action:hover {
+  opacity: 0.5;
+}
+
+
+/* SEPARATOR BEFORE ACTION */
+
+.project-place-book::before {
+  content: "|";
+
+  margin-right: 11px;
+
+  color: #999;
+
+  font-size: 11px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .project-place-strip {
+    flex-wrap: wrap;
+
+    gap: 0;
+  }
+
+
+  .project-place-book {
+    margin-left: 0;
+  }
+
+}
