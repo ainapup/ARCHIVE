@@ -5765,3 +5765,21 @@ a.project-award-row:hover
   }
 
 }
+/* =========================================================
+   ARCHIVE — MAP BLACK & WHITE FINAL OVERRIDE
+========================================================= */
+
+#archive-map .leaflet-tile-pane {
+  filter:
+    grayscale(100%)
+    contrast(0.92)
+    brightness(1.06);
+}
+
+
+/* BLACK MARKERS */
+
+#archive-map .leaflet-interactive {
+  stroke: #111 !important;
+  fill: #111 !important;
+}
