@@ -2,13 +2,16 @@
    ARCHIVE — PROJECT PAGE
 ========================================= */
 
+
 const params =
   new URLSearchParams(
     window.location.search
   );
 
+
 const projectId =
   params.get("id");
+
 
 const detail =
   document.querySelector(
@@ -16,10 +19,16 @@ const detail =
   );
 
 
+
+/* =========================================
+   INITIALISE
+========================================= */
+
 async function initProject() {
 
   const projects =
     await loadProjects();
+
 
   const architects =
     await loadArchitects();
@@ -47,19 +56,20 @@ async function initProject() {
   }
 
 
+  document.title =
+    `ARCHIVE — ${project.title}`;
+
+
+
+  /* =========================================
+     PROJECT ARCHITECTS
+  ========================================= */
+
   const projectArchitects =
     getProjectArchitects(
       project
     );
 
-
-  document.title =
-    `ARCHIVE — ${project.title}`;
-
-
-  /* =========================================
-     ARCHITECTS
-  ========================================= */
 
   const architectMarkup =
     projectArchitects
@@ -121,34 +131,6 @@ async function initProject() {
       );
 
 
-  /* =========================================
-     GALLERY
-  ========================================= */
-
-  const gallery =
-    project.images &&
-    project.images.length > 0
-
-      ? project.images
-          .map(
-            (image, index) => `
-
-              <figure class="project-gallery-item">
-
-                <img
-                  src="${image}"
-                  alt="${project.title} — ${index + 1}"
-                  loading="lazy"
-                >
-
-              </figure>
-
-            `
-          )
-          .join("")
-
-      : "";
-
 
   /* =========================================
      PRICE
@@ -175,6 +157,7 @@ async function initProject() {
         </strong>
       `
       : project.type;
+
 
 
   /* =========================================
@@ -209,6 +192,11 @@ async function initProject() {
       : "";
 
 
+
+  /* =========================================
+     ARCHITECTURE WEBSITE
+  ========================================= */
+
   const architectureLink =
     project.architectureWebsite
       ? `
@@ -224,6 +212,7 @@ async function initProject() {
 
       `
       : "";
+
 
 
   /* =========================================
@@ -316,6 +305,7 @@ async function initProject() {
 
         </div>
 
+
         <div class="project-awards-list">
           ${rows}
         </div>
@@ -327,11 +317,62 @@ async function initProject() {
   }
 
 
+
+  /* =========================================
+     GALLERY
+  ========================================= */
+
+  const uniqueImages =
+    Array.isArray(
+      project.images
+    )
+      ? [
+          ...new Set(
+            project.images.filter(Boolean)
+          )
+        ]
+      : [];
+
+
+  const galleryMarkup =
+    uniqueImages
+      .map(
+        (image, index) => `
+
+          <figure
+            class="
+              project-gallery-item
+              ${
+                index === 0
+                  ? "project-gallery-main"
+                  : ""
+              }
+            "
+          >
+
+            <img
+              src="${image}"
+              alt="${project.title} — ${index + 1}"
+              loading="${index === 0 ? "eager" : "lazy"}"
+            >
+
+          </figure>
+
+        `
+      )
+      .join("");
+
+
+
   /* =========================================
      OUTPUT
   ========================================= */
 
   detail.innerHTML = `
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
 
     <section class="project-hero">
 
@@ -358,15 +399,20 @@ async function initProject() {
         <div>
 
           <span class="meta-label">
+
             ${
               projectArchitects.length > 1
                 ? "Architects"
                 : "Architect"
             }
+
           </span>
 
+
           <div class="project-architect-links">
+
             ${architectMarkup || "—"}
+
           </div>
 
         </div>
@@ -377,6 +423,7 @@ async function initProject() {
           <span class="meta-label">
             Location
           </span>
+
 
           <a
             href="destination.html?country=${encodeURIComponent(project.country)}"
@@ -394,6 +441,7 @@ async function initProject() {
             Year
           </span>
 
+
           <span>
             ${project.year || "—"}
           </span>
@@ -404,6 +452,11 @@ async function initProject() {
 
     </section>
 
+
+
+    <!-- =====================================
+         DESCRIPTION
+    ====================================== -->
 
     <section class="project-intro">
 
@@ -437,21 +490,41 @@ async function initProject() {
     </section>
 
 
+
     ${awardsMarkup}
 
 
+
+    <!-- =====================================
+         GALLERY
+    ====================================== -->
+
     ${
-      gallery
+      uniqueImages.length > 0
         ? `
-          <section class="project-gallery">
-            ${gallery}
+
+          <section
+            class="
+              project-gallery
+              project-gallery-count-${Math.min(uniqueImages.length, 4)}
+            "
+          >
+
+            ${galleryMarkup}
+
           </section>
+
         `
         : ""
     }
 
   `;
 
+
+
+  /* =========================================
+     BOOKING TRACKING
+  ========================================= */
 
   if (
     typeof applyBookingTracking ===
