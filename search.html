@@ -14,19 +14,26 @@
 
   <link
     rel="stylesheet"
-    href="style.css"
+    href="style.css?v=20261005-search-final"
   >
 
 </head>
 
+
 <body>
+
 
   <header class="site-header"></header>
 
 
   <main class="search-page">
 
-    <section class="search-hero">
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <section class="search-header">
 
       <div class="search-kicker">
         ARCHIVE / SEARCH
@@ -38,24 +45,56 @@
       </h1>
 
 
-      <div class="global-search">
+      <p>
+        Search the archive by place,
+        architect or destination.
+      </p>
 
-        <label for="global-search-input">
-          What are you looking for?
-        </label>
+    </section>
 
+
+
+    <!-- =====================================
+         SEARCH INPUT
+    ====================================== -->
+
+    <section class="search-interface">
+
+      <label
+        class="search-label"
+        for="global-search-input"
+      >
+        Search
+      </label>
+
+
+      <div class="search-input-wrap">
 
         <input
-          type="search"
           id="global-search-input"
-          placeholder="Search places, architects, destinations..."
+          type="search"
+          placeholder="Place, architect or destination"
           autocomplete="off"
+          spellcheck="false"
         >
+
+
+        <span
+          class="search-result-total"
+          id="search-result-total"
+        >
+          00 RESULTS
+        </span>
 
       </div>
 
     </section>
 
+
+
+    <!-- =====================================
+         RESULTS
+    ====================================== -->
 
     <section
       id="search-results"
@@ -71,16 +110,19 @@
 
     </section>
 
+
   </main>
 
 
-  <script src="projects.js"></script>
 
-  <script src="architects-data.js"></script>
+  <script src="projects.js?v=20261005-search-final"></script>
 
-  <script src="search.js"></script>
+  <script src="architects-data.js?v=20261005-search-final"></script>
+
+  <script src="search.js?v=20261005-search-final"></script>
 
   <script src="navigation.js"></script>
+
 
 </body>
 
