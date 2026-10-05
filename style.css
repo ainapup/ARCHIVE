@@ -6047,3 +6047,116 @@ a.project-award-row:hover
   }
 
 }
+/* =========================================================
+   ARCHIVE — MAP MONOCHROME
+   DEFINITIVE OVERRIDE
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   BLACK & WHITE MAP TILES
+--------------------------------------------------------- */
+
+#archive-map .leaflet-tile {
+  filter:
+    grayscale(1)
+    saturate(0)
+    contrast(0.88)
+    brightness(1.08) !important;
+}
+
+
+/* Make the map slightly quieter/editorial */
+
+#archive-map .leaflet-tile-pane {
+  opacity: 0.92;
+}
+
+
+/* ---------------------------------------------------------
+   BLACK MARKERS
+--------------------------------------------------------- */
+
+#archive-map path.leaflet-interactive {
+  stroke: #111 !important;
+  fill: #111 !important;
+
+  stroke-width: 1.5 !important;
+
+  fill-opacity: 1 !important;
+  stroke-opacity: 1 !important;
+}
+
+
+/* ---------------------------------------------------------
+   REMOVE LEAFLET BLUE INTERACTION EFFECTS
+--------------------------------------------------------- */
+
+#archive-map .leaflet-interactive:focus {
+  outline: none;
+}
+
+
+/* ---------------------------------------------------------
+   MAP BACKGROUND
+--------------------------------------------------------- */
+
+#archive-map {
+  background: #e8e7e2;
+}
+
+
+/* ---------------------------------------------------------
+   ZOOM CONTROLS
+--------------------------------------------------------- */
+
+#archive-map .leaflet-control-zoom {
+  border: 1px solid #111 !important;
+
+  border-radius: 0 !important;
+
+  box-shadow: none !important;
+}
+
+
+#archive-map .leaflet-control-zoom a {
+  border-radius: 0 !important;
+
+  background: #f4f3ee !important;
+
+  color: #111 !important;
+
+  border-bottom:
+    1px solid rgba(17, 17, 17, 0.35) !important;
+}
+
+
+#archive-map .leaflet-control-zoom a:last-child {
+  border-bottom: 0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   POPUP
+--------------------------------------------------------- */
+
+#archive-map .leaflet-popup-content-wrapper {
+  background: #f4f3ee;
+
+  border: 1px solid #111;
+
+  border-radius: 0;
+
+  box-shadow:
+    0
+    4px
+    14px
+    rgba(0, 0, 0, 0.12);
+}
+
+
+#archive-map .leaflet-popup-tip {
+  background: #f4f3ee;
+
+  box-shadow: none;
+}
