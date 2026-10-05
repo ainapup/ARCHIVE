@@ -37,11 +37,19 @@ const destinationSelect =
   );
 
 
+/* =========================================
+   INITIALISE
+========================================= */
+
 async function initDestination() {
 
   const projects =
     await loadProjects();
 
+
+  /* =========================================
+     DESTINATION SELECTOR
+  ========================================= */
 
   const countries =
     [
@@ -110,6 +118,10 @@ async function initDestination() {
   );
 
 
+  /* =========================================
+     FILTER PROJECTS
+  ========================================= */
+
   const filteredProjects =
     projects.filter(
       project =>
@@ -144,6 +156,10 @@ async function initDestination() {
   }
 
 
+  /* =========================================
+     DESTINATION HEADER
+  ========================================= */
+
   const continent =
     filteredProjects[0]
       .continent;
@@ -167,44 +183,66 @@ async function initDestination() {
     `ARCHIVE — ${country}`;
 
 
+  projectsContainer.innerHTML =
+    "";
+
+
+  /* =========================================
+     PROJECTS
+  ========================================= */
+
   filteredProjects.forEach(
     (project, index) => {
 
-      const projectSection =
-        document.createElement(
-          "section"
-        );
 
-
-      projectSection.classList.add(
-        "destination-project"
-      );
-
-
-      const images =
-        project.images || [];
-
-
-      const image1 =
-        images[0] || "";
-
-      const image2 =
-        images[1] ||
-        images[0] ||
-        "";
-
-      const image3 =
-        images[2] ||
-        images[1] ||
-        images[0] ||
-        "";
-
+      /* -----------------------------------------
+         ARCHITECTS
+      ----------------------------------------- */
 
       const architectNames =
-        getProjectArchitectNames(
-          project
-        );
+        typeof getProjectArchitectNames === "function"
 
+          ? getProjectArchitectNames(
+              project
+            )
+
+          : (
+              project.architect ||
+              ""
+            );
+
+
+      /* -----------------------------------------
+         UNIQUE IMAGES
+      ----------------------------------------- */
+
+      const projectImages =
+        Array.isArray(
+          project.images
+        )
+          ? project.images.filter(Boolean)
+          : [];
+
+
+      /*
+        Remove duplicated URLs.
+
+        ARCHIVE never repeats an image
+        just to fill the 3-column gallery.
+      */
+
+      const uniqueImages =
+        [
+          ...new Set(
+            projectImages
+          )
+        ]
+        .slice(0, 3);
+
+
+      /* -----------------------------------------
+         PRICE
+      ----------------------------------------- */
 
       const hasPrice =
         project.priceFrom !== null &&
@@ -215,17 +253,28 @@ async function initDestination() {
       const priceText =
         hasPrice
           ? `
+
             <strong class="destination-project-price">
-              FROM ${project.currency || ""}${project.priceFrom}
+
+              FROM
+              ${project.currency || ""}
+              ${project.priceFrom}
+
               ${
                 project.priceNote
                   ? ` / ${project.priceNote.toUpperCase()}`
                   : ""
               }
+
             </strong>
+
           `
           : "";
 
+
+      /* -----------------------------------------
+         BOOKING
+      ----------------------------------------- */
 
       const bookingLink =
         project.bookingUrl
@@ -248,6 +297,10 @@ async function initDestination() {
           : "";
 
 
+      /* -----------------------------------------
+         ARCHITECTURE WEBSITE
+      ----------------------------------------- */
+
       const architectureLink =
         project.architectureWebsite
           ? `
@@ -264,9 +317,52 @@ async function initDestination() {
           : "";
 
 
+      /* -----------------------------------------
+         IMAGE GALLERY
+      ----------------------------------------- */
+
+      const galleryMarkup =
+        uniqueImages
+          .map(
+            (image, imageIndex) => `
+
+              <a
+                href="project.html?id=${encodeURIComponent(project.id)}"
+                class="destination-project-image"
+              >
+
+                <img
+                  src="${image}"
+                  alt="${project.title} ${imageIndex + 1}"
+                  loading="lazy"
+                >
+
+              </a>
+
+            `
+          )
+          .join("");
+
+
+      /* -----------------------------------------
+         PROJECT SECTION
+      ----------------------------------------- */
+
+      const projectSection =
+        document.createElement(
+          "section"
+        );
+
+
+      projectSection.classList.add(
+        "destination-project"
+      );
+
+
       projectSection.innerHTML = `
 
         <div class="destination-project-info">
+
 
           <div class="destination-project-index">
 
@@ -287,9 +383,16 @@ async function initDestination() {
 
           <div class="destination-project-secondary">
 
-            <span>
-              ${architectNames}
-            </span>
+            ${
+              architectNames
+                ? `
+                  <span>
+                    ${architectNames}
+                  </span>
+                `
+                : ""
+            }
+
 
             <span>
               ${project.city},
@@ -316,6 +419,7 @@ async function initDestination() {
 
             ${architectureLink}
 
+
             <a
               href="project.html?id=${encodeURIComponent(project.id)}"
             >
@@ -327,27 +431,19 @@ async function initDestination() {
         </div>
 
 
-        <div class="destination-project-gallery">
+        ${
+          uniqueImages.length > 0
+            ? `
 
-          ${createImageBlock(
-            image1,
-            project,
-            1
-          )}
+              <div class="destination-project-gallery">
 
-          ${createImageBlock(
-            image2,
-            project,
-            2
-          )}
+                ${galleryMarkup}
 
-          ${createImageBlock(
-            image3,
-            project,
-            3
-          )}
+              </div>
 
-        </div>
+            `
+            : ""
+        }
 
       `;
 
@@ -360,6 +456,10 @@ async function initDestination() {
   );
 
 
+  /* =========================================
+     BOOKING TRACKING
+  ========================================= */
+
   if (
     typeof applyBookingTracking ===
     "function"
@@ -368,38 +468,6 @@ async function initDestination() {
     applyBookingTracking();
 
   }
-
-}
-
-
-function createImageBlock(
-  image,
-  project,
-  number
-) {
-
-  return `
-
-    <a
-      href="project.html?id=${encodeURIComponent(project.id)}"
-      class="destination-project-image"
-    >
-
-      ${
-        image
-          ? `
-            <img
-              src="${image}"
-              alt="${project.title} ${number}"
-              loading="lazy"
-            >
-          `
-          : ""
-      }
-
-    </a>
-
-  `;
 
 }
 
