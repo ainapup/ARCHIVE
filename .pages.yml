@@ -18,21 +18,16 @@ content:
         label: ID
         type: string
         required: true
-        pattern:
-          regex: "^[a-z0-9-]+$"
-          message: "Use only lowercase letters, numbers and hyphens"
 
       - name: title
         label: Project / Place name
         type: string
         required: true
 
-
       - name: architects
         label: Architects / Studios
         type: object
         list: true
-        required: true
 
         fields:
 
@@ -45,10 +40,6 @@ content:
             label: Architect ID
             type: string
             required: true
-            pattern:
-              regex: "^[a-z0-9-]+$"
-              message: "Example: tadao-ando"
-
 
       - name: city
         label: City
@@ -133,7 +124,6 @@ content:
         label: Price note
         type: string
 
-
       - name: awards
         label: Awards
         type: object
@@ -144,7 +134,6 @@ content:
           - name: name
             label: Award name
             type: string
-            required: true
 
           - name: year
             label: Year
@@ -170,7 +159,6 @@ content:
             type: string
 
 
-
   - name: architects
     label: Architects
     type: file
@@ -184,9 +172,6 @@ content:
         label: ID
         type: string
         required: true
-        pattern:
-          regex: "^[a-z0-9-]+$"
-          message: "Use only lowercase letters, numbers and hyphens"
 
       - name: name
         label: Architect / Studio name
@@ -251,7 +236,6 @@ content:
           - name: name
             label: Award name
             type: string
-            required: true
 
           - name: year
             label: Year
