@@ -9222,3 +9222,641 @@ body:has(.project-page)
   }
 
 }
+/* =========================================================
+   ARCHIVE — ARCHITECT DETAIL
+   FINAL EDITORIAL COMPOSITION
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   PAGE
+--------------------------------------------------------- */
+
+.architect-detail-page {
+  padding:
+    0
+    32px
+    20px;
+}
+
+
+/* ---------------------------------------------------------
+   HERO
+--------------------------------------------------------- */
+
+.architect-detail-hero {
+  padding:
+    34px
+    0
+    28px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.architect-detail-kicker {
+  margin-bottom:
+    64px;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+.architect-detail-hero h1 {
+  margin:
+    0
+    0
+    38px;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(72px, 9vw, 135px);
+
+  line-height: 0.84;
+
+  font-weight: normal;
+
+  letter-spacing:
+    -0.06em;
+}
+
+
+/* SUMMARY */
+
+.architect-summary {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    auto;
+
+  gap: 30px;
+
+  padding-top: 16px;
+
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.28);
+
+  font-size: 8px;
+
+  line-height: 1.3;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+
+/* ---------------------------------------------------------
+   ABOUT
+--------------------------------------------------------- */
+
+.architect-about {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(260px, 0.75fr);
+
+  gap: 58px;
+
+  padding:
+    34px
+    0
+    44px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.architect-about-text {
+  max-width: 900px;
+}
+
+
+.architect-about-text > p {
+  max-width: 900px;
+
+  margin:
+    0
+    0
+    34px;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(29px, 3vw, 44px);
+
+  line-height: 1.05;
+
+  letter-spacing:
+    -0.035em;
+}
+
+
+/* FACTS */
+
+.architect-facts {
+  max-width: 680px;
+
+  border-top:
+    1px solid
+    rgba(17, 17, 17, 0.24);
+}
+
+
+.architect-fact {
+  display: grid;
+
+  grid-template-columns:
+    110px
+    1fr;
+
+  gap: 20px;
+
+  padding:
+    9px
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(17, 17, 17, 0.18);
+}
+
+
+.architect-fact span {
+  color: #777;
+
+  font-size: 8px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+}
+
+
+.architect-fact strong {
+  font-size: 10px;
+
+  font-weight: normal;
+}
+
+
+/* WEBSITE */
+
+.architect-website {
+  display: inline-block;
+
+  margin-top: 18px;
+
+  padding-bottom: 3px;
+
+  border-bottom:
+    1px solid #111;
+
+  color: #111;
+
+  text-decoration: none;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+}
+
+
+.architect-website:hover {
+  opacity: 0.5;
+}
+
+
+
+/* ---------------------------------------------------------
+   PORTRAIT
+--------------------------------------------------------- */
+
+.architect-portrait {
+  width: 100%;
+
+  aspect-ratio:
+    4 / 5;
+
+  overflow: hidden;
+
+  background:
+    #dfded8;
+}
+
+
+.architect-portrait img {
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.architect-portrait-empty {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #888;
+
+  font-size: 8px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+
+
+/* ---------------------------------------------------------
+   GENERIC SECTION HEADER
+--------------------------------------------------------- */
+
+.architect-section-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: baseline;
+
+  padding-bottom: 14px;
+
+  border-bottom:
+    1px solid #111;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.07em;
+}
+
+
+
+/* ---------------------------------------------------------
+   AWARDS
+--------------------------------------------------------- */
+
+.architect-awards {
+  padding:
+    28px
+    0
+    36px;
+
+  border-bottom:
+    1px solid #111;
+}
+
+
+.architect-award-row {
+  display: grid;
+
+  grid-template-columns:
+    110px
+    minmax(0, 1fr)
+    160px;
+
+  gap: 25px;
+
+  align-items: center;
+
+  padding:
+    13px
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(17, 17, 17, 0.18);
+
+  color: #111;
+
+  text-decoration: none;
+}
+
+
+.architect-award-year,
+.architect-award-recognition {
+  font-size: 8px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+}
+
+
+.architect-award-name {
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 21px;
+
+  line-height: 1;
+}
+
+
+.architect-award-recognition {
+  text-align: right;
+
+  color: #777;
+}
+
+
+
+/* ---------------------------------------------------------
+   RELATED PLACES
+--------------------------------------------------------- */
+
+.architect-related {
+  padding:
+    28px
+    0
+    16px;
+}
+
+
+.architect-related-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap:
+    34px
+    14px;
+
+  padding-top: 22px;
+}
+
+
+.architect-related-card {
+  min-width: 0;
+}
+
+
+.architect-related-link {
+  display: block;
+
+  color: #111;
+
+  text-decoration: none;
+}
+
+
+.architect-related-image {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio:
+    4 / 3;
+
+  overflow: hidden;
+
+  background:
+    #dad8d0;
+}
+
+
+.architect-related-image img {
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform
+    0.4s ease;
+}
+
+
+.architect-related-card:hover
+.architect-related-image img {
+  transform:
+    scale(1.015);
+}
+
+
+.architect-related-image > span {
+  position: absolute;
+
+  top: 6px;
+
+  right: 6px;
+
+  padding:
+    3px
+    5px;
+
+  background:
+    #f4f3ee;
+
+  font-size: 8px;
+}
+
+
+.architect-related-info {
+  padding-top: 7px;
+}
+
+
+.architect-related-info h3 {
+  margin:
+    0
+    0
+    5px;
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+
+  line-height: 1;
+
+  font-weight: normal;
+
+  letter-spacing:
+    -0.025em;
+
+  text-transform: none;
+}
+
+
+.architect-related-info p {
+  margin:
+    0
+    0
+    2px;
+
+  font-size: 8px;
+
+  line-height: 1.3;
+}
+
+
+.architect-related-type {
+  margin-top:
+    6px
+    !important;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+}
+
+
+
+/* ---------------------------------------------------------
+   FOOTER DISTANCE
+--------------------------------------------------------- */
+
+body:has(
+  .architect-detail-page
+)
+.site-footer {
+  margin-top: 35px;
+}
+
+
+
+/* ---------------------------------------------------------
+   TABLET
+--------------------------------------------------------- */
+
+@media (max-width: 1200px) {
+
+  .architect-related-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+}
+
+
+
+/* ---------------------------------------------------------
+   SMALL TABLET
+--------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .architect-related-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 800px) {
+
+  .architect-detail-page {
+    padding:
+      0
+      18px
+      10px;
+  }
+
+
+  .architect-detail-kicker {
+    margin-bottom:
+      44px;
+  }
+
+
+  .architect-detail-hero h1 {
+    font-size: 60px;
+
+    margin-bottom: 30px;
+  }
+
+
+  .architect-summary {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+  }
+
+
+  .architect-about {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+
+    padding:
+      28px
+      0
+      36px;
+  }
+
+
+  .architect-portrait {
+    max-width: 420px;
+  }
+
+
+  .architect-award-row {
+    grid-template-columns:
+      55px
+      1fr;
+
+    gap: 15px;
+  }
+
+
+  .architect-award-recognition {
+    grid-column: 2;
+
+    text-align: left;
+  }
+
+
+  .architect-related-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .architect-related-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
