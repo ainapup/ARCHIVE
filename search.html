@@ -14,7 +14,7 @@
 
   <link
     rel="stylesheet"
-    href="style.css?v=20261005-search-final"
+    href="style.css?v=20261005-search2"
   >
 
 </head>
@@ -28,10 +28,6 @@
 
   <main class="search-page">
 
-
-    <!-- =====================================
-         HEADER
-    ====================================== -->
 
     <section class="search-header">
 
@@ -54,10 +50,6 @@
 
 
 
-    <!-- =====================================
-         SEARCH INPUT
-    ====================================== -->
-
     <section class="search-interface">
 
       <label
@@ -70,13 +62,27 @@
 
       <div class="search-input-wrap">
 
-        <input
-          id="global-search-input"
-          type="search"
-          placeholder="Place, architect or destination"
-          autocomplete="off"
-          spellcheck="false"
-        >
+        <div class="search-field">
+
+          <input
+            id="global-search-input"
+            type="search"
+            placeholder="Place, architect or destination"
+            autocomplete="off"
+            spellcheck="false"
+          >
+
+
+          <button
+            type="button"
+            id="search-clear"
+            class="search-clear"
+            aria-label="Clear search"
+          >
+            ×
+          </button>
+
+        </div>
 
 
         <span
@@ -91,10 +97,6 @@
     </section>
 
 
-
-    <!-- =====================================
-         RESULTS
-    ====================================== -->
 
     <section
       id="search-results"
@@ -115,11 +117,11 @@
 
 
 
-  <script src="projects.js?v=20261005-search-final"></script>
+  <script src="projects.js?v=20261005-search2"></script>
 
-  <script src="architects-data.js?v=20261005-search-final"></script>
+  <script src="architects-data.js?v=20261005-search2"></script>
 
-  <script src="search.js?v=20261005-search-final"></script>
+  <script src="search.js?v=20261005-search2"></script>
 
   <script src="navigation.js"></script>
 
