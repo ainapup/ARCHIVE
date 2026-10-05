@@ -2,6 +2,11 @@
    ARCHIVE — GLOBAL SEARCH
 ========================================= */
 
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
 const searchInput =
   document.querySelector(
     "#global-search-input"
@@ -12,8 +17,18 @@ const searchResults =
     "#search-results"
   );
 
+const searchResultTotal =
+  document.querySelector(
+    "#search-result-total"
+  );
+
+
+/* =========================================
+   DATA
+========================================= */
 
 let projects = [];
+
 let architects = [];
 
 
@@ -52,6 +67,10 @@ searchInput.addEventListener(
 
     if (!query) {
 
+      searchResultTotal.textContent =
+        "00 RESULTS";
+
+
       searchResults.innerHTML = `
 
         <div class="search-empty-state">
@@ -62,6 +81,7 @@ searchInput.addEventListener(
         </div>
 
       `;
+
 
       return;
 
@@ -154,6 +174,11 @@ function renderResults(
   projects.forEach(
     project => {
 
+      if (!project.country) {
+        return;
+      }
+
+
       if (
         !destinationMap[
           project.country
@@ -171,14 +196,25 @@ function renderResults(
             project.continent,
 
           image:
-            project.images &&
+            Array.isArray(
+              project.images
+            ) &&
             project.images.length > 0
+
               ? project.images[0]
-              : ""
+
+              : "",
+
+          count: 0
 
         };
 
       }
+
+
+      destinationMap[
+        project.country
+      ].count++;
 
     }
   );
@@ -188,31 +224,43 @@ function renderResults(
     Object.values(
       destinationMap
     )
-      .filter(
-        destination => {
+    .filter(
+      destination => {
 
-          const searchableText = `
+        const searchableText = `
 
-            ${destination.country || ""}
+          ${destination.country || ""}
 
-            ${destination.continent || ""}
+          ${destination.continent || ""}
 
-          `
-          .toLowerCase();
+        `
+        .toLowerCase();
 
 
-          return searchableText.includes(
-            query
-          );
+        return searchableText.includes(
+          query
+        );
 
-        }
-      );
+      }
+    );
+
+
+  const totalResults =
+    matchingProjects.length +
+    matchingArchitects.length +
+    matchingDestinations.length;
+
+
+  searchResultTotal.textContent =
+    `${String(totalResults).padStart(2, "0")} ${
+      totalResults === 1
+        ? "RESULT"
+        : "RESULTS"
+    }`;
 
 
   if (
-    matchingProjects.length === 0 &&
-    matchingArchitects.length === 0 &&
-    matchingDestinations.length === 0
+    totalResults === 0
   ) {
 
     searchResults.innerHTML = `
@@ -273,12 +321,16 @@ function renderPlaces(
   const cards =
     results
       .map(
-        project => {
+        (project, index) => {
 
           const image =
-            project.images &&
+            Array.isArray(
+              project.images
+            ) &&
             project.images.length > 0
+
               ? project.images[0]
+
               : "";
 
 
@@ -294,6 +346,7 @@ function renderPlaces(
 
               <a
                 href="project.html?id=${encodeURIComponent(project.id)}"
+                class="search-place-link"
               >
 
                 <div class="search-place-image">
@@ -304,28 +357,44 @@ function renderPlaces(
                         <img
                           src="${image}"
                           alt="${project.title}"
+                          loading="lazy"
                         >
                       `
                       : ""
                   }
+
+
+                  <span class="search-place-number">
+                    ${String(index + 1).padStart(2, "0")}
+                  </span>
 
                 </div>
 
 
                 <div class="search-place-info">
 
-                  <strong>
+                  <h3>
                     ${project.title}
-                  </strong>
+                  </h3>
 
-                  <span>
+
+                  <p>
                     ${architectNames}
-                  </span>
+                  </p>
 
-                  <span>
-                    ${project.city},
-                    ${project.country}
-                  </span>
+
+                  <div class="search-place-meta">
+
+                    <span>
+                      ${project.city},
+                      ${project.country}
+                    </span>
+
+                    <span>
+                      ${project.type}
+                    </span>
+
+                  </div>
 
                 </div>
 
@@ -358,7 +427,9 @@ function renderPlaces(
 
 
       <div class="search-places-grid">
+
         ${cards}
+
       </div>
 
     </section>
@@ -386,13 +457,19 @@ function renderArchitectResults(
             href="architect.html?id=${encodeURIComponent(architect.id)}"
           >
 
-            <span>
+            <span class="search-text-name">
               ${architect.name}
             </span>
 
-            <small>
-              ${architect.location || ""}
-            </small>
+
+            <span class="search-text-meta">
+              ${architect.location || architect.category || ""}
+            </span>
+
+
+            <span class="search-text-arrow">
+              ↗
+            </span>
 
           </a>
 
@@ -417,8 +494,11 @@ function renderArchitectResults(
 
       </div>
 
-      <div>
+
+      <div class="search-text-list">
+
         ${rows}
+
       </div>
 
     </section>
@@ -446,13 +526,26 @@ function renderDestinationResults(
             href="destination.html?country=${encodeURIComponent(destination.country)}"
           >
 
-            <span>
+            <span class="search-text-name">
               ${destination.country}
             </span>
 
-            <small>
+
+            <span class="search-text-meta">
               ${destination.continent}
-            </small>
+              ·
+              ${String(destination.count).padStart(2, "0")}
+              ${
+                destination.count === 1
+                  ? "place"
+                  : "places"
+              }
+            </span>
+
+
+            <span class="search-text-arrow">
+              ↗
+            </span>
 
           </a>
 
@@ -477,8 +570,11 @@ function renderDestinationResults(
 
       </div>
 
-      <div>
+
+      <div class="search-text-list">
+
         ${rows}
+
       </div>
 
     </section>
