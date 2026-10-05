@@ -6160,3 +6160,47 @@ a.project-award-row:hover
 
   box-shadow: none;
 }
+/* =========================================================
+   ARCHIVE — MAP POPUP TEXT BLACK
+   FINAL OVERRIDE
+========================================================= */
+
+#archive-map .leaflet-popup-content,
+#archive-map .leaflet-popup-content * {
+  color: #111 !important;
+}
+
+
+/* Links inside popup */
+
+#archive-map .map-popup-link,
+#archive-map .map-popup-link:visited,
+#archive-map .map-popup-link:hover,
+#archive-map .map-popup-link:active {
+  color: #111 !important;
+  text-decoration: none;
+}
+
+
+/* Project title */
+
+#archive-map .map-popup-content strong {
+  color: #111 !important;
+}
+
+
+/* Metadata */
+
+#archive-map .map-popup-type,
+#archive-map .map-popup-architect,
+#archive-map .map-popup-location,
+#archive-map .map-popup-view {
+  color: #111 !important;
+}
+
+
+/* View project underline */
+
+#archive-map .map-popup-view {
+  border-bottom-color: #111 !important;
+}
