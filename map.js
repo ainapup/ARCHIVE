@@ -12,18 +12,15 @@ const architectSelect =
     "#map-architect-select"
   );
 
-
 const typeButtons =
   document.querySelectorAll(
     ".map-type-filter"
   );
 
-
 const resultCount =
   document.querySelector(
     "#map-result-count"
   );
-
 
 
 /* =========================================
@@ -39,7 +36,6 @@ let markerLayer = null;
 let activeType = "ALL";
 
 let activeArchitect = "ALL";
-
 
 
 /* =========================================
@@ -66,7 +62,6 @@ async function initMap() {
 
 
 initMap();
-
 
 
 /* =========================================
@@ -106,7 +101,6 @@ function createMap() {
 }
 
 
-
 /* =========================================
    ARCHITECT FILTER
 ========================================= */
@@ -130,33 +124,36 @@ function populateArchitectFilter() {
         architect => {
 
           if (
+            !architect.id &&
+            !architect.name
+          ) {
+            return;
+          }
+
+
+          const key =
             architect.id ||
-            architect.name
+            architect.name;
+
+
+          if (
+            !architectMap.has(
+              key
+            )
           ) {
 
-            const key =
-              architect.id ||
-              architect.name;
+            architectMap.set(
+              key,
+              {
+                id:
+                  architect.id ||
+                  architect.name,
 
-
-            if (
-              !architectMap.has(key)
-            ) {
-
-              architectMap.set(
-                key,
-                {
-                  id:
-                    architect.id ||
-                    architect.name,
-
-                  name:
-                    architect.name ||
-                    architect.id
-                }
-              );
-
-            }
+                name:
+                  architect.name ||
+                  architect.id
+              }
+            );
 
           }
 
@@ -206,9 +203,8 @@ function populateArchitectFilter() {
 }
 
 
-
 /* =========================================
-   TYPE FILTER EVENTS
+   TYPE FILTER
 ========================================= */
 
 function bindTypeFilters() {
@@ -248,9 +244,8 @@ function bindTypeFilters() {
 }
 
 
-
 /* =========================================
-   ARCHITECT FILTER EVENT
+   ARCHITECT FILTER
 ========================================= */
 
 function bindArchitectFilter() {
@@ -271,7 +266,6 @@ function bindArchitectFilter() {
 }
 
 
-
 /* =========================================
    FILTER PROJECTS
 ========================================= */
@@ -280,7 +274,6 @@ function getFilteredProjects() {
 
   return projects.filter(
     project => {
-
 
       const latitude =
         Number(
@@ -306,7 +299,8 @@ function getFilteredProjects() {
 
       if (
         activeType !== "ALL" &&
-        project.type !== activeType
+        project.type !==
+          activeType
       ) {
 
         return false;
@@ -323,21 +317,18 @@ function getFilteredProjects() {
             project
           )
           .some(
-            architect => {
+            architect =>
+              architect.id ===
+                activeArchitect ||
 
-              return (
-                architect.id ===
-                  activeArchitect ||
-
-                architect.name ===
-                  activeArchitect
-              );
-
-            }
+              architect.name ===
+                activeArchitect
           );
 
 
-        if (!matchesArchitect) {
+        if (
+          !matchesArchitect
+        ) {
 
           return false;
 
@@ -352,7 +343,6 @@ function getFilteredProjects() {
   );
 
 }
-
 
 
 /* =========================================
@@ -453,9 +443,8 @@ function renderMarkers() {
 }
 
 
-
 /* =========================================
-   CREATE MARKER
+   MARKER
 ========================================= */
 
 function createMarker(
@@ -490,8 +479,8 @@ function createMarker(
       project
     ),
     {
-      maxWidth: 320,
-      minWidth: 260
+      maxWidth: 340,
+      minWidth: 300
     }
   );
 
@@ -499,7 +488,6 @@ function createMarker(
   return marker;
 
 }
-
 
 
 /* =========================================
@@ -601,7 +589,6 @@ function createPopup(
 }
 
 
-
 /* =========================================
    RESULT COUNT
 ========================================= */
@@ -610,15 +597,11 @@ function updateResultCount(
   number
 ) {
 
-  resultCount.textContent = `
-
-    ${String(number).padStart(2, "0")}
-    ${
+  resultCount.textContent =
+    `${String(number).padStart(2, "0")} ${
       number === 1
-        ? "place"
-        : "places"
-    }
-
-  `;
+        ? "PLACE"
+        : "PLACES"
+    }`;
 
 }
