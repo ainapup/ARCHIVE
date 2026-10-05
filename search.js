@@ -12,15 +12,24 @@ const searchInput =
     "#global-search-input"
   );
 
+
 const searchResults =
   document.querySelector(
     "#search-results"
   );
 
+
 const searchResultTotal =
   document.querySelector(
     "#search-result-total"
   );
+
+
+const searchClear =
+  document.querySelector(
+    "#search-clear"
+  );
+
 
 
 /* =========================================
@@ -30,6 +39,7 @@ const searchResultTotal =
 let projects = [];
 
 let architects = [];
+
 
 
 /* =========================================
@@ -50,6 +60,7 @@ async function initSearch() {
 initSearch();
 
 
+
 /* =========================================
    SEARCH
 ========================================= */
@@ -58,42 +69,115 @@ searchInput.addEventListener(
   "input",
   () => {
 
-    const query =
-      searchInput
-        .value
-        .trim()
-        .toLowerCase();
+    updateClearButton();
 
-
-    if (!query) {
-
-      searchResultTotal.textContent =
-        "00 RESULTS";
-
-
-      searchResults.innerHTML = `
-
-        <div class="search-empty-state">
-
-          Search the archive by place,
-          architect or destination.
-
-        </div>
-
-      `;
-
-
-      return;
-
-    }
-
-
-    renderResults(
-      query
-    );
+    performSearch();
 
   }
 );
+
+
+
+/* =========================================
+   CLEAR SEARCH
+========================================= */
+
+searchClear.addEventListener(
+  "click",
+  () => {
+
+    searchInput.value = "";
+
+    searchInput.focus();
+
+    updateClearButton();
+
+    resetSearch();
+
+  }
+);
+
+
+
+/* =========================================
+   CLEAR BUTTON STATE
+========================================= */
+
+function updateClearButton() {
+
+  if (
+    searchInput.value.trim()
+  ) {
+
+    searchClear.classList.add(
+      "visible"
+    );
+
+  } else {
+
+    searchClear.classList.remove(
+      "visible"
+    );
+
+  }
+
+}
+
+
+
+/* =========================================
+   PERFORM SEARCH
+========================================= */
+
+function performSearch() {
+
+  const query =
+    searchInput
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if (!query) {
+
+    resetSearch();
+
+    return;
+
+  }
+
+
+  renderResults(
+    query
+  );
+
+}
+
+
+
+/* =========================================
+   RESET
+========================================= */
+
+function resetSearch() {
+
+  searchResultTotal.textContent =
+    "00 RESULTS";
+
+
+  searchResults.innerHTML = `
+
+    <div class="search-empty-state">
+
+      Search the archive by place,
+      architect or destination.
+
+    </div>
+
+  `;
+
+}
+
 
 
 /* =========================================
@@ -194,16 +278,6 @@ function renderResults(
 
           continent:
             project.continent,
-
-          image:
-            Array.isArray(
-              project.images
-            ) &&
-            project.images.length > 0
-
-              ? project.images[0]
-
-              : "",
 
           count: 0
 
@@ -308,6 +382,7 @@ function renderResults(
   `;
 
 }
+
 
 
 /* =========================================
@@ -439,6 +514,7 @@ function renderPlaces(
 }
 
 
+
 /* =========================================
    ARCHITECTS
 ========================================= */
@@ -508,6 +584,7 @@ function renderArchitectResults(
 }
 
 
+
 /* =========================================
    DESTINATIONS
 ========================================= */
@@ -532,14 +609,19 @@ function renderDestinationResults(
 
 
             <span class="search-text-meta">
+
               ${destination.continent}
+
               ·
+
               ${String(destination.count).padStart(2, "0")}
+
               ${
                 destination.count === 1
                   ? "place"
                   : "places"
               }
+
             </span>
 
 
@@ -582,6 +664,7 @@ function renderDestinationResults(
   `;
 
 }
+
 
 
 /* =========================================
