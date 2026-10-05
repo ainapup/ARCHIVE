@@ -282,10 +282,6 @@ function getFilteredProjects() {
     project => {
 
 
-      /* -----------------------------------------
-         VALID COORDINATES
-      ----------------------------------------- */
-
       const latitude =
         Number(
           project.latitude
@@ -308,10 +304,6 @@ function getFilteredProjects() {
       }
 
 
-      /* -----------------------------------------
-         TYPE
-      ----------------------------------------- */
-
       if (
         activeType !== "ALL" &&
         project.type !== activeType
@@ -321,10 +313,6 @@ function getFilteredProjects() {
 
       }
 
-
-      /* -----------------------------------------
-         ARCHITECT
-      ----------------------------------------- */
 
       if (
         activeArchitect !== "ALL"
@@ -427,11 +415,6 @@ function renderMarkers() {
   );
 
 
-  /*
-    Adapt viewport only when
-    results actually exist.
-  */
-
   if (
     bounds.length === 1
   ) {
@@ -490,7 +473,13 @@ function createMarker(
       {
         radius: 6,
         weight: 1.5,
+
+        color: "#111",
+
+        fillColor: "#111",
+
         opacity: 1,
+
         fillOpacity: 1
       }
     );
@@ -531,12 +520,6 @@ function createPopup(
 
       : "";
 
-
-  /*
-    IMPORTANT:
-    We now use the new architects structure,
-    so "undefined" disappears.
-  */
 
   const architectNames =
     getProjectArchitectNames(
