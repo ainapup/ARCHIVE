@@ -1,305 +1,216 @@
 /* =========================================
-   ARCHIVE — GLOBAL NAVIGATION
+   ARCHIVE — GOOGLE TAG MANAGER
 ========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+(function () {
 
-  /* -----------------------------------------
-     HEADER
-  ----------------------------------------- */
-
-  const header = document.querySelector(".site-header");
-
-  if (header) {
-
-    header.innerHTML = `
-
-      <a class="logo" href="index.html">
-        ARCHIVE
-      </a>
+  const GTM_ID = "GTM-P384GMLB";
 
 
-      <button
-        class="mobile-menu-button"
-        type="button"
-        aria-label="Open menu"
-        aria-expanded="false"
-      >
-        MENU
-      </button>
+  /* GTM SCRIPT */
+
+  window.dataLayer =
+    window.dataLayer || [];
+
+  window.dataLayer.push({
+    "gtm.start":
+      new Date().getTime(),
+    event:
+      "gtm.js"
+  });
 
 
-      <nav class="main-nav">
-
-        <a href="index.html#places" data-page="index">
-          Places
-        </a>
-
-        <a href="architects.html" data-page="architects">
-          Architects
-        </a>
-
-        <a href="destinations.html" data-page="destinations">
-          Destinations
-        </a>
-
-        <a href="map.html" data-page="map">
-          Map
-        </a>
-
-        <a href="search.html" data-page="search">
-          Search
-        </a>
-
-        <a href="about.html" data-page="about">
-          About
-        </a>
-
-      </nav>
-
-    `;
-
-  }
+  const firstScript =
+    document.getElementsByTagName(
+      "script"
+    )[0];
 
 
-  /* -----------------------------------------
-     MOBILE MENU
-  ----------------------------------------- */
-
-  const mobileMenu = document.createElement("div");
-
-  mobileMenu.className = "mobile-menu";
-
-  mobileMenu.innerHTML = `
-
-    <div class="mobile-menu-top">
-
-      <a class="mobile-logo" href="index.html">
-        ARCHIVE
-      </a>
-
-      <button
-        class="mobile-menu-close"
-        type="button"
-        aria-label="Close menu"
-      >
-        CLOSE
-      </button>
-
-    </div>
+  const gtmScript =
+    document.createElement(
+      "script"
+    );
 
 
-    <nav class="mobile-menu-nav">
+  gtmScript.async = true;
 
-      <a href="index.html#places">
-        Places
-      </a>
+  gtmScript.src =
+    "https://www.googletagmanager.com/gtm.js?id=" +
+    GTM_ID;
 
-      <a href="architects.html">
-        Architects
-      </a>
 
-      <a href="destinations.html">
-        Destinations
-      </a>
+  firstScript.parentNode.insertBefore(
+    gtmScript,
+    firstScript
+  );
 
-      <a href="map.html">
-        Map
-      </a>
 
-      <a href="search.html">
-        Search
-      </a>
+  /* GTM NOSCRIPT FALLBACK */
 
-      <a href="about.html">
-        About
-      </a>
+  const noscript =
+    document.createElement(
+      "noscript"
+    );
 
-      <a href="submit.html">
-        Submit a place
-      </a>
 
-      <a href="contact.html">
-        Contact
-      </a>
+  noscript.innerHTML = `
 
-    </nav>
+    <iframe
+      src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"
+    ></iframe>
 
   `;
 
-  document.body.appendChild(mobileMenu);
-
-
-  const menuButton =
-    document.querySelector(".mobile-menu-button");
-
-  const closeButton =
-    document.querySelector(".mobile-menu-close");
-
-
-  function openMenu() {
-
-    mobileMenu.classList.add("is-open");
-
-    document.body.classList.add("menu-open");
-
-    if (menuButton) {
-
-      menuButton.setAttribute(
-        "aria-expanded",
-        "true"
-      );
-
-    }
-
-  }
-
-
-  function closeMenu() {
-
-    mobileMenu.classList.remove("is-open");
-
-    document.body.classList.remove("menu-open");
-
-    if (menuButton) {
-
-      menuButton.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
-    }
-
-  }
-
-
-  if (menuButton) {
-
-    menuButton.addEventListener(
-      "click",
-      openMenu
-    );
-
-  }
-
-
-  if (closeButton) {
-
-    closeButton.addEventListener(
-      "click",
-      closeMenu
-    );
-
-  }
-
-
-  document
-    .querySelectorAll(".mobile-menu-nav a")
-    .forEach(link => {
-
-      link.addEventListener(
-        "click",
-        closeMenu
-      );
-
-    });
-
 
   document.addEventListener(
-    "keydown",
-    event => {
+    "DOMContentLoaded",
+    () => {
 
-      if (event.key === "Escape") {
-
-        closeMenu();
-
-      }
+      document.body.insertBefore(
+        noscript,
+        document.body.firstChild
+      );
 
     }
   );
 
-
-  /* -----------------------------------------
-     ACTIVE NAVIGATION ITEM
-  ----------------------------------------- */
-
-  const currentFile =
-    window.location.pathname
-      .split("/")
-      .pop() || "index.html";
+})();
 
 
-  const pageMap = {
 
-    "index.html": "index",
+/* =========================================
+   ARCHIVE — GLOBAL NAVIGATION
+========================================= */
 
-    "architects.html": "architects",
-    "architect.html": "architects",
-
-    "destinations.html": "destinations",
-    "destination.html": "destinations",
-
-    "map.html": "map",
-
-    "search.html": "search",
-
-    "about.html": "about"
-
-  };
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
 
-  const activePage =
-    pageMap[currentFile];
+    /* -----------------------------------------
+       HEADER
+    ----------------------------------------- */
+
+    const header =
+      document.querySelector(
+        ".site-header"
+      );
 
 
-  if (activePage) {
+    if (header) {
 
-    document
-      .querySelectorAll(
-        `.main-nav a[data-page="${activePage}"]`
-      )
-      .forEach(link => {
+      header.innerHTML = `
 
-        link.classList.add("nav-active");
-
-      });
-
-  }
-
-
-  /* -----------------------------------------
-     FOOTER
-  ----------------------------------------- */
-
-  const footer =
-    document.createElement("footer");
-
-  footer.className = "site-footer";
-
-
-  footer.innerHTML = `
-
-    <div class="footer-top">
-
-
-      <div class="footer-brand">
-
-        <a href="index.html">
+        <a
+          class="logo"
+          href="index.html"
+        >
           ARCHIVE
         </a>
 
-        <p>
-          Places shaped by architecture.
-        </p>
+
+        <button
+          class="mobile-menu-button"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          MENU
+        </button>
+
+
+        <nav class="main-nav">
+
+          <a
+            href="index.html#places"
+            data-page="index"
+          >
+            Places
+          </a>
+
+          <a
+            href="architects.html"
+            data-page="architects"
+          >
+            Architects
+          </a>
+
+          <a
+            href="destinations.html"
+            data-page="destinations"
+          >
+            Destinations
+          </a>
+
+          <a
+            href="map.html"
+            data-page="map"
+          >
+            Map
+          </a>
+
+          <a
+            href="search.html"
+            data-page="search"
+          >
+            Search
+          </a>
+
+          <a
+            href="about.html"
+            data-page="about"
+          >
+            About
+          </a>
+
+        </nav>
+
+      `;
+
+    }
+
+
+
+    /* -----------------------------------------
+       MOBILE MENU
+    ----------------------------------------- */
+
+    const mobileMenu =
+      document.createElement(
+        "div"
+      );
+
+
+    mobileMenu.className =
+      "mobile-menu";
+
+
+    mobileMenu.innerHTML = `
+
+      <div class="mobile-menu-top">
+
+        <a
+          class="mobile-logo"
+          href="index.html"
+        >
+          ARCHIVE
+        </a>
+
+        <button
+          class="mobile-menu-close"
+          type="button"
+          aria-label="Close menu"
+        >
+          CLOSE
+        </button>
 
       </div>
 
 
-      <div class="footer-column">
-
-        <span class="footer-label">
-          Explore
-        </span>
+      <nav class="mobile-menu-nav">
 
         <a href="index.html#places">
           Places
@@ -321,15 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
           Search
         </a>
 
-      </div>
-
-
-      <div class="footer-column">
-
-        <span class="footer-label">
-          Archive
-        </span>
-
         <a href="about.html">
           About
         </a>
@@ -342,39 +244,306 @@ document.addEventListener("DOMContentLoaded", () => {
           Contact
         </a>
 
+      </nav>
+
+    `;
+
+
+    document.body.appendChild(
+      mobileMenu
+    );
+
+
+    const menuButton =
+      document.querySelector(
+        ".mobile-menu-button"
+      );
+
+    const closeButton =
+      document.querySelector(
+        ".mobile-menu-close"
+      );
+
+
+    function openMenu() {
+
+      mobileMenu.classList.add(
+        "is-open"
+      );
+
+      document.body.classList.add(
+        "menu-open"
+      );
+
+
+      if (menuButton) {
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          "true"
+        );
+
+      }
+
+    }
+
+
+    function closeMenu() {
+
+      mobileMenu.classList.remove(
+        "is-open"
+      );
+
+      document.body.classList.remove(
+        "menu-open"
+      );
+
+
+      if (menuButton) {
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      }
+
+    }
+
+
+    if (menuButton) {
+
+      menuButton.addEventListener(
+        "click",
+        openMenu
+      );
+
+    }
+
+
+    if (closeButton) {
+
+      closeButton.addEventListener(
+        "click",
+        closeMenu
+      );
+
+    }
+
+
+    document
+      .querySelectorAll(
+        ".mobile-menu-nav a"
+      )
+      .forEach(
+        link => {
+
+          link.addEventListener(
+            "click",
+            closeMenu
+          );
+
+        }
+      );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeMenu();
+
+        }
+
+      }
+    );
+
+
+
+    /* -----------------------------------------
+       ACTIVE NAVIGATION
+    ----------------------------------------- */
+
+    const currentFile =
+      window.location.pathname
+        .split("/")
+        .pop() ||
+      "index.html";
+
+
+    const pageMap = {
+
+      "index.html":
+        "index",
+
+      "architects.html":
+        "architects",
+
+      "architect.html":
+        "architects",
+
+      "destinations.html":
+        "destinations",
+
+      "destination.html":
+        "destinations",
+
+      "map.html":
+        "map",
+
+      "search.html":
+        "search",
+
+      "about.html":
+        "about"
+
+    };
+
+
+    const activePage =
+      pageMap[currentFile];
+
+
+    if (activePage) {
+
+      document
+        .querySelectorAll(
+          `.main-nav a[data-page="${activePage}"]`
+        )
+        .forEach(
+          link => {
+
+            link.classList.add(
+              "nav-active"
+            );
+
+          }
+        );
+
+    }
+
+
+
+    /* -----------------------------------------
+       FOOTER
+    ----------------------------------------- */
+
+    const footer =
+      document.createElement(
+        "footer"
+      );
+
+
+    footer.className =
+      "site-footer";
+
+
+    footer.innerHTML = `
+
+      <div class="footer-top">
+
+
+        <div class="footer-brand">
+
+          <a href="index.html">
+            ARCHIVE
+          </a>
+
+          <p>
+            Places shaped by architecture.
+          </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <span class="footer-label">
+            Explore
+          </span>
+
+          <a href="index.html#places">
+            Places
+          </a>
+
+          <a href="architects.html">
+            Architects
+          </a>
+
+          <a href="destinations.html">
+            Destinations
+          </a>
+
+          <a href="map.html">
+            Map
+          </a>
+
+          <a href="search.html">
+            Search
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <span class="footer-label">
+            Archive
+          </span>
+
+          <a href="about.html">
+            About
+          </a>
+
+          <a href="submit.html">
+            Submit a place
+          </a>
+
+          <a href="contact.html">
+            Contact
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <span class="footer-label">
+            Follow
+          </span>
+
+          <span class="footer-muted">
+            Instagram
+          </span>
+
+        </div>
+
       </div>
 
 
-      <div class="footer-column">
+      <div class="footer-bottom">
 
-        <span class="footer-label">
-          Follow
+        <span>
+          © ARCHIVE
+          ${new Date().getFullYear()}
         </span>
 
-        <span class="footer-muted">
-          Instagram
+        <span>
+          Curated architecture for travel.
         </span>
 
       </div>
 
-    </div>
+    `;
 
 
-    <div class="footer-bottom">
+    document.body.appendChild(
+      footer
+    );
 
-      <span>
-        © ARCHIVE ${new Date().getFullYear()}
-      </span>
-
-      <span>
-        Curated architecture for travel.
-      </span>
-
-    </div>
-
-  `;
-
-
-  document.body.appendChild(footer);
-
-});
+  }
+);
