@@ -54,19 +54,19 @@ async function initArchitect() {
   const relatedProjects =
     projects.filter(
       project =>
-
-        project.architectId === architect.id ||
-
-        (
-          !project.architectId &&
-          project.architect === architect.name
+        projectHasArchitect(
+          project,
+          architect
         )
     );
 
 
   const isStudio =
-    architect.category === "Architecture studio" ||
-    architect.category === "Design studio";
+    architect.category ===
+      "Architecture studio" ||
+
+    architect.category ===
+      "Design studio";
 
 
   /* =========================================
@@ -81,6 +81,7 @@ async function initArchitect() {
     if (architect.foundedYear) {
 
       factRows.push(`
+
         <div class="architect-fact">
 
           <span class="architect-fact-label">
@@ -92,6 +93,7 @@ async function initArchitect() {
           </span>
 
         </div>
+
       `);
 
     }
@@ -100,6 +102,7 @@ async function initArchitect() {
     if (architect.closedYear) {
 
       factRows.push(`
+
         <div class="architect-fact">
 
           <span class="architect-fact-label">
@@ -111,6 +114,7 @@ async function initArchitect() {
           </span>
 
         </div>
+
       `);
 
     }
@@ -120,6 +124,7 @@ async function initArchitect() {
     if (architect.birthYear) {
 
       factRows.push(`
+
         <div class="architect-fact">
 
           <span class="architect-fact-label">
@@ -131,6 +136,7 @@ async function initArchitect() {
           </span>
 
         </div>
+
       `);
 
     }
@@ -139,6 +145,7 @@ async function initArchitect() {
     if (architect.deathYear) {
 
       factRows.push(`
+
         <div class="architect-fact">
 
           <span class="architect-fact-label">
@@ -150,6 +157,7 @@ async function initArchitect() {
           </span>
 
         </div>
+
       `);
 
     }
@@ -160,6 +168,7 @@ async function initArchitect() {
   if (architect.location) {
 
     factRows.push(`
+
       <div class="architect-fact">
 
         <span class="architect-fact-label">
@@ -171,17 +180,21 @@ async function initArchitect() {
         </span>
 
       </div>
+
     `);
 
   }
 
 
   if (
-    Array.isArray(architect.founders) &&
+    Array.isArray(
+      architect.founders
+    ) &&
     architect.founders.length > 0
   ) {
 
     factRows.push(`
+
       <div class="architect-fact">
 
         <span class="architect-fact-label">
@@ -193,6 +206,7 @@ async function initArchitect() {
         </span>
 
       </div>
+
     `);
 
   }
@@ -206,7 +220,9 @@ async function initArchitect() {
 
 
   if (
-    Array.isArray(architect.awards) &&
+    Array.isArray(
+      architect.awards
+    ) &&
     architect.awards.length > 0
   ) {
 
@@ -288,7 +304,6 @@ async function initArchitect() {
 
         </div>
 
-
         <div class="architect-awards-list">
           ${awardRows}
         </div>
@@ -338,7 +353,6 @@ async function initArchitect() {
                       `
                       : ""
                   }
-
 
                   <span class="project-number">
                     ${String(index + 1).padStart(2, "0")}
