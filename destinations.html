@@ -5,50 +5,61 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <title>ARCHIVE — Destinations</title>
+  <title>ARCHIVE — Destination</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
 </head>
 
-<body>
+
+<body class="destination-detail-body">
 
   <header class="site-header"></header>
 
 
-  <main class="destinations-page">
+  <main class="destination-detail-page">
 
-    <section class="destinations-header">
+    <section class="destination-detail-header">
 
-      <div class="destinations-kicker">
-        ARCHIVE / DESTINATIONS
+      <div class="destination-detail-kicker">
+        ARCHIVE / DESTINATION
       </div>
 
-      <h1>
-        Destinations
+
+      <h1 id="destination-title">
+        Destination
       </h1>
 
-      <p>
-        Explore architecture through place.
-      </p>
 
-    </section>
+      <div class="destination-detail-meta">
+
+        <span id="destination-continent">
+          —
+        </span>
+
+        <span id="destination-count">
+          00 places
+        </span>
+
+      </div>
 
 
-    <section class="destinations-controls">
+      <div class="destination-switcher">
 
-      <div class="continent-filters" id="continent-filters"></div>
-
-
-      <div class="country-selector">
-
-        <label for="country-select">
-          Country
+        <label for="destination-select">
+          Change destination
         </label>
 
-        <select id="country-select">
+
+        <select id="destination-select">
 
           <option value="">
             Select destination
@@ -61,20 +72,20 @@
     </section>
 
 
-    <section class="destinations-grid-section">
-
-      <div
-        id="destinations-grid"
-        class="destinations-grid"
-      ></div>
-
-    </section>
+    <section
+      id="destination-projects"
+      class="destination-projects"
+    ></section>
 
   </main>
 
 
   <script src="projects.js"></script>
-  <script src="destinations.js"></script>
+
+  <script src="tracking.js"></script>
+
+  <script src="destination.js"></script>
+
   <script src="navigation.js"></script>
 
 </body>
