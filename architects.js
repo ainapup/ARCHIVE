@@ -63,19 +63,21 @@ architectSearch.addEventListener(
 
     const filtered =
       architects.filter(
-        architect =>
+        architect => {
 
-          architect.name
-            .toLowerCase()
-            .includes(searchTerm) ||
+          const searchable = `
+            ${architect.name || ""}
+            ${architect.location || ""}
+            ${architect.category || ""}
+          `
+          .toLowerCase();
 
-          (
-            architect.location &&
-            architect.location
-              .toLowerCase()
-              .includes(searchTerm)
-          )
 
+          return searchable.includes(
+            searchTerm
+          );
+
+        }
       );
 
 
@@ -134,8 +136,9 @@ function renderArchitects(
       }
 
 
-      grouped[letter]
-        .push(architect);
+      grouped[letter].push(
+        architect
+      );
 
     }
   );
@@ -165,8 +168,12 @@ function renderArchitects(
                 const projectCount =
                   projects.filter(
                     project =>
-                      project.architect ===
-                      architect.name
+                      project.architectId === architect.id ||
+
+                      (
+                        !project.architectId &&
+                        project.architect === architect.name
+                      )
                   ).length;
 
 
@@ -177,23 +184,17 @@ function renderArchitects(
                     href="architect.html?id=${encodeURIComponent(architect.id)}"
                   >
 
-                    <span
-                      class="architect-name"
-                    >
+                    <span class="architect-name">
                       ${architect.name}
                     </span>
 
 
-                    <span
-                      class="architect-row-location"
-                    >
+                    <span class="architect-row-location">
                       ${architect.location || ""}
                     </span>
 
 
-                    <span
-                      class="architect-count"
-                    >
+                    <span class="architect-count">
                       ${String(projectCount).padStart(2, "0")}
                     </span>
 
@@ -208,23 +209,20 @@ function renderArchitects(
 
         section.innerHTML = `
 
-          <div
-            class="architect-letter"
-          >
+          <div class="architect-letter">
             ${letter}
           </div>
 
-          <div
-            class="architect-names"
-          >
+          <div class="architect-names">
             ${rows}
           </div>
 
         `;
 
 
-        architectsIndex
-          .appendChild(section);
+        architectsIndex.appendChild(
+          section
+        );
 
       }
     );
