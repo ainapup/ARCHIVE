@@ -4906,3 +4906,80 @@ body.menu-open {
   }
 
 }
+/* =========================================
+   DESTINATION SWITCHER — CENTER ALIGN FIX
+========================================= */
+
+.destination-switcher {
+  display: grid;
+
+  grid-template-columns:
+    170px
+    minmax(260px, 480px);
+
+  align-items: center;
+
+  column-gap: 28px;
+  row-gap: 0;
+
+  margin-top: 22px;
+}
+
+
+.destination-switcher label {
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 9px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+  line-height: 1;
+}
+
+
+.destination-switcher select {
+  width: 100%;
+
+  margin: 0;
+
+  padding:
+    8px
+    26px
+    8px
+    0;
+
+  border: 0;
+  border-bottom: 1px solid #111;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #111;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+
+  outline: none;
+  cursor: pointer;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .destination-switcher {
+    grid-template-columns: 1fr;
+
+    align-items: start;
+
+    gap: 8px;
+  }
+
+}
